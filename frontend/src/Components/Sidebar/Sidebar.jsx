@@ -28,6 +28,7 @@ const Sidebar = ({ setSelectedCategory, setSelectedStatus, togglefilter }) => {
     { name: "SSC", category: "SSC" },
     { name: "BiharDaroga", category: "BiharDaroga" },
     { name: "Railway", category: "Railway" },
+    { name: "Others", category: "Others" },
   ];
 
   const [pdfs, setPdfs] = useState([]);

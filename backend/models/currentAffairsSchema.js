@@ -8,8 +8,7 @@ const currentAffairsSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['BiharDaroga', 'BPSC', 'Railway', 'UPSC', 'SSC'],
-    required: true,
+    enum: ['BiharDaroga', 'BPSC', 'Railway', 'UPSC', 'SSC',"others"],
   },
   description: String,
   photo: {
@@ -41,8 +40,8 @@ const currentAffairsSchema = new mongoose.Schema({
 
   createdAt: {
     type: Date,
-    default: Date.now(),
-  },
+    default: Date.now,
+  },  
   updatedAt: Date,
 });
 

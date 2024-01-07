@@ -7,8 +7,7 @@ const pdfSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['BiharDaroga', 'BPSC', 'Railway', 'UPSC', 'SSC'],
-    required: true,
+    enum: ['BiharDaroga', 'BPSC', 'Railway', 'UPSC', 'SSC', "others"],
   },
   photo: {
     type: String,
@@ -36,8 +35,8 @@ const pdfSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now()
-  },
+    default: Date.now,
+  },  
   updatedAt: Date,
 });
 

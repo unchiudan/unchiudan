@@ -31,7 +31,7 @@ exports.resizePhoto = (path) => {
     req.file.filename = `${folderName}-${Date.now()}.jpeg`;
 
     await sharp(req.file.buffer)
-      .resize(1200, 1600)
+      // .resize(1200, 1600)
       .toFormat('jpeg')
       .jpeg({ quality: 90 })
       .toFile(`${path}/${req.file.filename}`);

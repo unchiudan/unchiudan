@@ -193,7 +193,7 @@ exports.download = catchAsync(async (req, res, next) => {
   }
   const filename = pdf.pdf;
   
-  const backendBaseUrl = 'https://ucchi-urran-backend.vercel.app/api';
+  const backendBaseUrl = `${process.env.FRONTEND_URL}/api`;
   const filePath = path.join(__dirname, '../public/img/pdf/', filename);
   const backendUrl = `${backendBaseUrl}${filePath}`;
 

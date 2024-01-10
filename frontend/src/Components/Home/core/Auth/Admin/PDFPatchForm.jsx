@@ -140,6 +140,7 @@ const PdfForm = ({ details }) => {
             <option value="Railway">Railway</option>
             <option value="UPSC">UPSC</option>
             <option value="SSC">SSC</option>
+            <option value="others">Others</option>
           </select>
         </div>
         <div className="mb-4">

@@ -3,6 +3,7 @@ import NewsComp from "./NewsComp";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 
 function News({ userData }) {
   const [news, setNews] = useState([]);
@@ -61,7 +62,24 @@ function News({ userData }) {
         />
         <link rel="canonical" href="https://unchiudaanclasses.com/News"></link>
       </Helmet>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-5">
+      
+  <div className="container mx-auto px-4">
+    <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
+      <span className="mr-2">Daily News</span>
+      <span className="text-green-500 text-lg lg:text-xl">नवीनतम घटनाओं के साथ अपडेट रहें</span>
+    </h1>
+    <div className="flex justify-center">
+    <button
+  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-md"
+  onClick={() => scroll.scrollTo(window.innerHeight, { smooth: true, offset: -50 })}
+>
+  View All News ↓
+</button>
+    </div>
+  </div>
+
+
+      <div >
         <NewsComp
           newsItems={news}
           userData={userData}

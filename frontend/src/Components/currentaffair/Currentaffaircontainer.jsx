@@ -73,7 +73,7 @@ function Currentaffairs({ userData }) {
   };
 
   return (
-    <div className="mx-auto py-[7rem]">
+    <div className="mx-auto py-[6rem]">
     <Helmet>
     <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
     <meta
@@ -82,6 +82,11 @@ function Currentaffairs({ userData }) {
   />
    <link rel="canonical" href="https://unchiudaanclasses.com/Currentaffairs"></link>
     </Helmet>
+    <div className="container mx-auto px-4">
+    <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
+      <span className="mr-2">All Current Affairs</span>
+    </h1>
+  </div>
    
       <div className="p-2">
         {isSmallScreen && (

@@ -93,42 +93,43 @@ function NewsComp({ newsItems, userData, onNewsDelete }) {
           const decodedArticle = decodeHtmlEntities(news.article);
 
       return (
-        <Link to={`/News/${news._id}`} key={news._id} className="h-[7%]">
-          <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg  max-w-xs md:max-w-3xl mx-auto border border-white bg-white h-[70%]">
-            {role ? (
-              <button
-                className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
-                style={{ zIndex: 1 }}
-                onClick={(event) => handleDeleteClick(event, news._id)}
-              >
-                <MdOutlineDelete size={32} color="#fff" />
-              </button>
-            ) : (
-              ""
-            )}
-            <div className="w-full md:w-1/3 bg-white grid place-items-center overflow-hidden">
-              <img
-                className="rounded-xl"
-                src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/news/${news.photo}`}
-                alt={`logo`}
-              />
+        <Link to={`/News/${news._id}`} key={news._id} className="block w-full md:w-[48%] lg:w-[30%] xl:w-[24%] mb-8">
+  <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
+    {role ? (
+      <button
+        className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
+        style={{ zIndex: 1 }}
+        onClick={(event) => handleDeleteClick(event, news._id)}
+      >
+        <MdOutlineDelete size={32} color="#fff" />
+      </button>
+    ) : (
+      ""
+    )}
+    <div className="w-full md:w-1/3 bg-white">
+      <img
+        className="w-full h-[200px] object-cover rounded-xl"
+        src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/news/${news.photo}`}
+        alt={`logo`}
+      />
+    </div>
+    <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
+      <div className="flex justify-between items-center">
+        <div className="bg-gray-200 px-3 py-1 rounded-full text-xs flex font-medium text-gray-800 space-x-3">
+          {formattedDate}
+          {isRecent && (
+            <div className="bg-green-400 text-white text-xs px-2 rounded-full ml-[20px]">
+              New
             </div>
-            <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3 overflow-hidden">
-              <div className="flex justify-between items-center">
-                <div className="bg-gray-200 px-3 py-1 rounded-full text-xs flex font-medium text-gray-800 space-x-3">
-                  {formattedDate}
-                  {isRecent && (
-                    <div className="bg-green-400 text-white text-xs px-2 rounded-full ml-[20px]">
-                      New
-                    </div>
-                  )}
-                </div>
-              </div>
-              <h3 className="font-black text-gray-800 md:text-3xl text-xl" dangerouslySetInnerHTML={{ __html: decodedHeading }} />
-              <p className="md:text-lg text-gray-500 text-base" dangerouslySetInnerHTML={{ __html: decodedArticle }} />
-            </div>
-          </div>
-        </Link>
+          )}
+        </div>
+      </div>
+      <h3 className="font-black text-gray-800 md:text-3xl text-xl " dangerouslySetInnerHTML={{ __html: decodedHeading }} />
+      <p className="md:text-lg text-gray-500 text-base overflow-hidden mb-[1rem] truncate" dangerouslySetInnerHTML={{ __html: decodedArticle }} />
+    </div>
+  </div>
+</Link>
+
       );
     })
   )}

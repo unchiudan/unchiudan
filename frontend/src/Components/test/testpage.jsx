@@ -50,6 +50,7 @@ function TestPage({ userData }) {
     setPostsPerPage(value);
     setCurrentPage(1); // Reset page number to 1 when limit changes
   };
+  
   return (
     <div className="mx-auto py-[6rem]">
       <div>

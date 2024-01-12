@@ -18,6 +18,15 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
     role = false;
   }
 
+  const isWithin48Hours = (createdAt) => {
+    const now = new Date();
+    const newsDate = new Date(createdAt);
+    const timeDifference = now - newsDate;
+    const hoursDifference = timeDifference / (1000 * 60 * 60);
+
+    return hoursDifference <= 48;
+  };
+
   const handleDeleteClick = async (event, testsId) => {
     event.preventDefault();
     event.stopPropagation();
@@ -64,11 +73,11 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
 
 
   return (
-    <div className="flex flex-col md:w-[429%]">
+    <div className="flex flex-col items-center justify-center">
       {testsItems.length === 0 ? (
-        <div className="items-center justify-center">
+        
           <p className="text-center text-gray-500">No news items available.</p>
-        </div>
+       
       ) : (
         testsItems.map((test) => {
           const createdAt = new Date(test.createdAt);
@@ -79,6 +88,9 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
             day: "numeric",
             month: "long",
           });
+
+          const isRecent = isWithin48Hours(test.createdAt);
+
           const decodedName = decodeHtmlEntities(test.name);
           const decodedStart = decodeHtmlEntities(test.start);
           const decodedEnd = decodeHtmlEntities(test.end);
@@ -89,7 +101,7 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
             <div
             //   to={`/test/${test._id}`}
               key={test._id}
-              className="block w-full md:w-[48%] lg:w-[30%] xl:w-[24%] mb-8"
+              className="block w-full md:w-[100%] lg:w-[120%] xl:w-[120%] mb-8"
             >
               <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
                 {role ? (
@@ -116,6 +128,11 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
                   <div className="flex justify-between items-center">
                     <div className="bg-gray-200 px-3 py-1 rounded-full text-xs flex font-medium text-gray-800 space-x-3">
                       {formattedDate}
+                      {isRecent && (
+                        <div className="bg-green-400 text-white text-xs px-2 rounded-full ml-[20px]">
+                          New
+                        </div>
+                      )}
                     </div>
                   </div>
                   <h3

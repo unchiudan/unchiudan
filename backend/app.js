@@ -8,6 +8,7 @@ const affairsRoute = require('./router/affairsRoutes');
 // const ejs = require('ejs');
 
 const newsRoutes = require('./router/newsRoutes');
+const testRoutes = require('./router/testRoutes');
 const pdfRoutes = require('./router/pdfRoutes');
 const adminRoutes = require('./router/adminRoutes');
 const userRoutes = require('./router/userRoutes');
@@ -72,6 +73,7 @@ app.use('/api/news', newsRoutes);
 app.use('/api/pdfs', pdfRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payment',paymentRoutes);
+app.use('/api/test',testRoutes);
 
 // Error Handling
 app.all('*', (req, res, next) => {

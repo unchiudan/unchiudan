@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import DownloadPage from "./Components/Downloads/DownloadPage";
+import TestPage from "./Components/test/testpage";
 import BlogsPage from "./Components/Blogs/BlogsPage";
 import GlobalProvider from "./Components/GlobalProvider";
 import Downloads from "./Components/Downloads/Downloads";
@@ -120,6 +121,11 @@ function App() {
             exact
             path="/currentaffairs/:id"
             element={<BlogsPage userData={user} />}
+          />
+           <Route
+            exact
+            path="/test"
+            element={<TestPage userData={user} />}
           />
           <Route exact path="/News" element={<News userData={user} />} />
           <Route

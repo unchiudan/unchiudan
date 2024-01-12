@@ -1,6 +1,7 @@
 import  { useState } from "react";
 import TabBar from "./TabBar";
 import FormNews from "./FormNews";
+import FormTest from "./FormTest";
 import FormCurrentAffairs from "./FormCurrentAffairs";
 import FormPDF from "./FormPDF";
 
@@ -17,6 +18,12 @@ const SidebarAdmin = () => {
           {activeTab === "tab3" && <FormPDF />}
         </div>
       </div>
+      <hr/>
+      <div className="">
+        <h1 className="text-center text-3xl mt-5 font-medium"> Test</h1>
+      <FormTest/>
+      </div>
+      
     </div>
   );
 };

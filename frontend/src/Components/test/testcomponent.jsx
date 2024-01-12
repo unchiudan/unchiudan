@@ -82,10 +82,12 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
           const decodedName = decodeHtmlEntities(test.name);
           const decodedStart = decodeHtmlEntities(test.start);
           const decodedEnd = decodeHtmlEntities(test.end);
+          const decodedFormLink = decodeHtmlEntities(test.formlink);
+          const extractedLink = new DOMParser().parseFromString(decodedFormLink, 'text/html').body.textContent;
           
           return (
-            <Link
-              to={`/test/${test._id}`}
+            <div
+            //   to={`/test/${test._id}`}
               key={test._id}
               className="block w-full md:w-[48%] lg:w-[30%] xl:w-[24%] mb-8"
             >
@@ -127,12 +129,15 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
                   <p className="font-black text-gray-800 md:text-base text-[20px]">
                     End At : <span dangerouslySetInnerHTML={{ __html: decodedEnd }}/>
                   </p>
-                  <button className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
+                  <a href={extractedLink}  rel="noopener noreferrer">
+                  <button  className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
                     Start Test
                   </button>
+                  </a>
+                   
                 </div>
               </div>
-            </Link>
+            </div>
           );
         })
       )}

@@ -12,6 +12,7 @@ const testSchema = new mongoose.Schema({
     type: String,
     default: 'uchiudan.png',
   },
+  formlink:{type:String,required:true},
   createdAt: {
     type: Date,
     default: Date.now,

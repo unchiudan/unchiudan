@@ -68,6 +68,9 @@ export default function Navbar({ userData }) {
           <Link to="/" className="block">
             Home
           </Link>
+          <Link to="/test" className="block">
+            Test
+          </Link>
           <Link to="/pdfs" className="block">
             Pdfs
           </Link>

@@ -6,9 +6,9 @@ router
   .route('/')
   .get(testController.getAllTests)
   .post(
-    // authenticateCors,
+    authenticateCors,
     // protect, #donot open only trial mode
-    // restrictTo('admin'),
+    restrictTo('admin'),
     
     testController.uploadPhoto,
     testController.resizePhoto('public/img/test'),
@@ -20,12 +20,12 @@ router
   .route('/:id')
   .get(testController.getTests)
   .delete(
-    // authenticateCors,
-    //  restrictTo('admin'), 
+    authenticateCors,
+     restrictTo('admin'), 
      testController.deleteTests)
   .patch(
-    // authenticateCors,
-    // restrictTo('admin'),
+    authenticateCors,
+    restrictTo('admin'),
     testController.uploadPhoto,
     testController.resizePhoto('public/img/test'),
     testController.updateOne,

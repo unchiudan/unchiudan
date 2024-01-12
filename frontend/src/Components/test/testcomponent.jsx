@@ -56,7 +56,11 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
       }
     }
   };
-
+  const decodeHtmlEntities = (html) => {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = html;
+    return textarea.value;
+  };
 
 
   return (
@@ -75,6 +79,10 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
             day: "numeric",
             month: "long",
           });
+          const decodedName = decodeHtmlEntities(test.name);
+          const decodedStart = decodeHtmlEntities(test.start);
+          const decodedEnd = decodeHtmlEntities(test.end);
+          
           return (
             <Link
               to={`/test/${test._id}`}
@@ -108,19 +116,16 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
                       {formattedDate}
                     </div>
                   </div>
-                  {/* <h3
-                    className="font-black text-gray-800 md:text-3xl text-xl "
-                    // dangerouslySetInnerHTML={{ __html: decodedHeading }}
-                    {test.name}
-                  /> */}
-                  <p className="font-black text-gray-800 md:text-3xl text-xl">
-                    {test.name}
+                  <h3
+                    className="font-black text-gray-800 md:text-2xl text-xl "
+                    dangerouslySetInnerHTML={{ __html: decodedName }}
+                    
+                  />
+                  <p className="font-black text-gray-800 md:text-base text-[20px]">
+                    Start At <span dangerouslySetInnerHTML={{ __html: decodedStart }}/>
                   </p>
-                  <p className="font-black text-gray-800 md:text-xl text-xl">
-                    start at : {test.start}
-                  </p>
-                  <p className="font-black text-gray-800 md:text-xl text-xl">
-                    end at : {test.end}
+                  <p className="font-black text-gray-800 md:text-base text-[20px]">
+                    End At : <span dangerouslySetInnerHTML={{ __html: decodedEnd }}/>
                   </p>
                   <button className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
                     Start Test

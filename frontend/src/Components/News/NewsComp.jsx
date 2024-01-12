@@ -73,11 +73,11 @@ function NewsComp({ newsItems, userData, onNewsDelete }) {
   };
 
   return (
-    <div className="flex flex-col md:w-[429%]">
+    <div className="flex flex-col items-center justify-center">
       {newsItems.length === 0 ? (
-        <div className="items-center justify-center">
+        
           <p className="text-center text-gray-500">No news items available.</p>
-        </div>
+       
       ) : (
         newsItems.map((news) => {
           const createdAt = new Date(news.createdAt);
@@ -98,7 +98,7 @@ function NewsComp({ newsItems, userData, onNewsDelete }) {
             <Link
               to={`/News/${news._id}`}
               key={news._id}
-              className="block w-full md:w-[48%] lg:w-[30%] xl:w-[24%] mb-8"
+              className="block w-full md:w-[100%] lg:w-[120%] xl:w-[120%] mb-8"
             >
               <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
                 {role ? (

@@ -110,7 +110,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/pdfs" element={<Downloads userData={user} />} />
 
-          <Route exact path="/unauthorized" element={<ErrorPage401 />} />
+          {/* <Route exact path="/unauthorized" element={<ErrorPage401 />} /> */}
           <Route
             exact
             path="/pdfs/:id"
@@ -185,7 +185,7 @@ function App() {
             }
           />
 
-          <Route path="/*" element={<ErrorPage />} />
+          {/* <Route path="/*" element={<ErrorPage />} /> */}
         </Routes>
       </GlobalProvider>
     </BrowserRouter>

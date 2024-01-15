@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { Helmet } from "react-helmet";
+
 import { LogInSchema } from "./formvalidator";
 import { FaArrowRight } from "react-icons/fa";
 import axios from "axios";
@@ -83,11 +83,7 @@ function LoginForm() {
 
   return (
     <div>
-    <Helmet>
-  <title>Login Page</title>
-  <meta name="description" content="Join us for Latest update Free/पैड PDFs of current Affairs" />
-  <link rel="canonical" href="https://unchiudaanclasses.com/login" />
-</Helmet>
+    
       <div className="flex justify-end">
         <Link
           to="/signup"

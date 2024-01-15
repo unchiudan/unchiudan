@@ -2,7 +2,7 @@
 import NewsComp from "./NewsComp";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
 function News({ userData }) {
@@ -10,7 +10,7 @@ function News({ userData }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
-
+  const canonicalUrl = window.location.href;
   const handleNewsDelete = () => {
     fetchData(currentPage); // Trigger a re-fetch of data after deletion
   };
@@ -58,7 +58,7 @@ function News({ userData }) {
 <Helmet>
   <title>News / Blog</title>
   <meta name="description" content="Get Latest update News / Blog of current Affairs.." />
-  <link rel="canonical" href="https://unchiudaanclasses.com/News" />
+  <link rel="canonical" href={canonicalUrl}/>
 </Helmet>
 
       <div className="container mx-auto px-4">

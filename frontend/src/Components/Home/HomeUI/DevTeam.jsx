@@ -1,16 +1,31 @@
 import React from "react";
 import HighlightText from "../core/Homepage/HighlightText";
 
-import { FaGithub, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaTwitter, FaInstagram, FaLinkedin,FaWhatsapp } from "react-icons/fa";
 
 const socialMediaIcons = {
   github: FaGithub,
   twitter: FaTwitter,
   instagram: FaInstagram,
   linkedin: FaLinkedin,
+  whatsapp: FaWhatsapp,
 };
 
 const users = [
+
+  {
+    name: "Anuraj Kumar",
+
+    description: "Developer",
+    image: "anuraj",
+    socialMediaLinks: {
+      whatsapp:"https://wa.me/qr/BVXAB2P45DNLL1",
+      github: "https://github.com/user2",
+      linkedin: "https://www.linkedin.com/in/anuraj-kumar-softwaredeveloper/",
+      twitter: "https://twitter.com/anurajkumar23",
+      instagram: "https://www.instagram.com/anurajkumar6294?utm_source=qr&igsh=MTY1dm5kNzU4YXR1cg==",
+    },
+  },
   {
     name: "Ishu Singh",
 
@@ -21,18 +36,6 @@ const users = [
       linkedin: "https://github.com/user2",
       twitter: "https://twitter.com/user1",
       instagram: "https://www.instagram.com/user1/",
-    },
-  },
-  {
-    name: "Anuraj Kumar",
-
-    description: "Developer",
-    image: "anuraj",
-    socialMediaLinks: {
-      github: "https://github.com/user2",
-      linkedin: "https://github.com/user2",
-      twitter: "https://twitter.com/user2",
-      instagram: "https://www.instagram.com/user2/",
     },
   },
   {

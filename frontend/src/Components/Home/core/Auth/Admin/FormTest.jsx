@@ -14,6 +14,7 @@ const posttest = async (testsData) => {
     formData.append("name", testsData.name);
     formData.append("start", testsData.start);
     formData.append("end", testsData.end);
+    formData.append("formlink", testsData.formlink);
     formData.append("photo", testsData.photo);
 
     await axios.post(
@@ -46,6 +47,7 @@ const FormTest = () => {
     name: "",
     start: "",
     end: "",
+    formlink:"",
     photo: null, // Initialize as null
   });
 
@@ -72,6 +74,7 @@ const FormTest = () => {
         name: formData.name,
         start: formData.start,
         end: formData.end,
+        formlink:formData.formlink,
         photo: formData.photo,
       });
 
@@ -80,6 +83,7 @@ const FormTest = () => {
         name: "",
         start: "",
         end: "",
+        formlink:"",
         photo: null,
       });
 
@@ -146,6 +150,23 @@ const FormTest = () => {
             name="end"
             value={formData.end}
             onChange={(newContent) => handleEditorChange("end", newContent)}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="formlink"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            FormLink:
+          </label>
+          <JoditEditor
+            ref={editorArticle}
+            id="formlink"
+            name="formlink"
+            value={formData.formlink}
+            onChange={(newContent) => handleEditorChange("formlink", newContent)}
             className="w-full px-3 py-2 border rounded"
             required
           />

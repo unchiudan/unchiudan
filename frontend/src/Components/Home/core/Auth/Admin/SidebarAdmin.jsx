@@ -19,10 +19,10 @@ const SidebarAdmin = () => {
         </div>
       </div>
       <hr/>
-      {/* <>
+      {/* <div className="">
         <h1 className="text-center text-3xl mt-5 font-medium"> Test</h1>
       <FormTest/>
-      </> */}
+      </div> */}
       
     </div>
   );

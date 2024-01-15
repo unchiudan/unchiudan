@@ -73,15 +73,13 @@ function Currentaffairs({ userData }) {
   };
 
   return (
+    
     <div className="mx-auto py-[6rem]">
     <Helmet>
-    <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
-    <meta
-   name="description"
-    content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence.."
-  />
-   <link rel="canonical" href="https://unchiudaanclasses.com/Currentaffairs"></link>
-    </Helmet>
+  <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
+  <meta name="description" content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.." />
+  <link rel="canonical" href="https://unchiudaanclasses.com/Currentaffairs" />
+</Helmet>
     <div className="container mx-auto px-4">
     <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
       <span className="mr-2">All Current Affairs</span>

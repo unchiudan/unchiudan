@@ -243,13 +243,13 @@ function Downloads({ userData }) {
           name="description"
           content="Get Latest update Free/पैड PDFs of current Affairs"
         />
-        <link rel="canonical" href="https://unchiudaanclasses.com/pdfs"></link>
+        <link rel="canonical" href="https://unchiudaanclasses.com/pdfs" />
       </Helmet>
       <div className="container mx-auto px-4">
-    <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
-      <span className="mr-2">All Current Affairs PDF's</span>
-    </h1>
-  </div>
+        <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
+          <span className="mr-2">All Current Affairs pdfs</span>
+        </h1>
+      </div>
       <div className="p-2">
         {isSmallScreen && (
           <button
@@ -278,7 +278,9 @@ function Downloads({ userData }) {
             pdfs.map((pdf) => {
               const createdAt = new Date(pdf.createdAt);
               const updatedAt = new Date(pdf.updatedAt);
-              {/* createdAt.setDate(createdAt.getDate() + 1); */}
+              {
+                /* createdAt.setDate(createdAt.getDate() + 1); */
+              }
               const formattedDate = createdAt.toLocaleString("default", {
                 day: "numeric",
                 month: "long",

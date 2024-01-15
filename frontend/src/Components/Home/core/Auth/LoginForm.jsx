@@ -84,13 +84,10 @@ function LoginForm() {
   return (
     <div>
     <Helmet>
-    <title>Login Page</title>
-      <meta 
-       name="description"
-       content="Join us for Latest update Free/पैड PDFs of current Affairs"
-      />
-      <link rel="canonical" href="https://unchiudaanclasses.com/login"></link>
-    </Helmet>
+  <title>Login Page</title>
+  <meta name="description" content="Join us for Latest update Free/पैड PDFs of current Affairs" />
+  <link rel="canonical" href="https://unchiudaanclasses.com/login" />
+</Helmet>
       <div className="flex justify-end">
         <Link
           to="/signup"

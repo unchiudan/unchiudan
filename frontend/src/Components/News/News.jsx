@@ -54,14 +54,12 @@ function News({ userData }) {
   };
   return (
     <div className="mx-[10%] pt-[8rem] ">
-      <Helmet>
-        <title>News / Blog</title>
-        <meta
-          name="description"
-          content="Get Latest update News / Blog of current Affairs.."
-        />
-        <link rel="canonical" href="https://unchiudaanclasses.com/News"></link>
-      </Helmet>
+  
+<Helmet>
+  <title>News / Blog</title>
+  <meta name="description" content="Get Latest update News / Blog of current Affairs.." />
+  <link rel="canonical" href="https://unchiudaanclasses.com/News" />
+</Helmet>
 
       <div className="container mx-auto px-4">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">

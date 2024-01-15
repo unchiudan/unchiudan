@@ -6,7 +6,7 @@ import { MdOutlineAccessTimeFilled, MdOutlineDelete } from "react-icons/md";
 import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import Sidebar_pdf from "../Sidebar/Sidebar_pdf";
 import { Toaster, toast } from "react-hot-toast";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function BlogComps({
   date,
@@ -148,7 +148,7 @@ function Downloads({ userData }) {
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [filter, setFilter] = useState(false);
   const isSmallScreen = window.innerWidth <= 680;
-
+  const canonicalUrl = window.location.href;
   const togglefilter = () => {
     setFilter(!filter);
   };
@@ -243,7 +243,7 @@ function Downloads({ userData }) {
           name="description"
           content="Get Latest update Free/पैड PDFs of current Affairs"
         />
-        <link rel="canonical" href="https://unchiudaanclasses.com/pdfs" />
+          <link rel="canonical" href={canonicalUrl} />
       </Helmet>
       <div className="container mx-auto px-4">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">

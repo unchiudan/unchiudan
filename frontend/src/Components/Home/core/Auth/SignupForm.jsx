@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import { useState } from "react";
-import { Helmet } from "react-helmet";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { SignUpSchema } from "./formvalidator";
 import { useFormik } from "formik";
@@ -91,11 +90,6 @@ function SignupForm() {
 
   return (
     <div>
-   <Helmet>
-  <title>Signup Page</title>
-  <meta name="description" content="Join us for Latest update Free/पैड PDFs of current Affairs" />
-  <link rel="canonical" href="https://unchiudaanclasses.com/signup" />
-</Helmet>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="flex justify-end">
         <Link to="/login" className="text-[#3856ea] font-semibold text-[18px]">

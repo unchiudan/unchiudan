@@ -4,7 +4,7 @@ import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 import { BlogComps } from "./AffairsContainer";
 import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function Currentaffairs({ userData }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +15,8 @@ function Currentaffairs({ userData }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filter, setFilter] = useState(false);
   const isSmallScreen = window.innerWidth <= 680;
+
+  const canonicalUrl = window.location.href;
 
   const toggleFilter = () => {
     setFilter(!filter);
@@ -78,7 +80,7 @@ function Currentaffairs({ userData }) {
     <Helmet>
   <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
   <meta name="description" content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.." />
-  <link rel="canonical" href="https://unchiudaanclasses.com/Currentaffairs" />
+  <link rel="canonical" href={canonicalUrl} />
 </Helmet>
     <div className="container mx-auto px-4">
     <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">

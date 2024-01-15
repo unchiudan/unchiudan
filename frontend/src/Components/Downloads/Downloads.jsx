@@ -74,6 +74,7 @@ function BlogComps({
 
   return (
     <div className="border border-2 bg-white p-4 rounded-xl shadow-lg transition duration-500 relative">
+
       {role ? (
         <button
           className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"

@@ -90,19 +90,29 @@ function Currentaffairs({ userData }) {
       </div>
 
       <div className="p-2">
-        {isSmallScreen && (
-          <button
-            onClick={toggleFilter}
-            className="text-black hover:text-gray-300 focus:outline-none md:hidden"
-          >
-            {filter ? (
-              <RiCloseFill className="text-2xl" />
-            ) : (
-              <RiMenu3Fill className="text-2xl" />
-            )}
-          </button>
-        )}
-      </div>
+          {isSmallScreen && (
+            <div className="flex items-center">
+              <button
+                onClick={toggleFilter}
+                className="text-black hover:text-gray-300 focus:outline-none md:hidden"
+              >
+                {filter ? (
+                  <RiCloseFill className="text-2xl" />
+                ) : (
+                  <RiMenu3Fill className="text-2xl" />
+                )}
+              </button>
+              {!filter && (
+                <button
+                  onClick={toggleFilter}
+                  className="ml-2 px-3 py-1 text-gray-600 text-sm bg-gray-200 hover:bg-gray-300 focus:outline-none rounded"
+                >
+                  View more
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       <div className="flex">
         <div
           className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full mx-10 md:mx-0 ${

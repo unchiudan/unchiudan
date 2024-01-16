@@ -8,12 +8,22 @@ import Contact from "../contact/contact"
 import HighlightText from "../Home/core/Homepage/HighlightText";
 import TimelineSection from "../Home/core/Homepage/TimelineSection";
 import LearningLanguageSection from "../Home/core/Homepage/LearningLanguageSection";
+import { Helmet } from "react-helmet";
 
 
 
 function Home() {
-
+  const canonicalUrl = window.location.href;
   return (
+    <>
+    <Helmet>
+      <title>HOME </title>
+      <meta
+        name="description"
+        content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence, और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
+      />
+      <link rel="canonical" href={canonicalUrl} />
+    </Helmet>
     <div className=" bg-pure-greys-5 mx-auto py-10 space-y-[8rem]">
       <Hero />
       <ServicesOverview />
@@ -48,6 +58,7 @@ function Home() {
 
     
     </div>
+    </>
   );
 }
 

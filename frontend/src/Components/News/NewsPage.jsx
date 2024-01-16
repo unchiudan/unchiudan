@@ -18,12 +18,12 @@ function decodeHtml(html) {
 // Component for rendering news content
 function NewsContent({ heading, article, photo }) {
   return (
-    <div className="py-[8rem]">
+    <div className="py-[5rem]">
       <div className="mx-6">
         <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6" dangerouslySetInnerHTML={{__html:heading}}>
         
         </h1>
-        <div className="md:mx-12 my-12">
+        <div className="md:mx-12 my-1">
           <img
             alt="meow"
             src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/news/${photo}`}

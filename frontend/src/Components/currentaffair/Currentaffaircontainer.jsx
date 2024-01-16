@@ -44,7 +44,6 @@ function Currentaffairs({ userData }) {
       });
   };
 
-
   useEffect(() => {
     fetchData(currentPage, selectedCategory);
   }, [selectedCategory, currentPage, postsPerPage]);
@@ -75,19 +74,21 @@ function Currentaffairs({ userData }) {
   };
 
   return (
-    
     <div className="mx-auto py-[6rem]">
-    <Helmet>
-  <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
-  <meta name="description" content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.." />
-  <link rel="canonical" href={canonicalUrl} />
-</Helmet>
-    <div className="container mx-auto px-4">
-    <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
-      <span className="mr-2">All Current Affairs</span>
-    </h1>
-  </div>
-   
+      <Helmet>
+        <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
+        <meta
+          name="description"
+          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
+        />
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
+      <div className="container mx-auto px-4">
+        <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
+          <span className="mr-2">All Current Affairs</span>
+        </h1>
+      </div>
+
       <div className="p-2">
         {isSmallScreen && (
           <button
@@ -108,38 +109,42 @@ function Currentaffairs({ userData }) {
             filter ? "hidden" : "block"
           }`}
         >
-        {affairs.length === 0 ? (
-          <div className="items-center justify-center ">
-            <p className="text-center  text-gray-500">No CurrentAffairs available.</p>
+          {affairs.length === 0 ? (
+            <div className="items-center justify-center ">
+              <p className="text-center  text-gray-500">
+                No CurrentAffairs available.
+              </p>
             </div>
           ) : (
-          affairs.map((blog) => {
-            const createdAt = new Date(blog.createdAt);
-            const updatedAt = new Date(blog.updatedAt);
-            {/* createdAt.setDate(createdAt.getDate() + 1); */}
-            const formattedDate = createdAt.toLocaleString("default", {
-              day: "numeric",
-              month: "long",
-            });
-            const updatedDate = updatedAt.toLocaleString("default", {
-              day: "numeric",
-              month: "long",
-            });
-            return (
-              <BlogComps
-                key={blog._id}
-                date={formattedDate}
-                title={blog.topic}
-                imageSrc={blog.photo}
-                updatedDate={updatedDate}
-                category={blog.category}
-                id={blog._id}
-                userData={userData}
-                onDeleteSuccess={handleDeleteSuccess}
-              />
-            );
-  }) 
-)}
+            affairs.map((blog) => {
+              const createdAt = new Date(blog.createdAt);
+              const updatedAt = new Date(blog.updatedAt);
+              {
+                /* createdAt.setDate(createdAt.getDate() + 1); */
+              }
+              const formattedDate = createdAt.toLocaleString("default", {
+                day: "numeric",
+                month: "long",
+              });
+              const updatedDate = updatedAt.toLocaleString("default", {
+                day: "numeric",
+                month: "long",
+              });
+              return (
+                <BlogComps
+                  key={blog._id}
+                  date={formattedDate}
+                  title={blog.topic}
+                  imageSrc={blog.photo}
+                  updatedDate={updatedDate}
+                  category={blog.category}
+                  id={blog._id}
+                  userData={userData}
+                  onDeleteSuccess={handleDeleteSuccess}
+                />
+              );
+            })
+          )}
         </div>
 
         <div

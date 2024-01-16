@@ -133,16 +133,16 @@ export default function Navbar({ userData }) {
             {/* <Link to="/test" className="block">
             Test
           </Link> */}
-            <Link to="/pdfs" className="block">
-              Pdfs
-            </Link>
+          <Link to="/Currentaffairs" className="block focus:outline-none">
+                Current Affairs
+              </Link>     
             <Link to="/News" className="block">
               News
             </Link>
             <div className="relative group">
-              <Link to="/Currentaffairs" className="block focus:outline-none">
-                Current Affairs
-              </Link>
+            <Link to="/pdfs" className="block">
+              Pdfs
+            </Link>
             </div>
             <a href="/sitemap.xml" className="block"></a>
             {userData ? (
@@ -218,12 +218,12 @@ export default function Navbar({ userData }) {
           </Link>
 
           <Link
-            to="/pdfs"
+            to="/currentaffairs"
             onClick={toggleMenu}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center focus:outline-none"
           >
-            <FaFilePdf className="mr-2 w-5 h-5" />
-            Pdfs
+            <AiFillRead className="mr-2  w-5 h-5" />
+            Current Affairs
           </Link>
 
           <Link
@@ -236,12 +236,12 @@ export default function Navbar({ userData }) {
           </Link>
 
           <Link
-            to="/currentaffairs"
+            to="/pdfs"
             onClick={toggleMenu}
-            className="flex flex-col items-center focus:outline-none"
+            className="flex flex-col items-center"
           >
-            <AiFillRead className="mr-2  w-5 h-5" />
-            Current Affairs
+            <FaFilePdf className="mr-2 w-5 h-5" />
+            Pdfs
           </Link>
         </div>
       </div>

@@ -4,21 +4,19 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { FaDownload, FaFileAlt } from "react-icons/fa";
 import { SocialMedia } from "../../consstant/socialmedia";
-import PDFPatchForm from "../Home/core/Auth/Admin/PDFPatchForm"
+import PDFPatchForm from "../Home/core/Auth/Admin/PDFPatchForm";
 
 function DownloadPage({ userData }) {
-
   const { id } = useParams();
   const [pdfDetails, setPdfDetails] = useState(null);
 
   let role;
 
   if (userData) {
-    if(userData.user.role==="admin"){
-      role=true
-    }
-    else{
-      role=false
+    if (userData.user.role === "admin") {
+      role = true;
+    } else {
+      role = false;
     }
   } else {
     role = false;
@@ -40,16 +38,18 @@ function DownloadPage({ userData }) {
   }, [id]);
 
   if (!pdfDetails) {
-    return <div className="flex justify-center items-center h-screen">
-    <div
-      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-info motion-reduce:animate-[spin_1.5s_linear_infinite]"
-      role="status"
-    >
-      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-        Loading...
-      </span>
-    </div>
-  </div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div
+          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-info motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            Loading...
+          </span>
+        </div>
+      </div>
+    );
   }
 
   const formatUpdatedAtDate = () => {
@@ -61,7 +61,6 @@ function DownloadPage({ userData }) {
   };
 
   const handleDownload = async () => {
- 
     if (!userData) {
       localStorage.setItem("redirectUrl", window.location.href);
       window.location.href = "/login";
@@ -70,8 +69,10 @@ function DownloadPage({ userData }) {
     const alreadybuy = userData.user.pdfs.includes(pdfDetails._id);
 
     if (pdfDetails.status === "free" || alreadybuy) {
-      const downloadLink = `${import.meta.env.VITE_BACKEND_URL}/pdfs/download-pdf/${id}`;
-     
+      const downloadLink = `${
+        import.meta.env.VITE_BACKEND_URL
+      }/pdfs/download-pdf/${id}`;
+
       const anchor = document.createElement("a");
       anchor.href = downloadLink;
       anchor.download = "Unchi_Uddan.pdf";
@@ -87,11 +88,9 @@ function DownloadPage({ userData }) {
             email: userData.user.email,
             phone: userData.user.phone,
             amount: pdfDetails.price,
-            pdfid: pdfDetails._id
+            pdfid: pdfDetails._id,
           }
         );
-        
-
 
         // eslint-disable-next-line no-undef
         const cashfree = Cashfree({ mode: "sandbox" });
@@ -99,7 +98,9 @@ function DownloadPage({ userData }) {
         cashfree
           .checkout({
             paymentSessionId: res.data.paymentSessionId,
-            returnUrl: `${import.meta.env.VITE_BACKEND_URL}/payment/NRRTWSD/unchiudan/pdf/${userData.user._id}/${id}`,
+            returnUrl: `${
+              import.meta.env.VITE_BACKEND_URL
+            }/payment/NRRTWSD/unchiudan/pdf/${userData.user._id}/${id}`,
             // returnUrl: `https://www.youtube.com/`,
             // redirectTarget: "_blank",
           })
@@ -109,32 +110,34 @@ function DownloadPage({ userData }) {
           .catch((error) => {
             console.error("Checkout error:", error);
           });
-
-       
-
       } catch (error) {
         console.error("Checkout error:", error);
       }
-     
     }
   };
   const decodeHtmlEntities = (html) => {
-    const textarea = document.createElement('textarea');
+    const textarea = document.createElement("textarea");
     textarea.innerHTML = html;
     return textarea.value;
   };
   return (
-    <div className="mx-auto py-[8rem]">
+    <div className="mx-auto py-[3rem]">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="col-span-3 p-4 overflow-y-auto">
-          <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6">
-            {pdfDetails.category} PDF download <br />
-            
+          <h1 className="mt-10 text-[1.3rem] font-[550] text-center">
+            Monthly Current Affairs PDF Download{" "}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: decodeHtmlEntities(pdfDetails.name),
+              }}
+            />
           </h1>
           <div className="mx-6 my-12">
             <img
               alt="meow"
-              src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/pdf/${pdfDetails.photo}`}
+              src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/pdf/${
+                pdfDetails.photo
+              }`}
               className="w-full mx-auto rounded-lg"
             />
           </div>
@@ -143,7 +146,11 @@ function DownloadPage({ userData }) {
             <div className="flex justify-between space-x-3 h-[150px] md:h-[80px]">
               <FaFileAlt className="w-12 h-12" />
               <div className="text-center text-lg leading-[47px]">
-              <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(pdfDetails.name) }} />
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: decodeHtmlEntities(pdfDetails.name),
+                  }}
+                />
                 <span className="leading-[5px]">
                   Last Updated: {formatUpdatedAtDate()}
                 </span>
@@ -158,14 +165,16 @@ function DownloadPage({ userData }) {
               </div>
             </a>
           </div>
-
           <SocialMedia />
-
-          <h1 className="mt-10 text-[1.3rem] font-[550] text-center">
-            Monthly Current Affairs PDF Download <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(pdfDetails.name) }} />
+          <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6">
+            {pdfDetails.category} PDF download <br />
           </h1>
           <p className="mt-4 text-justify text-lg">
-          <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(pdfDetails.description) }} />
+            <span
+              dangerouslySetInnerHTML={{
+                __html: decodeHtmlEntities(pdfDetails.description),
+              }}
+            />
           </p>
           <SocialMedia />
         </div>

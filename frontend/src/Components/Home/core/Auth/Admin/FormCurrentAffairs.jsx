@@ -13,6 +13,7 @@ const postaffairs = async (affairsData) => {
   formData.append("description", affairsData.description);
   formData.append("data", JSON.stringify(affairsData.data));
   formData.append("photo", affairsData.photo);
+  formData.append("set_no",affairsData.set_no);
   let loadingToast
   try {
     loadingToast = toast.loading("Posting CurrentAffairs...");
@@ -41,6 +42,7 @@ const FormCurrentAffairs = () => {
   const initialFormData = {
     topic: "",
     category: "",
+    set_no:"",
     description: "",
     photo: null,
     data: [{ ques: "", options: ["", "", "", ""], ans: "" }],
@@ -55,23 +57,13 @@ const FormCurrentAffairs = () => {
     }));
   };
 
-  const handleChange = (e, index) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "description") {
-      setFormData({
-        ...formData,
-        description: value,
-      });
-    } else {
-      const newFormData = [...formData.data];
-      newFormData[index][name] = value;
-
-      setFormData({
-        ...formData,
-        data: newFormData,
-      });
-    }
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleOptionChange = (e, questionIndex, optionIndex) => {
@@ -92,6 +84,7 @@ const FormCurrentAffairs = () => {
       await postaffairs({
         topic: formData.topic,
         category: formData.category,
+        set_no: formData.set_no,
         data: formData.data,
         photo: formData.photo,
         description: formData.description,
@@ -170,6 +163,17 @@ const FormCurrentAffairs = () => {
             <option value="SSC">SSC</option>
             <option value="others">Others</option>
           </select>
+        </div>
+        <div className="mb-4">
+        <label className="block mb-2 text-gray-800">Set No</label>
+        <input
+              type="number"
+              name="set_no"
+              value={formData.set_no}
+              onChange={handleChange}
+              className="border p-2 w-full text-black"
+              required
+            />
         </div>
         <div className="mb-4 text-black">
           <label className="block mb-2 text-gray-700">Description</label>

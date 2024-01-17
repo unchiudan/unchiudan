@@ -10,6 +10,7 @@ const currentAffairsSchema = new mongoose.Schema({
     type: String,
     enum: ['BiharDaroga', 'BPSC', 'Railway', 'UPSC', 'SSC',"others"],
   },
+  set_no: Number,
   description: String,
   photo: {
     type: String,

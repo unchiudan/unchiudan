@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdOutlineAccessTimeFilled, MdOutlineDelete } from "react-icons/md";
 import "./AffairsContainer.css";
 import axios from "axios";
@@ -10,11 +10,11 @@ export function BlogComps({
   id,
   updatedDate,
   category,
+  set_no,
   title,
   userData,
   onDeleteSuccess,
 }) {
-  
   let role;
 
   if (userData) {
@@ -31,7 +31,7 @@ export function BlogComps({
     event.stopPropagation(); // Prevent the click event from propagating to the parent link element
     if (window.confirm("Are you sure you want to delete this item?")) {
       const token = localStorage.getItem("jwt_token");
-      let loadingToast
+      let loadingToast;
       try {
         loadingToast = toast.loading("Deleting CurrentAffairs...");
         const response = await axios.delete(
@@ -61,7 +61,7 @@ export function BlogComps({
     }
   };
   const decodeHtmlEntities = (html) => {
-    const textarea = document.createElement('textarea');
+    const textarea = document.createElement("textarea");
     textarea.innerHTML = html;
     return textarea.value;
   };
@@ -87,11 +87,13 @@ export function BlogComps({
             <div className="relative">
               <img
                 className="w-full rounded-xl"
-                src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/affairs/uchiudan.png`}
+                src={`${
+                  import.meta.env.VITE_BACKEND_URL_IMAGE
+                }/img/affairs/uchiudan.png`}
                 alt="Blog Cover"
               />
               <p className="absolute top-0 bg-[#ffef39] text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
-                {date}
+                Set No: {set_no}
               </p>
             </div>
           </div>
@@ -100,7 +102,9 @@ export function BlogComps({
           </h3>
         </div>
         <h1 className="mt-4 text-gray-800 text-lg font-bold cursor-pointer overflow-hidden mb-[1rem] truncate h-[30px]">
-        <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(title) }} />
+          <span
+            dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(title) }}
+          />
         </h1>
         <div className="card__data">
           <h1 className="text-gray-800 text-lg font-bold cursor-pointer overflow-hidden">

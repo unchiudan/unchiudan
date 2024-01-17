@@ -66,6 +66,7 @@ function BlogsPage({ userData }) {
     );
   }
   
+  
   const handleAnswerChange = (
     questionIndex,
     selectedOptionIndex,
@@ -120,7 +121,8 @@ function BlogsPage({ userData }) {
           <p className="mt-4 text-justify text-lg">
           <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(affairDetails.description) }} />
           </p>
-          {affairDetails.data.length.ques &&  <div>
+          {affairDetails.data.length>0  && 
+           <div>
           <h1 className="mt-10 text-lg font-bold text-center">
             Daily Quiz / डेली प्रश्न
           </h1>
@@ -179,6 +181,65 @@ function BlogsPage({ userData }) {
             ))}
           </div>
           </div>}
+          {/* <div>
+          <h1 className="mt-10 text-lg font-bold text-center">
+            Daily Quiz / डेली प्रश्न
+          </h1>
+          
+          <div className="faq-container rounded-lg mt-4 w-[100%]">
+            {affairDetails.data.map((question, index) => (
+              <div key={question._id} className="faq-question">
+                <h3>
+                  सवाल {index + 1}: {question.ques}
+                </h3>
+                <div>
+                  {question.options.map((option, optionIndex) => (
+                    <div key={optionIndex}>
+                      <input
+                        type="radio"
+                        id={`question_${index}_option_${optionIndex}`} // Unique id
+                        name={`question_${index}`}
+                        value={optionIndex + 1}
+                        onChange={() =>
+                          handleAnswerChange(
+                            index,
+                            optionIndex + 1,
+                            question.ans
+                          )
+                        }
+                      />
+                      <label
+                        htmlFor={`question_${index}_option_${optionIndex}`}
+                      >
+                        {option}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+                {selectedAnswers[index] !== undefined && (
+                  <>
+                    <div
+                      className={`font-bold mt-2 ${
+                        feedback[index] === "correct"
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
+                    >
+                      {feedback[index] === "correct"
+                        ? "Correct Answer!"
+                        : "Wrong Answer!"}
+                      <br />
+                    </div>
+                    <p>
+                      {" "}
+                      Correct Answer: {question.options[question.ans - 1]}{" "}
+                    </p>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+          </div> */}
          
         </div>
       </div>

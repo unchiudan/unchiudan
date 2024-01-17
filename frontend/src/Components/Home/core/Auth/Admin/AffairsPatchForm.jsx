@@ -53,23 +53,22 @@ const CurrentAffairsForm = ({ details }) => {
     data: details.data || [{ ques: "", options: ["", "", "", ""], ans: "" }],
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e, questionIndex) => {
     const { name, value } = e.target;
+    const newFormData = { ...formData };
+    newFormData.data[questionIndex][name] = value;
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData(newFormData);
   };
 
   const handleOptionChange = (e, questionIndex, optionIndex) => {
     const { value } = e.target;
-    const newFormData = [...formData.data];
-    newFormData[questionIndex].options[optionIndex] = value;
+    const newFormData = { ...formData };
+    newFormData.data[questionIndex].options[optionIndex] = value;
 
     setFormData({
       ...formData,
-      data: newFormData,
+      data: newFormData.data,
     });
   };
 
@@ -125,7 +124,6 @@ const CurrentAffairsForm = ({ details }) => {
             name="topic"
             value={formData.topic}
             onChange={(newContent) => handleEditorChange("topic", newContent)}
-            // onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
@@ -157,15 +155,15 @@ const CurrentAffairsForm = ({ details }) => {
           </select>
         </div>
         <div className="mb-4">
-        <label className="block mb-2 text-gray-800">Set No</label>
-        <input
-              type="number"
-              name="set_no"
-              value={formData.set_no}
-              onChange={handleChange}
-              className="border p-2 w-full text-black"
-              required
-            />
+          <label className="block mb-2 text-gray-800">Set No</label>
+          <input
+            type="number"
+            name="set_no"
+            value={formData.set_no}
+            onChange={(e) => handleChange(e)}
+            className="border p-2 w-full text-black"
+            required
+          />
         </div>
         <div className="mb-4">
           <label className="block mb-2 text-gray-800">Description</label>
@@ -173,9 +171,6 @@ const CurrentAffairsForm = ({ details }) => {
             ref={editor}
             name="description"
             value={formData.description}
-            // onChange={(e) =>
-            //   setFormData({ ...formData, description: e.target.value })
-            // }
             onChange={(newContent) =>
               handleEditorChange("description", newContent)
             }
@@ -198,6 +193,7 @@ const CurrentAffairsForm = ({ details }) => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
+
         {formData.data.map((question, index) => (
           <div key={index} className="mb-4">
             <label

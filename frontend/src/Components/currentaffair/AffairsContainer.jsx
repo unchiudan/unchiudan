@@ -10,6 +10,7 @@ export function BlogComps({
   id,
   updatedDate,
   category,
+  set_no,
   title,
   userData,
   onDeleteSuccess,
@@ -92,7 +93,7 @@ export function BlogComps({
                 alt="Blog Cover"
               />
               <p className="absolute top-0 bg-[#ffef39] text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
-                {date}
+                Set No: {set_no}
               </p>
             </div>
           </div>

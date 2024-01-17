@@ -148,6 +148,7 @@ function Currentaffairs({ userData }) {
                   imageSrc={blog.photo}
                   updatedDate={updatedDate}
                   category={blog.category}
+                  set_no={blog.set_no}
                   id={blog._id}
                   userData={userData}
                   onDeleteSuccess={handleDeleteSuccess}

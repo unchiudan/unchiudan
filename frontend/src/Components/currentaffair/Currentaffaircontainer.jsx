@@ -44,7 +44,6 @@ function Currentaffairs({ userData }) {
       });
   };
 
-
   useEffect(() => {
     fetchData(currentPage, selectedCategory);
   }, [selectedCategory, currentPage, postsPerPage]);
@@ -75,71 +74,87 @@ function Currentaffairs({ userData }) {
   };
 
   return (
-    
     <div className="mx-auto py-[6rem]">
-    <Helmet>
-  <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
-  <meta name="description" content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.." />
-  <link rel="canonical" href={canonicalUrl} />
-</Helmet>
-    <div className="container mx-auto px-4">
-    <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
-      <span className="mr-2">All Current Affairs</span>
-    </h1>
-  </div>
-   
-      <div className="p-2">
-        {isSmallScreen && (
-          <button
-            onClick={toggleFilter}
-            className="text-black hover:text-gray-300 focus:outline-none md:hidden"
-          >
-            {filter ? (
-              <RiCloseFill className="text-2xl" />
-            ) : (
-              <RiMenu3Fill className="text-2xl" />
-            )}
-          </button>
-        )}
+      <Helmet>
+        <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
+        <meta
+          name="description"
+          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
+        />
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
+      <div className="container mx-auto px-4">
+        <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
+          <span className="mr-2">All Current Affairs</span>
+        </h1>
       </div>
+
+      <div className="p-2">
+          {isSmallScreen && (
+            <div className="flex items-center">
+              <button
+                onClick={toggleFilter}
+                className="text-black hover:text-gray-300 focus:outline-none md:hidden"
+              >
+                {filter ? (
+                  <RiCloseFill className="text-2xl" />
+                ) : (
+                  <RiMenu3Fill className="text-2xl" />
+                )}
+              </button>
+              {!filter && (
+                <button
+                  onClick={toggleFilter}
+                  className="ml-2 px-3 py-1 text-gray-600 text-sm bg-gray-200 hover:bg-gray-300 focus:outline-none rounded"
+                >
+                  View more
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       <div className="flex">
         <div
           className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full mx-10 md:mx-0 ${
             filter ? "hidden" : "block"
           }`}
         >
-        {affairs.length === 0 ? (
-          <div className="items-center justify-center ">
-            <p className="text-center  text-gray-500">No CurrentAffairs available.</p>
+          {affairs.length === 0 ? (
+            <div className="items-center justify-center ">
+              <p className="text-center  text-gray-500">
+                No CurrentAffairs available.
+              </p>
             </div>
           ) : (
-          affairs.map((blog) => {
-            const createdAt = new Date(blog.createdAt);
-            const updatedAt = new Date(blog.updatedAt);
-            {/* createdAt.setDate(createdAt.getDate() + 1); */}
-            const formattedDate = createdAt.toLocaleString("default", {
-              day: "numeric",
-              month: "long",
-            });
-            const updatedDate = updatedAt.toLocaleString("default", {
-              day: "numeric",
-              month: "long",
-            });
-            return (
-              <BlogComps
-                key={blog._id}
-                date={formattedDate}
-                title={blog.topic}
-                imageSrc={blog.photo}
-                updatedDate={updatedDate}
-                category={blog.category}
-                id={blog._id}
-                userData={userData}
-                onDeleteSuccess={handleDeleteSuccess}
-              />
-            );
-  }) 
-)}
+            affairs.map((blog) => {
+              const createdAt = new Date(blog.createdAt);
+              const updatedAt = new Date(blog.updatedAt);
+              {
+                /* createdAt.setDate(createdAt.getDate() + 1); */
+              }
+              const formattedDate = createdAt.toLocaleString("default", {
+                day: "numeric",
+                month: "long",
+              });
+              const updatedDate = updatedAt.toLocaleString("default", {
+                day: "numeric",
+                month: "long",
+              });
+              return (
+                <BlogComps
+                  key={blog._id}
+                  date={formattedDate}
+                  title={blog.topic}
+                  imageSrc={blog.photo}
+                  updatedDate={updatedDate}
+                  category={blog.category}
+                  id={blog._id}
+                  userData={userData}
+                  onDeleteSuccess={handleDeleteSuccess}
+                />
+              );
+            })
+          )}
         </div>
 
         <div

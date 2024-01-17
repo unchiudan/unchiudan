@@ -90,7 +90,7 @@ function BlogsPage({ userData }) {
   };
   return (
     <>
-      <div className=" py-[8rem] ">
+      <div className=" py-[3rem] ">
       <Helmet>
     <title>Daily Quiz / डेली प्रश्न</title>
       <meta 
@@ -99,11 +99,11 @@ function BlogsPage({ userData }) {
       />
        <link rel="canonical" href="https://unchiudaanclasses.com/Currentaffairs"></link>
     </Helmet>
-        <div className=" mx-6 ">
-          <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6 ">
-            Current Affairs {affairDetails.category}
+        <div className=" mx-4 ">
+        <h1 className="mt-10 text-[1.3rem] font-[550] text-center">
+          <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(affairDetails.topic) }} />       
           </h1>
-          <div className="md:mx-12 my-12">
+          <div className="md:mx-12 my-5">
             <img
               alt={`${affairDetails.photo}`}
               src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/affairs/${
@@ -113,9 +113,9 @@ function BlogsPage({ userData }) {
             />
           </div>
           <SocialMedia />
-          <h1 className="mt-10 text-[1.3rem] font-[550] text-center">
-          <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(affairDetails.topic) }} />
-           
+
+          <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6 ">
+            Current Affairs {affairDetails.category}
           </h1>
           <p className="mt-4 text-justify text-lg">
           <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(affairDetails.description) }} />

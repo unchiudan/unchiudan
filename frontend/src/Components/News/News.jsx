@@ -53,7 +53,7 @@ function News({ userData }) {
     setCurrentPage(1); // Reset page number to 1 when limit changes
   };
   return (
-    <div className="mx-[10%] pt-[8rem] ">
+    <div className="mx-[10%] pt-[6rem] ">
   
 <Helmet>
   <title>News / Blog</title>

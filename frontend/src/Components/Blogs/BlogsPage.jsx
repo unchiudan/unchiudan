@@ -65,7 +65,7 @@ function BlogsPage({ userData }) {
       </div>
     );
   }
-
+  
   const handleAnswerChange = (
     questionIndex,
     selectedOptionIndex,
@@ -120,9 +120,11 @@ function BlogsPage({ userData }) {
           <p className="mt-4 text-justify text-lg">
           <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(affairDetails.description) }} />
           </p>
+          {affairDetails.data.length.ques &&  <div>
           <h1 className="mt-10 text-lg font-bold text-center">
             Daily Quiz / डेली प्रश्न
           </h1>
+          
           <div className="faq-container rounded-lg mt-4 w-[100%]">
             {affairDetails.data.map((question, index) => (
               <div key={question._id} className="faq-question">
@@ -176,6 +178,8 @@ function BlogsPage({ userData }) {
               </div>
             ))}
           </div>
+          </div>}
+         
         </div>
       </div>
       <div className="flex justify-between mt-10 ">

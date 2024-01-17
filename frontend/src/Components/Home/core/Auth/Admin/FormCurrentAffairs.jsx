@@ -11,6 +11,7 @@ const postaffairs = async (affairsData) => {
   formData.append("topic", affairsData.topic);
   formData.append("category", affairsData.category);
   formData.append("description", affairsData.description);
+
   formData.append("data", JSON.stringify(affairsData.data));
   formData.append("photo", affairsData.photo);
   formData.append("set_no",affairsData.set_no);
@@ -80,12 +81,18 @@ const FormCurrentAffairs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let formdata = formData.data
+    if(formData.data[0].ques===""){
+      formdata=[]
+    }
+    console.log(formdata)
+
     try {
       await postaffairs({
         topic: formData.topic,
         category: formData.category,
         set_no: formData.set_no,
-        data: formData.data,
+        data: formdata,
         photo: formData.photo,
         description: formData.description,
       });

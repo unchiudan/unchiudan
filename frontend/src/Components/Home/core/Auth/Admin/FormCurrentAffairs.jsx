@@ -8,6 +8,7 @@ const postaffairs = async (affairsData) => {
 
   const formData = new FormData();
 
+
   formData.append("topic", affairsData.topic);
   formData.append("category", affairsData.category);
   formData.append("description", affairsData.description);

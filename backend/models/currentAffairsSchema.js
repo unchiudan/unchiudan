@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const currentAffairsSchema = new mongoose.Schema({
   topic: {
     type: String,
-    set: (value) => value.toLowerCase(),
     required: true,
   },
   category: {

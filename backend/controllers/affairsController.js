@@ -64,7 +64,7 @@ exports.createAffairs = catchAsync(async (req, res, next) => {
   }
   req.body = { ...req.body, photo ,data };
  
-
+ 
   const currentDate = Date.now();
   req.body.updatedAt = currentDate;
 

@@ -14,7 +14,7 @@ const patchAffairs = async (affairsData, id) => {
   formData.append("description", affairsData.description);
   formData.append("data", JSON.stringify(affairsData.data));
   formData.append("photo", affairsData.photo);
-  formData.append("set_no",affairsData.set_no);
+  formData.append("set_no", affairsData.set_no);
 
   try {
     const loadingToast = toast.loading("Updating CurrentAffairs...");
@@ -56,7 +56,13 @@ const CurrentAffairsForm = ({ details }) => {
   const handleChange = (e, questionIndex) => {
     const { name, value } = e.target;
     const newFormData = { ...formData };
-    newFormData.data[questionIndex][name] = value;
+
+    // Check if questionIndex is undefined (Set No field)
+    if (questionIndex === undefined) {
+      newFormData[name] = value;
+    } else {
+      newFormData.data[questionIndex][name] = value;
+    }
 
     setFormData(newFormData);
   };

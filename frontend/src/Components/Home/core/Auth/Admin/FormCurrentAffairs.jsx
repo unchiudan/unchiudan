@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import JoditEditor from 'jodit-react';
+import JoditEditor from "jodit-react";
 
 const postaffairs = async (affairsData) => {
   const token = localStorage.getItem("jwt_token");
@@ -14,8 +14,8 @@ const postaffairs = async (affairsData) => {
 
   formData.append("data", JSON.stringify(affairsData.data));
   formData.append("photo", affairsData.photo);
-  formData.append("set_no",affairsData.set_no);
-  let loadingToast
+  formData.append("set_no", affairsData.set_no);
+  let loadingToast;
   try {
     loadingToast = toast.loading("Posting CurrentAffairs...");
     await axios.post(
@@ -43,7 +43,7 @@ const FormCurrentAffairs = () => {
   const initialFormData = {
     topic: "",
     category: "",
-    set_no:"",
+    set_no: "",
     description: "",
     photo: null,
     data: [{ ques: "", options: ["", "", "", ""], ans: "" }],
@@ -131,11 +131,11 @@ const FormCurrentAffairs = () => {
             Topic
           </label>
           <JoditEditor
-          ref={topicEditor}
+            ref={topicEditor}
             type="text"
             id="topic"
             name="topic"
-            onBlur={(content) => handleEditorChange('topic', content)}
+            onBlur={(content) => handleEditorChange("topic", content)}
             onChange={(content) => {}}
             value={formData.topic}
             // onChange={(e) =>
@@ -172,22 +172,22 @@ const FormCurrentAffairs = () => {
           </select>
         </div>
         <div className="mb-4">
-        <label className="block mb-2 text-gray-800">Set No</label>
-        <input
-              type="number"
-              name="set_no"
-              value={formData.set_no}
-              onChange={handleChange}
-              className="border p-2 w-full text-black"
-              required
-            />
+          <label className="block mb-2 text-gray-800">Set No</label>
+          <input
+            type="number"
+            name="set_no"
+            value={formData.set_no}
+            onChange={handleChange}
+            className="border p-2 w-full text-black"
+            required
+          />
         </div>
         <div className="mb-4 text-black">
           <label className="block mb-2 text-gray-700">Description</label>
           <JoditEditor
             name="description"
             value={formData.description}
-            onBlur={(content) => handleEditorChange('description', content)}
+            onBlur={(content) => handleEditorChange("description", content)}
             onChange={(content) => {}}
             className="border p-2 w-full h-32"
           ></JoditEditor>

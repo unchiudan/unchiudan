@@ -48,6 +48,7 @@ export default function HomeBlogs() {
               imageSrc={blog.photo}
               updatedDate={updatedDate}
               category={blog.category}
+              set_no={blog.set_no}
               id={blog._id}
             />
           );

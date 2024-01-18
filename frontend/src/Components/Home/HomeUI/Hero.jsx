@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaTelegramPlane } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 function Hero() {
   return (
     <div className="bg-pure-greys-5 md:mx-8 mx-6">
@@ -28,9 +29,14 @@ function Hero() {
                 Start Learning & Fly High
               </button>
             </Link>
-            <Link to="https://t.me/UnchiudaanTeam">
+            <Link to="https://t.me/UnchiudaanClasses">
               <div className=" flex w-fit hover:bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] px-2 py-1  text-lg mx-auto rounded-full bg-blue-300 text-white">
                 <FaTelegramPlane className="w-7 h-7" />
+              </div>
+            </Link>
+            <Link to="https://whatsapp.com/channel/0029Va4aeIXHgZWdVRD0GA0k">
+              <div className=" flex w-fit hover:bg-gradient-to-b from-[#25D366] to-[#128C7E] px-2 py-1  text-lg mx-auto rounded-full bg-green-500 text-white">
+              <FaWhatsapp className="w-7 h-7" />
               </div>
             </Link>
           </div>

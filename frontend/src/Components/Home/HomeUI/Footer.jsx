@@ -4,6 +4,7 @@ import {
   FaLinkedin,
   FaInstagram,
   FaTelegramPlane,
+  FaWhatsapp
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 function Footer() {
@@ -13,7 +14,7 @@ function Footer() {
         <strong className="block text-center text-lg font-bold text-gray-900 sm:text-3xl ">
           सारे Updates पाने के लिए Subscribe करें
         </strong>
-        <Link to="https://t.me/UnchiudaanTeam">
+        <Link to="https://t.me/UnchiudaanClasses">
           <div className="mt-6 flex w-fit hover:bg-blue-500 px-3 py-1 justify-between space-x-3 text-lg mx-auto rounded-full bg-blue-300 text-white">
             <FaTelegramPlane className="w-7 h-7" />
             <span>Subscribe</span>
@@ -33,6 +34,9 @@ function Footer() {
           <div className="mt-6 flex justify-center gap-6 lg:justify-start">
             <a className=" " href="https://www.facebook.com/groups/936910043329539/?ref=share" target="_blank" rel="noreferrer">
               <FaFacebook className="text-blue-500 w-7 h-7" />
+            </a>
+            <a className="https://whatsapp.com/channel/0029Va4aeIXHgZWdVRD0GA0k" href="" target="_blank" rel="noreferrer">
+              <FaWhatsapp className="text-green-500 w-7 h-7" />
             </a>
 
             <a className=" " href="" target="_blank" rel="noreferrer">

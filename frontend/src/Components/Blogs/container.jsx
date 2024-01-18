@@ -3,7 +3,7 @@
 import { Link } from "react-router-dom";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 
-function BlogComp({ date, title, id, category, updatedDate }) {
+function BlogComp({ date, title, id, category, updatedDate , set_no }) {
   const decodeHtmlEntities = (html) => {
     const textarea = document.createElement("textarea");
     textarea.innerHTML = html;
@@ -24,7 +24,7 @@ function BlogComp({ date, title, id, category, updatedDate }) {
                 alt="Blog Cover"
               />
               <p className="absolute top-0 bg-[#ffef39] text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
-                {date}
+              Set No: {set_no}
               </p>
             </div>
           </div>

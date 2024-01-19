@@ -24,7 +24,8 @@ function Home() {
       />
       <meta
         name="keywords"
-        content="Daily Quiz / डेली प्रश्न, Daily Current Affairs/ कर्रेंट अफेयर्स, Monthly PDFs / मासिक PDF , News / Blog"
+        content="Daily Quiz / डेली प्रश्न, Daily Current Affairs/ कर्रेंट अफेयर्स, Monthly PDFs / मासिक PDF , News / Blog ,unchi udan classes, unchiudaanclasses, uchiudaan classes,uchiudan,Unchiudaan classes,ऊँची उड़ान classes,
+  Daily Current Affairs,Unchiudaan Current Affairs, Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations"
       />
       <link rel="canonical" href={canonicalUrl} />
     </Helmet>

@@ -6,7 +6,7 @@ import { MdOutlineAccessTimeFilled, MdOutlineDelete } from "react-icons/md";
 import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import Sidebar_pdf from "../Sidebar/Sidebar_pdf";
 import { Toaster, toast } from "react-hot-toast";
-import { Seo } from "../../SEO";
+import { Seo } from "../../Seo";
 
 function BlogComps({
   date,

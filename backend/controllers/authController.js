@@ -5,6 +5,7 @@ const catchAsync = require('./../utils/catchAsync');
 const { promisify } = require('util');
 const Email = require('../utils/email');
 const { createHash } = require('crypto');
+const { OAuth2Client } = require('google-auth-library');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -14,7 +15,7 @@ const signToken = (id) => {
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
- 
+
   const cookieOption = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
@@ -27,11 +28,8 @@ const createSendToken = (user, statusCode, req, res) => {
   res.cookie('jwt', token, cookieOption);
 
   user.password = undefined;
- 
-  res.setHeader('Authorization', `Bearer ${token}`);
-  
- 
 
+  res.setHeader('Authorization', `Bearer ${token}`);
 
   res.status(statusCode).json({
     status: 'success',
@@ -48,12 +46,12 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     phone: req.body.phone,
   });
- 
 
   createSendToken(newUser, 201, req, res);
 });
 
 exports.logout = (req, res) => {
+  
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 0 * 1000),
     httpOnly: true,
@@ -64,7 +62,7 @@ exports.logout = (req, res) => {
 exports.login = catchAsync(async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
- 
+
   if (!email && !password) {
     return next(new AppError('please prove email and password', 400));
   }
@@ -118,36 +116,27 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 exports.isLoggedIn = async (req, res, next) => {
-  
-  
-
-
-
   try {
-   
-    const token = req.headers.authorization
-   
-    
-   
+    const token = req.headers.authorization;
+
     if (!token) {
       return res.status(401).json({
         isAuthorized: false,
       });
     }
 
-
     // Verify token
     const decoded = await promisify(jwt.verify)(
       token,
       process.env.JWT_SECRET, // This should match the secret used when signing the cookie
     );
-    
+
     // Check if user exists
     const currentUser = await User.findById(decoded.id);
+
     if (!currentUser) {
       return res.status(401).json({ message: 'User not found' });
     }
-   
 
     // Check if password was changed
     if (currentUser.changedPasswordAfter(decoded.iat)) {
@@ -160,21 +149,18 @@ exports.isLoggedIn = async (req, res, next) => {
       isAuthorized: true,
     });
   } catch (error) {
-
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-  
-    
     if (!roles.includes(req.user.role)) {
       return next(
         new AppError('You do not have permission to perform this action', 403),
       );
     }
-    
+
     next();
   };
 };
@@ -195,8 +181,8 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
-  console.log(req.body.email)
-  
+  console.log(req.body.email);
+
   if (!user) {
     return next(
       new AppError('User does not exist with this Email address.', 404),
@@ -204,13 +190,11 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 
   const resetToken = user.createPasswordResetToken();
- 
+
   await user.save({ validateBeforeSave: false });
 
   const resetURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
-  console.log(resetURL)
-
-
+  console.log(resetURL);
 
   try {
     await new Email(user, resetURL).sendPasswordReset();
@@ -251,59 +235,80 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, req, res);
 });
 
-
-
-
 exports.authenticateCors = async (req, res, next) => {
-
-  
-  
   try {
     // Check if token exists
-    const token = req.headers.authorization
+    const token = req.headers.authorization;
     // const token = req.headers.authorization;
     // const authtoken = token.split(" ")
     const tokenWithoutBearer = token.replace('Bearer ', '');
-   
-   
+
     if (!tokenWithoutBearer) {
       return res.status(401).json({
         isAuthorized: false,
       });
     }
 
-
-
-
     // Verify token
     const decoded = await promisify(jwt.verify)(
       tokenWithoutBearer,
       process.env.JWT_SECRET, // This should match the secret used when signing the cookie
     );
-   
+
     // Check if user exists
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
       return res.status(401).json({ message: 'User not found' });
     }
-    
 
     // Check if password was changed
     if (currentUser.changedPasswordAfter(decoded.iat)) {
       return res.status(401).json({ message: 'Password changed' });
     }
 
-    
-
     // User is authenticated, continue with the request
     req.user = currentUser;
-    
+
     res.locals.user = currentUser;
-   
-    
+
     next();
   } catch (error) {
-  
     return res.status(500).json({ message: 'Internal Server Error 😀' });
   }
 };
+
+
+exports.generateRandomPassword = ()=>{
+  const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
+  const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const symbols = '!@#$%^&*()-_=+[]{}|;:,.<>?/';
+  const numbers = '0123456789';
+
+  const getRandomChar = (characters) => {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    return characters[randomIndex];
+  };
+
+  const getRandomFromArray = (arrays) => {
+    const randomIndex = Math.floor(Math.random() * arrays.length);
+    return getRandomChar(arrays[randomIndex]);
+  };
+
+  const passwordArray = [
+    getRandomChar(lowercaseLetters),
+    getRandomChar(uppercaseLetters),
+    getRandomChar(symbols),
+    getRandomChar(numbers),
+    getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
+    getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
+    getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
+    getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
+  ];
+
+  // Shuffle the passwordArray to ensure randomness
+  const shuffledPassword = passwordArray.sort(() => Math.random() - 0.5).join('');
+
+  return shuffledPassword;
+}
+
+

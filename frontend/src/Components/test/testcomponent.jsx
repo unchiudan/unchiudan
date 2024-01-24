@@ -150,6 +150,12 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
                   <button  className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
                     Start Test
                   </button>
+                
+                  </a>
+                  <a href="https://script.google.com/a/~/macros/s/AKfycbzpi1UkF_mbjy3jnytgtAIXxYuiBz8gdjpWF5WaRPzqED1wR7GIBwvgeTuCvuv8Hl6aog/exec"  rel="noopener noreferrer">
+                  <button  className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
+                    Start Result
+                  </button>
                   </a>
                    
                 </div>

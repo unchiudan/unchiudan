@@ -10,6 +10,7 @@ import { BiSolidNews } from "react-icons/bi";
 import { FaHome, FaFilePdf } from "react-icons/fa"; // Import the icons you need
 
 export default function Navbar({ userData }) {
+  // console.log(userData.user.googleLogIn)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
@@ -55,15 +56,20 @@ export default function Navbar({ userData }) {
   };
 
   const handleLogout = async () => {
-    try {
-      await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/logout`);
-      localStorage.clear();
-
-      window.location.href = "/";
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
+    
+    
+      try {
+        await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/logout`);
+        localStorage.clear();
+        window.location.href = "/";
+      } catch (error) {
+        console.error("Error logging out:", error);
+      }
+    
   };
+  const googlelogout=async()=>{
+    window.open(`${import.meta.env.VITE_BACKEND_URL}/logout`,"_self")
+  }
 
   return (
     <div className="">
@@ -107,7 +113,7 @@ export default function Navbar({ userData }) {
                     </Link>
                     <div
                       onClick={() => {
-                        handleLogout();
+                        {userData.user.googleLogIn ? googlelogout() : handleLogout();}
                         setOpen(false);
                       }}
                       className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover.bg-richblack-700 hover.text-richblack-25 "
@@ -130,9 +136,9 @@ export default function Navbar({ userData }) {
             <Link to="/" className="block">
               Home
             </Link>
-            {/* <Link to="/test" className="block">
+            <Link to="/test" className="block">
             Test
-          </Link> */}
+          </Link>
           <Link to="/Currentaffairs" className="block focus:outline-none">
                 Current Affairs
               </Link>     
@@ -179,7 +185,7 @@ export default function Navbar({ userData }) {
                     </Link>
                     <div
                       onClick={() => {
-                        handleLogout();
+                        {userData.user.googleLogIn ? googlelogout() : handleLogout();}
                         setOpen(false);
                       }}
                       className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover.bg-richblack-700 hover.text-richblack-25 "

@@ -3,6 +3,7 @@ import frameImg from "../../../../../public/Images/frame.png";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
+
 function Template({ title, description1, description2, image, formType }) {
   return (
     <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center ">
@@ -18,6 +19,8 @@ function Template({ title, description1, description2, image, formType }) {
             </span>
           </p>
           {formType === "signup" ? <SignupForm /> : <LoginForm />}
+
+          {/* <button className="mt-6 rounded-[8px] bg-red-500 py-[8px] px-[12px] font-medium text-richblack-900 duration-500 hover:scale-[1.1]">SignIN with Google</button> */}
         </div>
         <div className="relative mx-auto w-11/12 max-w-[450px] md:mx-0">
           <img

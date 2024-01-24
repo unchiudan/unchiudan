@@ -8,6 +8,8 @@ import { FaArrowRight } from "react-icons/fa";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 
+
+
 const initialValues = { email: "", password: "" };
 let loadingToast
 const login = async (userData) => {
@@ -80,6 +82,9 @@ function LoginForm() {
     setShowPassword((prev) => !prev);
   };
 
+  const loginwithGoogle=()=>{
+    window.open(`${import.meta.env.VITE_BACKEND_URL}/oauth/google/callback`,"_self")
+  }
 
   return (
     <div>
@@ -157,6 +162,11 @@ function LoginForm() {
           {isValid ? "LogIn" : "❌LogIn"}
         </button>
       </form>
+      <br/>
+      <p className="text-center">OR</p>
+      <button onClick={loginwithGoogle} className="mt-6 rounded-[8px] bg-yellow-50 py-[9px] px-[12px] font-medium text-richblack-900 duration-500 hover:scale-[1.1]">Login with google</button>
+
+ 
       <Toaster position="top-center" reverseOrder={false} />
     </div>
   );

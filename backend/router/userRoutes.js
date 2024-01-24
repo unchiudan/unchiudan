@@ -37,8 +37,4 @@ router
     userController.deleteUser,
   );
 
-
-
-// router.post('/googlein', authController.googleAuth )
-
 module.exports = router;

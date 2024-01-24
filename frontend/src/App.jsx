@@ -37,7 +37,7 @@ function App() {
 
   const getUser=async()=>{
     try{
-      const response = await axios.get("http://localhost:3000/login/success",{withCredentials:true} )
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/login/success`,{withCredentials:true} )
       // console.log("response",response.data.user)
       setUser(response.data)
       

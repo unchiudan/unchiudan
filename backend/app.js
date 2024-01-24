@@ -133,7 +133,7 @@ app.get(
     failureRedirect: "http://localhost:5173/login"
   }),
 );
-app.get('/login/success',async(req,res)=>{
+app.get('/api/login/success',async(req,res)=>{
 
   if (req.user){
     res.status(200).json({
@@ -148,7 +148,7 @@ app.get('/login/success',async(req,res)=>{
     })
   }
 })
-app.get("/logout",async(req,res,next)=>{
+app.get("/api/logout",async(req,res,next)=>{
   console.log(req.user)
   console.log("dfsdfdsfdsfdsfsddddd")
   req.logout(function(err){

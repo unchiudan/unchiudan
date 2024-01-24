@@ -69,7 +69,7 @@ export default function Navbar({ userData }) {
   };
   const googlelogout=async()=>{
     // await axios.get(`http://localhost:3000/logout`);
-    window.open("http://localhost:3000/logout","_self")
+    window.open(`${import.meta.env.VITE_BACKEND_URL}/logout`,"_self")
   }
 
   return (

@@ -83,7 +83,7 @@ function LoginForm() {
   };
 
   const loginwithGoogle=()=>{
-    window.open("http://localhost:3000/api/oauth/google/callback","_self")
+    window.open(`${import.meta.env.VITE_BACKEND_URL}/oauth/google/callback`,"_self")
   }
 
   return (

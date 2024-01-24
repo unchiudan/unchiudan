@@ -102,19 +102,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Helmet>
-      <title>ऊँची उड़ान Classes | Unchiudaan Classes</title>
-      <meta
-        name="description"
-        content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence, और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
-      />
-      <meta
-        name="keywords"
-        content="Daily Quiz / डेली प्रश्न, Daily Current Affairs/ कर्रेंट अफेयर्स, Monthly PDFs / मासिक PDF , News / Blog"
-      />
-      <link rel="canonical" href={canonicalUrl} />
-    </Helmet>
-
       <GlobalProvider>
         <Navbar userData={user} />
         <Routes>

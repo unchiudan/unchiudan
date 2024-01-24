@@ -149,7 +149,8 @@ app.get('/login/success',async(req,res)=>{
   }
 })
 app.get("/logout",async(req,res,next)=>{
-
+  console.log(req.user)
+  console.log("dfsdfdsfdsfdsfsddddd")
   req.logout(function(err){
     if(err){return next(err)}
     res.redirect("http://localhost:5173")

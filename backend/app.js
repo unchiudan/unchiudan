@@ -129,8 +129,8 @@ app.get(
 app.get(
   '/api/oauth/google/callback',
   passport.authenticate('google', {
-    successRedirect: 'http://localhost:5173/user',
-    failureRedirect: "http://localhost:5173/login"
+    successRedirect: `${process.env.FRONTEND_URL}/user`,
+    failureRedirect: `${process.env.FRONTEND_URL}/login`
   }),
 );
 app.get('/api/login/success',async(req,res)=>{
@@ -153,7 +153,7 @@ app.get("/api/logout",async(req,res,next)=>{
   console.log("dfsdfdsfdsfdsfsddddd")
   req.logout(function(err){
     if(err){return next(err)}
-    res.redirect("http://localhost:5173")
+    res.redirect(`${process.env.FRONTEND_URL}`)
   })
 })
 

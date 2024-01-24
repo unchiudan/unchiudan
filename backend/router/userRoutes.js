@@ -3,6 +3,7 @@ const userController = require('../controllers/userController.js');
 const authController = require('../controllers/authController.js');
 
 
+
 const router = express.Router();
 
 router.post('/signup', authController.signup);
@@ -35,5 +36,9 @@ router
     authController.restrictTo('admin'),
     userController.deleteUser,
   );
+
+
+
+// router.post('/googlein', authController.googleAuth )
 
 module.exports = router;

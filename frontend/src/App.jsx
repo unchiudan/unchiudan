@@ -4,6 +4,7 @@ import Home from "./Components/Home/Home";
 import DownloadPage from "./Components/Downloads/DownloadPage";
 import TestPage from "./Components/test/testpage";
 import BlogsPage from "./Components/Blogs/BlogsPage";
+
 import GlobalProvider from "./Components/GlobalProvider";
 import Downloads from "./Components/Downloads/Downloads";
 import News from "./Components/News/News";
@@ -26,10 +27,30 @@ import PrivacyPolicy from "./Components/About/policy";
 import ForgotPassword from "./Components/Home/core/Auth/forgotpassword";
 import ResetPassword from "./Components/Home/core/Auth/resetpassword";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
 function App() {
   const [user, setUser] = useState(null);
+  // console.log(user)
+  
   const [isLoading, setIsLoading] = useState(true);
   const canonicalUrl = window.location.href;
+
+  const getUser=async()=>{
+    try{
+      const response = await axios.get("http://localhost:3000/login/success",{withCredentials:true} )
+      // console.log("response",response.data.user)
+      setUser(response.data)
+      
+
+    }catch(error){
+      console.log("error",error)
+    }
+  }
+  useEffect(()=>{
+    getUser()
+  },[])
+
+
   const checkAuthenticated = async () => {
     const token = localStorage.getItem("jwt_token");
 
@@ -116,6 +137,7 @@ function App() {
             path="/pdfs/:id"
             element={<DownloadPage userData={user} />}
           />
+      
           <Route
             exact
             path="/Currentaffairs"

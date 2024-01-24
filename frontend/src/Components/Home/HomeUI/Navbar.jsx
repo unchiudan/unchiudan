@@ -130,9 +130,9 @@ export default function Navbar({ userData }) {
             <Link to="/" className="block">
               Home
             </Link>
-            {/* <Link to="/test" className="block">
+            <Link to="/test" className="block">
             Test
-          </Link> */}
+          </Link>
           <Link to="/Currentaffairs" className="block focus:outline-none">
                 Current Affairs
               </Link>     

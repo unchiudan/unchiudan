@@ -55,14 +55,27 @@ export default function Navbar({ userData }) {
   };
 
   const handleLogout = async () => {
-    try {
-      await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/logout`);
-      localStorage.clear();
-
-      window.location.href = "/";
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
+    // if(userData.googleLogIn===false || userData.googleLogIn===undefined){
+    //   try {
+    //     await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/logout`);
+    //     localStorage.clear();
+  
+    //     window.location.href = "/";
+    //   } catch (error) {
+    //     console.error("Error logging out:", error);
+    //   }
+    // }else{
+    //   window.open("http://localhost:3000/logout","_self")
+    // }
+    // try {
+    //       await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/logout`);
+    //       localStorage.clear();
+    
+    //       window.location.href = "/";
+    //     } catch (error) {
+    //       console.error("Error logging out:", error);
+    //     }
+    window.open("http://localhost:3000/logout","_self")
   };
 
   return (

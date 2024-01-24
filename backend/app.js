@@ -101,6 +101,7 @@ passport.use(
             lastname: profile.name.familyName,
             email: profile.emails[0].value,
             googleId:profile.id,
+            googleLogIn:true,
             password,
             // phone: req.body.phone,
           });
@@ -146,6 +147,13 @@ app.get('/login/success',async(req,res)=>{
       message:"Not Authorize"
     })
   }
+})
+app.get("/logout",async(req,res,next)=>{
+
+  req.logout(function(err){
+    if(err){return next(err)}
+    res.redirect("http://localhost:5173")
+  })
 })
 
 app.use('/api/currentaffairs', affairsRoute);

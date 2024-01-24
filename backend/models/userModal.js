@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
   },
   googleId:{type:String,unique:true},
+  googleLogIn:{type:Boolean,default:false},
   phone: {
     type: String,
     // required: true,

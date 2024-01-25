@@ -38,10 +38,10 @@ const users = [
     description: "Developer",
     image: "ishu",
     socialMediaLinks: {
-      github: "https://github.com/user1",
-      linkedin: "https://github.com/user2",
-      twitter: "https://twitter.com/user1",
-      instagram: "https://www.instagram.com/user1/",
+      github: "https://github.com/ishuoncode",
+      linkedin: "https://www.linkedin.com/in/ishu-singh-software-developer/",
+      twitter: "/",
+      instagram: "https://www.instagram.com/_._ishurajput/",
     },
   },
   {

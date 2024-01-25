@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { FaGoogle } from "react-icons/fa";
 import { LogInSchema } from "./formvalidator";
 import { FaArrowRight } from "react-icons/fa";
 import axios from "axios";
@@ -81,10 +80,7 @@ function LoginForm() {
   };
 
   const loginwithGoogle = () => {
-    window.open(
-      `${import.meta.env.VITE_BACKEND_URL}/oauth/google/callback`,
-      "_self"
-    );
+    window.open(`${import.meta.env.VITE_BACKEND_URL}/oauth/google/callback`,"_self")
   };
 
   return (

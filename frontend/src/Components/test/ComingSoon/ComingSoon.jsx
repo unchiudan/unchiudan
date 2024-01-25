@@ -44,7 +44,7 @@ const ComingSoon = () => {
   return (
     <div className="coming-soon-container relative min-h-screen overflow-hidden">
       <video className='h-full w-full object-cover absolute inset-0' src={VideoBg} autoPlay muted loop></video>
-      <div className="absolute inset-0 bg-black opacity-80 z-10"></div>
+      <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
       <div className="timer-container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white z-20">
         <h1 className="text-4xl font-bold ">Launching Soon!</h1>
         <p className="text-xl mb-4">टेस्ट सीरीज जल्द ही लॉन्च होने जा रही है।</p>

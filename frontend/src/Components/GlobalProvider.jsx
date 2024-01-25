@@ -8,12 +8,10 @@ function GlobalProvider({ children }) {
     <div className="mx-auto">
       {children}
       <div className="mt-[10rem] md:mt-0">
-        {" "}
         <Footer />
       </div>
 
       <BottomToTopButton className="z-10" />
-
     </div>
   );
 }

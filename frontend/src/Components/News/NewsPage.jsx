@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { SocialMedia } from "../../consstant/socialmedia";
 import PatchNewsForm from "../Home/core/Auth/Admin/PatchNewsForm";
+import { Helmet } from "react-helmet";
 
 // Function to decode HTML entities
 function decodeHtml(html) {
@@ -20,9 +21,10 @@ function NewsContent({ heading, article, photo }) {
   return (
     <div className="py-[5rem]">
       <div className="mx-6">
-        <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6" dangerouslySetInnerHTML={{__html:heading}}>
-        
-        </h1>
+        <h1
+          className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6"
+          dangerouslySetInnerHTML={{ __html: heading }}
+        ></h1>
         <div className="md:mx-12 my-1">
           <img
             alt="meow"
@@ -31,7 +33,10 @@ function NewsContent({ heading, article, photo }) {
           />
         </div>
         <SocialMedia />
-        <p className="mt-4 text-justify text-lg " dangerouslySetInnerHTML={{ __html: article }} />
+        <p
+          className="mt-4 text-justify text-lg "
+          dangerouslySetInnerHTML={{ __html: article }}
+        />
       </div>
     </div>
   );
@@ -84,8 +89,12 @@ function NewsPage({ userData }) {
 
   return (
     <>
+      {" "}
+      <Helmet>
+        <title>{decodeHtml(news.heading)}</title>
+        <meta name="description" content={decodeHtml(news.article)} />
+      </Helmet>
       <Link to="">
-      
         <NewsContent
           heading={decodeHtml(news.heading)}
           article={decodeHtml(news.article)}

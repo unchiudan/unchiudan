@@ -75,9 +75,6 @@ app.use(
     secret: '45875632155sdfds4545dsfsf5s',
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      secure: true, // Set to true for HTTPS
-    },
   }),
 );
 
@@ -128,7 +125,7 @@ passport.deserializeUser((user, done) => {
 
 ///initalize google aoth login
 app.get(
-  'api/auth/google',
+  '/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }),
 );
 app.get(

@@ -128,7 +128,7 @@ passport.deserializeUser((user, done) => {
 
 ///initalize google aoth login
 app.get(
-  '/auth/google',
+  'api/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }),
 );
 app.get(

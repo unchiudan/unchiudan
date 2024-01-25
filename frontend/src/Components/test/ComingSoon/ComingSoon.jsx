@@ -46,7 +46,7 @@ const ComingSoon = () => {
   return (
     <div className="coming-soon-container relative min-h-screen overflow-hidden">
       <Helmet>
-        <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
+        <title>Unchidan Tests</title>
         <meta
           name="description"
           content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."

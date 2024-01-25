@@ -8,6 +8,7 @@ import { VscDashboard, VscSignOut } from "react-icons/vsc";
 import { AiFillRead } from "react-icons/ai";
 import { BiSolidNews } from "react-icons/bi";
 import { FaHome, FaFilePdf } from "react-icons/fa"; // Import the icons you need
+import Testicon from "./icons/icons8-test.gif";
 
 export default function Navbar({ userData }) {
   // console.log(userData.user.email)
@@ -225,6 +226,18 @@ export default function Navbar({ userData }) {
           >
             <FaHome className="mr-2 w-5 h-5" />
             Home
+          </Link>
+
+          <Link
+            to="/test"
+            onClick={toggleMenu}
+            className="flex flex-col items-center focus:outline-none"
+          >
+            <img 
+             src={Testicon}
+             alt="Test Icon"
+             className="mr-2  w-5 h-5" />
+            Test
           </Link>
 
           <Link

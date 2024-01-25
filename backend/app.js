@@ -11,7 +11,7 @@ const OAuth2Startegy = require('passport-google-oauth2').Strategy;
 // const ejs = require('ejs');
 
 const newsRoutes = require('./router/newsRoutes');
-const oauthRoutes = require('./router/oauthRoutes');
+// const oauthRoutes = require('./router/oauthRoutes');
 const testRoutes = require('./router/testRoutes');
 const pdfRoutes = require('./router/pdfRoutes');
 const adminRoutes = require('./router/adminRoutes');
@@ -92,21 +92,23 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       console.log("🚀 ~ profile:", profile.givenname)
       
+      const user = await User.findOne({ email: profile.emails[0].value });
       try {
-        const user = await User.findOne({ email: profile.emails[0].value });
         if (!user) {
-          const password = authController.generateRandomPassword;
           const user = await User.create({
             firstname: profile.name.givenName,
             lastname: profile.name.familyName,
             email: profile.emails[0].value,
             googleId:profile.id,
             googleLogIn:true,
-            password,
+            password:`${process.env.googlePassword}`
             // phone: req.body.phone,
           });
           await user.save();
+          return done(null, user);
         }
+        user.googleLogIn=true
+        await user.save();
         return done(null, user);
       } catch (error) {
         return done(error, null);
@@ -148,9 +150,16 @@ app.get('/api/login/success',async(req,res)=>{
     })
   }
 })
+app.post("/api/logout",async(req,res,next)=>{
+ 
+  // console.log(email,"sdfdsfdsfdsfdsfds")
+  const user = await User.findOne({ email: req.body.email });
+  user.googleLogIn = false;
+  await user.save();
+  
+ 
+})
 app.get("/api/logout",async(req,res,next)=>{
-  console.log(req.user)
-  console.log("dfsdfdsfdsfdsfsddddd")
   req.logout(function(err){
     if(err){return next(err)}
     res.redirect(`${process.env.FRONTEND_URL}`)
@@ -164,7 +173,7 @@ app.use('/api/pdfs', pdfRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/test', testRoutes);
-app.use('/api/oauth/google/callback', oauthRoutes);
+// app.use('/api/oauth/google/callback', oauthRoutes);
 
 
 // Error Handling

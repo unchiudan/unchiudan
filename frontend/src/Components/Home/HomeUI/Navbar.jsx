@@ -10,7 +10,7 @@ import { BiSolidNews } from "react-icons/bi";
 import { FaHome, FaFilePdf } from "react-icons/fa"; // Import the icons you need
 
 export default function Navbar({ userData }) {
-  // console.log(userData.user.googleLogIn)
+  // console.log(userData.user.email)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
@@ -68,7 +68,11 @@ export default function Navbar({ userData }) {
     
   };
   const googlelogout=async()=>{
+    const email=userData.user.email
     window.open(`${import.meta.env.VITE_BACKEND_URL}/logout`,"_self")
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/logout`,{email});
+    
+    
   }
 
   return (

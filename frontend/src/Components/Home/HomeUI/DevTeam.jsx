@@ -89,7 +89,7 @@ function DevTeam() {
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Unchiudaan - News / Blog" />
+        <meta property="og:title" content="Unchiudaan - Developers" />
         <meta property="og:description" content="Developers of UnchiUdaan" />
         <meta
           property="og:image"
@@ -97,8 +97,8 @@ function DevTeam() {
         />
 
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Unchiudaan - News / Blog" />
-        <meta name="twitter:description" content="Developers of unchiudaan" />
+        <meta name="twitter:title" content="Unchiudaan - Developers" />
+        <meta name="twitter:description" content="Developers of UnchiUdaan" />
         <meta
           name="twitter:image"
           content="https://unchiudaanclasses.com/uchiudan.png"

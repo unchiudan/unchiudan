@@ -11,6 +11,9 @@ function UserSettings({ userData }) {
     email: userData.email,
     phone: userData.phone,
     role: userData.role,
+    googleLogIn:userData.googleLogIn,
+   
+
   });
 
   const token = localStorage.getItem("jwt_token");
@@ -74,6 +77,8 @@ function UserSettings({ userData }) {
         {
           passwordCurrent: passwordData.currentPassword,
           password: passwordData.newPassword,
+          email: userData.email,
+          googleLogIn:userData.googleLogIn,
         },
         {
           headers: {

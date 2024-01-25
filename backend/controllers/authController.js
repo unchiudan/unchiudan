@@ -51,7 +51,6 @@ exports.signup = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res) => {
-  
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 0 * 1000),
     httpOnly: true,
@@ -166,6 +165,7 @@ exports.restrictTo = (...roles) => {
 };
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
+  console.log(req.user,"update password")
   const user = await User.findById(req.user.id).select('+password');
 
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
@@ -237,46 +237,54 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
 exports.authenticateCors = async (req, res, next) => {
   try {
-    // Check if token exists
-    const token = req.headers.authorization;
-    // const token = req.headers.authorization;
-    // const authtoken = token.split(" ")
-    const tokenWithoutBearer = token.replace('Bearer ', '');
+    if (!req.body.googleLogIn) {
+      // Check if token exists
+      const token = req.headers.authorization;
+      // const token = req.headers.authorization;
+      // const authtoken = token.split(" ")
+      const tokenWithoutBearer = token.replace('Bearer ', '');
 
-    if (!tokenWithoutBearer) {
-      return res.status(401).json({
-        isAuthorized: false,
-      });
+      if (!tokenWithoutBearer) {
+        return res.status(401).json({
+          isAuthorized: false,
+        });
+      }
+
+      // Verify token
+      const decoded = await promisify(jwt.verify)(
+        tokenWithoutBearer,
+        process.env.JWT_SECRET, // This should match the secret used when signing the cookie
+      );
+
+      // Check if user exists
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) {
+        return res.status(401).json({ message: 'User not found' });
+      }
+      // Check if password was changed
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return res.status(401).json({ message: 'Password changed' });
+      }
+      req.user = currentUser;
+
+      res.locals.user = currentUser;
+      // User is authenticated, continue with the request
+    } else {
+      const currentUser = await User.findOne({ email: req.body.email });
+      console.log
+      if (!currentUser) {
+        return res.status(401).json({ message: 'User not found' });
+      }
+      req.user = currentUser;
+
+      res.locals.user = currentUser;
     }
-
-    // Verify token
-    const decoded = await promisify(jwt.verify)(
-      tokenWithoutBearer,
-      process.env.JWT_SECRET, // This should match the secret used when signing the cookie
-    );
-
-    // Check if user exists
-    const currentUser = await User.findById(decoded.id);
-    if (!currentUser) {
-      return res.status(401).json({ message: 'User not found' });
-    }
-
-    // Check if password was changed
-    if (currentUser.changedPasswordAfter(decoded.iat)) {
-      return res.status(401).json({ message: 'Password changed' });
-    }
-
-    // User is authenticated, continue with the request
-    req.user = currentUser;
-
-    res.locals.user = currentUser;
-
+   
     next();
   } catch (error) {
     return res.status(500).json({ message: 'Internal Server Error 😀' });
   }
 };
-
 
 // exports.generateRandomPassword = ()=>{
 //   const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
@@ -310,5 +318,3 @@ exports.authenticateCors = async (req, res, next) => {
 
 //   return shuffledPassword;
 // }
-
-

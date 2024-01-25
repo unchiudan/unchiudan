@@ -10,10 +10,12 @@ import PatchNewsForm from "../Home/core/Auth/Admin/PatchNewsForm";
 import { Helmet } from "react-helmet";
 
 // Function to decode HTML entities
-function decodeHtml(html) {
+function decodeHtmlEntities(html) {
   var txt = document.createElement("textarea");
   txt.innerHTML = html;
-  return txt.value;
+  // Remove HTML tags using a regular expression
+  var plainText = txt.value.replace(/<[^>]*>/g, "");
+  return plainText;
 }
 
 // Component for rendering news content
@@ -91,13 +93,13 @@ function NewsPage({ userData }) {
     <>
       {" "}
       <Helmet>
-        <title>{decodeHtml(news.heading)}</title>
-        <meta name="description" content={decodeHtml(news.article)} />
+        <title>{decodeHtmlEntities(news.heading)}</title>
+        <meta name="description" content={decodeHtmlEntities(news.article)} />
       </Helmet>
       <Link to="">
         <NewsContent
-          heading={decodeHtml(news.heading)}
-          article={decodeHtml(news.article)}
+          heading={decodeHtmlEntities(news.heading)}
+          article={decodeHtmlEntities(news.article)}
           photo={news.photo}
         />
       </Link>

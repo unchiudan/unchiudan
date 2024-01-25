@@ -13,7 +13,8 @@ function StudyMaterialsPage({ userData }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/pdfs/${id}`);
+          `${import.meta.env.VITE_BACKEND_URL}/pdfs/${id}`
+        );
         setPdfDetails(response.data.data.pdf);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -24,16 +25,18 @@ function StudyMaterialsPage({ userData }) {
   }, [id]);
 
   if (!pdfDetails) {
-    return <div className="flex justify-center items-center h-screen">
-    <div
-      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-info motion-reduce:animate-[spin_1.5s_linear_infinite]"
-      role="status"
-    >
-      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-        Loading...
-      </span>
-    </div>
-  </div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div
+          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-info motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            Loading...
+          </span>
+        </div>
+      </div>
+    );
   }
 
   const formatUpdatedAtDate = () => {
@@ -51,7 +54,9 @@ function StudyMaterialsPage({ userData }) {
       return; // Stop further execution
     }
 
-    const downloadLink = `${import.meta.env.VITE_BACKEND_URL}/pdfs/download-pdf/${id}`;
+    const downloadLink = `${
+      import.meta.env.VITE_BACKEND_URL
+    }/pdfs/download-pdf/${id}`;
 
     // Create a temporary anchor element
     const anchor = document.createElement("a");
@@ -68,6 +73,9 @@ function StudyMaterialsPage({ userData }) {
 
   return (
     <div className="mx-auto py-[8rem]">
+      <Helmet>
+        <title> {pdfDetails.name}</title>
+      </Helmet>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="col-span-3 p-4 overflow-y-auto">
           <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6">
@@ -77,7 +85,9 @@ function StudyMaterialsPage({ userData }) {
           <div className="mx-6 my-12">
             <img
               alt="meow"
-              src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/pdf/${pdfDetails.photo}`}
+              src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/pdf/${
+                pdfDetails.photo
+              }`}
               className="w-full mx-auto rounded-lg"
             />
           </div>

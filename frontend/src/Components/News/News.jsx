@@ -54,12 +54,45 @@ function News({ userData }) {
   };
   return (
     <div className="mx-[10%] pt-[6rem] ">
-  
-<Helmet>
-  <title>News / Blog</title>
-  <meta name="description" content="Get Latest update News / Blog of current Affairs.." />
-  <link rel="canonical" href={canonicalUrl}/>
-</Helmet>
+      <Helmet>
+        <title>News / Blog</title>
+
+        <meta
+          name="description"
+          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
+          data-rh="true"
+        />
+        <meta
+          name="keywords"
+          content="unchi udan classes, unchiudaanclasses, uchiudaan classes,uchiudan,Unchiudaan classes,ऊँची उड़ान classes,
+  Daily Current Affairs,Unchiudaan Current Affairs, Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations"
+          data-rh="true"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Unchiudaan - News / Blog" />
+        <meta
+          property="og:description"
+          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
+        />
+        <meta
+          property="og:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Unchiudaan - News / Blog" />
+        <meta
+          name="twitter:description"
+          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
+        />
+        <meta
+          name="twitter:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="author" content="Anuraj kumar, ishu singh, @ImKKingshuk" />
+      </Helmet>
 
       <div className="container mx-auto px-4">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">

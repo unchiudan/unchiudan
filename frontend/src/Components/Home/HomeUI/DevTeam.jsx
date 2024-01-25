@@ -1,7 +1,13 @@
 import React from "react";
 import HighlightText from "../core/Homepage/HighlightText";
 
-import { FaGithub, FaTwitter, FaInstagram, FaLinkedin,FaWhatsapp } from "react-icons/fa";
+import {
+  FaGithub,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedin,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 const socialMediaIcons = {
   github: FaGithub,
@@ -12,18 +18,18 @@ const socialMediaIcons = {
 };
 
 const users = [
-
   {
     name: "Anuraj Kumar",
 
     description: "Developer",
     image: "anuraj",
     socialMediaLinks: {
-      whatsapp:"https://wa.me/qr/BVXAB2P45DNLL1",
+      whatsapp: "https://wa.me/qr/BVXAB2P45DNLL1",
       github: "https://github.com/user2",
       linkedin: "https://www.linkedin.com/in/anuraj-kumar-softwaredeveloper/",
       twitter: "https://twitter.com/anurajkumar23",
-      instagram: "https://www.instagram.com/anurajkumar6294?utm_source=qr&igsh=MTY1dm5kNzU4YXR1cg==",
+      instagram:
+        "https://www.instagram.com/anurajkumar6294?utm_source=qr&igsh=MTY1dm5kNzU4YXR1cg==",
     },
   },
   {
@@ -67,6 +73,39 @@ const users = [
 function DevTeam() {
   return (
     <div>
+      <Helmet>
+        <title>UnchiUdaan - Developers</title>
+
+        <meta
+          name="description"
+          content="Developers of UnchiUdaan"
+          data-rh="true"
+        />
+        <meta
+          name="keywords"
+          content="unchi udan classes, unchiudaanclasses, uchiudaan classes,uchiudan,Unchiudaan classes,ऊँची उड़ान classes,
+  Daily Current Affairs,Unchiudaan Current Affairs, Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations"
+          data-rh="true"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Unchiudaan - Developers" />
+        <meta property="og:description" content="Developers of UnchiUdaan" />
+        <meta
+          property="og:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Unchiudaan - Developers" />
+        <meta name="twitter:description" content="Developers of UnchiUdaan" />
+        <meta
+          name="twitter:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="author" content="Anuraj kumar, ishu singh, @ImKKingshuk" />
+      </Helmet>
       <h1 className="text-[2rem] text-center py-[6rem] ">
         Developers of <HighlightText text={"ऊँची उड़ान"} />
       </h1>

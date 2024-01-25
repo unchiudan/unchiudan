@@ -82,6 +82,36 @@ function Currentaffairs({ userData }) {
           content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
         />
         <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Daily Current Affairs/ कर्रेंट अफेयर्स"
+        />
+        <meta
+          property="og:description"
+          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
+        />
+        <meta
+          property="og:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:title"
+          content="Daily Current Affairs/ कर्रेंट अफेयर्स"
+        />
+        <meta
+          name="twitter:description"
+          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
+        />
+        <meta
+          name="twitter:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="author" content="Anuraj kumar, ishu singh, @ImKKingshuk" />
       </Helmet>
       <div className="container mx-auto px-4">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
@@ -90,29 +120,29 @@ function Currentaffairs({ userData }) {
       </div>
 
       <div className="p-2">
-          {isSmallScreen && (
-            <div className="flex items-center">
+        {isSmallScreen && (
+          <div className="flex items-center">
+            <button
+              onClick={toggleFilter}
+              className="text-black hover:text-gray-300 focus:outline-none md:hidden"
+            >
+              {filter ? (
+                <RiCloseFill className="text-2xl" />
+              ) : (
+                <RiMenu3Fill className="text-2xl" />
+              )}
+            </button>
+            {!filter && (
               <button
                 onClick={toggleFilter}
-                className="text-black hover:text-gray-300 focus:outline-none md:hidden"
+                className="ml-2 px-3 py-1 text-gray-600 text-sm bg-gray-200 hover:bg-gray-300 focus:outline-none rounded"
               >
-                {filter ? (
-                  <RiCloseFill className="text-2xl" />
-                ) : (
-                  <RiMenu3Fill className="text-2xl" />
-                )}
+                View more
               </button>
-              {!filter && (
-                <button
-                  onClick={toggleFilter}
-                  className="ml-2 px-3 py-1 text-gray-600 text-sm bg-gray-200 hover:bg-gray-300 focus:outline-none rounded"
-                >
-                  View more
-                </button>
-              )}
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
+      </div>
       <div className="flex">
         <div
           className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full mx-10 md:mx-0 ${

@@ -122,6 +122,15 @@ function DownloadPage({ userData }) {
   };
   return (
     <div className="mx-auto py-[3rem]">
+      {/* <Helmet>
+        <title>
+        
+          {{
+            __html: decodeHtmlEntities(pdfDetails.name),
+          }}
+        </title>
+        <meta name="description" content={decodeHtml(news.article)} />
+      </Helmet> */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="col-span-3 p-4 overflow-y-auto">
           <h1 className="mt-10 text-[1.3rem] font-[550] text-center">

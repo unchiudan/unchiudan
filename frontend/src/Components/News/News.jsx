@@ -70,7 +70,7 @@ function News({ userData }) {
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Unchiudaan classes" />
+        <meta property="og:title" content="Unchiudaan - News / Blog" />
         <meta
           property="og:description"
           content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
@@ -81,7 +81,7 @@ function News({ userData }) {
         />
 
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Unchiudaan classes" />
+        <meta name="twitter:title" content="Unchiudaan - News / Blog" />
         <meta
           name="twitter:description"
           content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"

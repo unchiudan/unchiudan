@@ -89,7 +89,11 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+<<<<<<< HEAD
       callbackURL: 'https://api.unchiudaanclasses.com/api/oauth/google/callback',
+=======
+      callbackURL: `${process.env.BACKEND_URL}/oauth/google/callback`,
+>>>>>>> c653a11e92ff7e0ecb7c2b0e26fba0e4e4a768f7
       scope: ['profile', 'email'],
     },
     async (accessToken, refreshToken, profile, done) => {

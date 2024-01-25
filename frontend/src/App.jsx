@@ -28,6 +28,7 @@ import ForgotPassword from "./Components/Home/core/Auth/forgotpassword";
 import ResetPassword from "./Components/Home/core/Auth/resetpassword";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
+import ComingSoon from "./Components/test/ComingSoon/ComingSoon";
 function App() {
   const [user, setUser] = useState(null);
   console.log(user)
@@ -135,7 +136,7 @@ function App() {
             path="/currentaffairs/:id"
             element={<BlogsPage userData={user} />}
           />
-          <Route exact path="/test" element={<TestPage userData={user} />} />
+          <Route exact path="/test" element={<ComingSoon userData={user} />} />
           <Route exact path="/News" element={<News userData={user} />} />
           <Route
             exact

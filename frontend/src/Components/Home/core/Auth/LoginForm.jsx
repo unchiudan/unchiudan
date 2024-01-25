@@ -81,10 +81,7 @@ function LoginForm() {
   };
 
   const loginwithGoogle = () => {
-    window.open(
-      `${import.meta.env.VITE_BACKEND_URL}/oauth/google/callback`,
-      "_self"
-    );
+    window.open(`${import.meta.env.VITE_BACKEND_URL}/oauth/google/callback`,"_self")
   };
 
   return (

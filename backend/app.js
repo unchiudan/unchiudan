@@ -75,6 +75,9 @@ app.use(
     secret: '45875632155sdfds4545dsfsf5s',
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: true, // Set to true for HTTPS
+    },
   }),
 );
 
@@ -86,7 +89,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/api/oauth/google/callback',
+      callbackURL: 'https://api.unchiudaanclasses.com/api/oauth/google/callback',
       scope: ['profile', 'email'],
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -156,8 +159,6 @@ app.post("/api/logout",async(req,res,next)=>{
   const user = await User.findOne({ email: req.body.email });
   user.googleLogIn = false;
   await user.save();
-  
- 
 })
 app.get("/api/logout",async(req,res,next)=>{
   req.logout(function(err){

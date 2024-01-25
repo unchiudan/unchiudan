@@ -74,11 +74,11 @@ function DevTeam() {
   return (
     <div>
       <Helmet>
-        <title>News / Blog</title>
+        <title>UnchiUdaan - Developers</title>
 
         <meta
           name="description"
-          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
+          content="Developers of UnchiUdaan"
           data-rh="true"
         />
         <meta

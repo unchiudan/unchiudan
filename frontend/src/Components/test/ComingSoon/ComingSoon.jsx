@@ -54,7 +54,7 @@ const ComingSoon = () => {
         <link rel="canonical" href={canonicalUrl} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="" />
+        <meta property="og:title" content="Unchiudan tests" />
         <meta
           property="og:description"
           content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."

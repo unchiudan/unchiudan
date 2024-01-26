@@ -26,7 +26,7 @@ import StudyMaterials from "./Components/Study Materials/StudyMaterials";
 import PrivacyPolicy from "./Components/About/policy";
 import ForgotPassword from "./Components/Home/core/Auth/forgotpassword";
 import ResetPassword from "./Components/Home/core/Auth/resetpassword";
-import { Helmet } from "react-helmet-async";
+
 import axios from "axios";
 import ComingSoon from "./Components/test/ComingSoon/ComingSoon";
 function App() {
@@ -34,7 +34,7 @@ function App() {
   console.log(user)
   
   const [isLoading, setIsLoading] = useState(true);
-  const canonicalUrl = window.location.href;
+  // const canonicalUrl = window.location.href;
 
   const getUser=async()=>{
     try{

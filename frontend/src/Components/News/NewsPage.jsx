@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { SocialMedia } from "../../consstant/socialmedia";
 import PatchNewsForm from "../Home/core/Auth/Admin/PatchNewsForm";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 // Function to decode HTML entities
 function decodeHtmlEntities(html) {

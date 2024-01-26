@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import VideoBg from "./video.mp4";
+import { Helmet } from "react-helmet-async";
 
 const ComingSoon = () => {
   const targetDate = new Date();
   targetDate.setDate(targetDate.getDate() + 20);
-
+  const canonicalUrl = window.location.href;
   const calculateTimeRemaining = () => {
     const now = new Date();
     const difference = targetDate - now;

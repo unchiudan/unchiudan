@@ -13,7 +13,7 @@ import {
 
 import "./quiz.css";
 import { SocialMedia } from "../../consstant/socialmedia";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function BlogsPage({ userData }) {
 

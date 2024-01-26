@@ -1,5 +1,6 @@
 import React from "react";
 import HighlightText from "../core/Homepage/HighlightText";
+import { Helmet } from "react-helmet-async";
 
 import {
   FaGithub,

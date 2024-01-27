@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
+/* eslint-disable react/prop-types */
+
 import TestComp from "./testcomponent";
 import { useEffect, useState } from "react";
 import axios from "axios";

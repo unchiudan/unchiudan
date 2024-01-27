@@ -101,7 +101,7 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
             <div
             //   to={`/test/${test._id}`}
               key={test._id}
-              className="block w-full md:w-[100%] lg:w-[120%] xl:w-[120%] mb-8"
+              className="block w-full md:w-[100%] lg:w-[100%] xl:w-[100%] mb-8"
             >
               <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
                 {role ? (
@@ -146,12 +146,12 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
                   <p className="font-black text-gray-800 md:text-base text-[20px]">
                     End At : <span dangerouslySetInnerHTML={{ __html: decodedEnd }}/>
                   </p>
-                  <a href={extractedLink}  rel="noopener noreferrer">
+                  <Link to="/startTest">
                   <button  className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
                     Start Test
                   </button>
-                
-                  </a>
+                  </Link>
+                 
                   <a href="https://script.google.com/a/~/macros/s/AKfycbzpi1UkF_mbjy3jnytgtAIXxYuiBz8gdjpWF5WaRPzqED1wR7GIBwvgeTuCvuv8Hl6aog/exec"  rel="noopener noreferrer">
                   <button  className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
                     Start Result

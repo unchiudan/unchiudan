@@ -10,6 +10,17 @@
  
 }
 
+.faq-containerss {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgb(250, 133, 0);
+  padding: 20px;
+  position: relative;
+  top: 0px;
+ 
+}
+
 
 .faqh {
   color: #333;

@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LiveTest } from "./LiveTest";
 
-export function StartTest() {
+// eslint-disable-next-line react/prop-types
+export function StartTest({userData}) {
   const [liveTest, setLiveTest] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -31,7 +32,7 @@ export function StartTest() {
   return (
     <>
       {liveTest ? (
-        <LiveTest />
+        <LiveTest userData={userData}/>
       ) : (
         <div className="mx-auto py-24 flex justify-center items-center">
           <div className="w-96 bg-white rounded-lg p-6 shadow-md">
@@ -47,6 +48,7 @@ export function StartTest() {
                 <input
                   id="number"
                   type="text"
+                  required="true"
                   placeholder="Enter your Phone number"
                   className="border border-gray-300 p-2 rounded-md"
                   value={phoneNumber}
@@ -62,6 +64,7 @@ export function StartTest() {
                 </label>
                 <select
                   id="districts"
+                  required="true"
                   className="border border-gray-300 p-2 rounded-md"
                   value={selectedDistrict}
                   onChange={(e) => setSelectedDistrict(e.target.value)}

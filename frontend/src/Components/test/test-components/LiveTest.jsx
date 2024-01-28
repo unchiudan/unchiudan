@@ -2,13 +2,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-export function LiveTest() {
+function addMinutesToCurrentTime(minutes) {
+  const currentTime = Date.now();
+  const futureTime = currentTime + minutes * 60000;
+  return new Date(futureTime);
+}
+
+// eslint-disable-next-line react/prop-types
+export function LiveTest({ userData }) {
+  // console.log(userData.user._id,"😎😎😎😎")
+  const userid = userData.user._id;
+
   const { id } = useParams();
   const [liveTest, setLiveTest] = useState(null);
-  console.log("🚀 ~ LiveTest ~ liveTest:", liveTest);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [feedback, setFeedback] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [patchSent, setPatchSent] = useState(false);
 
   // Load previously stored user input data from local storage when the component mounts
   useEffect(() => {
@@ -24,7 +34,7 @@ export function LiveTest() {
         const response = await axios.get(
           `http://localhost:3000/api/test/${id}`
         );
-        setLiveTest(response.data.data.test); // Assuming response.data is the correct data structure
+        setLiveTest(response.data.data.test);
       } catch (error) {
         console.error("Error fetching test data:", error);
       }
@@ -32,6 +42,37 @@ export function LiveTest() {
 
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    // Check if liveTest state is not null and patch request has not been sent
+    if (liveTest && !patchSent) {
+      // Define the setTimeout function
+      const timer = setTimeout(async () => {
+        try {
+          const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
+          const response = await axios.patch(
+            `http://localhost:3000/api/test/user/${userid}`,
+            {
+              test_id: id,
+              userstart: Date.now(), // Corrected to call Date.now() as a function
+              userstop: userStopTime,
+              isSubmit: false,
+              district: localStorage.getItem("selectedDistrict"),
+              phoneno: localStorage.getItem("phoneNumber"),
+            }
+          );
+          console.log(response.data); // Log the response data if needed
+          setPatchSent(true);
+          // Set patchSent to true after sending the patch request
+        } catch (error) {
+          console.error("Error sending data:", error);
+        }
+      }, 3000); // Set timeout for 3000 milliseconds (3 seconds)
+
+      // Clear the timer if the component unmounts or if liveTest or patchSent change
+      return () => clearTimeout(timer);
+    }
+  }, [liveTest, patchSent, id, userid]);
 
   const handleAnswerChange = (
     questionIndex,
@@ -69,12 +110,40 @@ export function LiveTest() {
       (value) => value === "correct"
     ).length;
     const totalQuestions = liveTest.data.length;
-    return `${correctAnswers}/${totalQuestions}`;
+    const obj = selectedAnswers;
+    const selectedlength = Object.keys(obj).length;
+    // const selectedAnswers = Object.keys(obj).length
+    // console.log("🚀 ~ calculateScore ~ obj:", selectedlength)
+    const notattempt = totalQuestions - selectedlength;
+    
+    const correctmarks =
+      parseFloat(correctAnswers) * parseFloat(liveTest.correctmark);
+    console.log("corectmarks",correctmarks)
+    const negativemarks =
+    (parseFloat(selectedlength) - parseFloat(correctAnswers)) *
+    parseFloat(-liveTest.negativemark);
+    console.log("corectmarks",negativemarks)
+
+    const score = correctmarks + negativemarks;
+    const percentage =
+      (score / (totalQuestions * parseFloat(liveTest.correctmark))) * 100;
+    // return [
+    //   correct: correctAnswers,
+    //   score,
+    //   totalQuestions,
+    //   notattempt,
+    //   negativemarks,
+    //   percentage,
+    // ]; // ******************donot delete this comment ********************
+    return [correctAnswers,score,totalQuestions,notattempt,negativemarks,percentage ]
   };
 
   const handleSubmit = () => {
     setSubmitted(true);
-    localStorage.setItem("userScore", calculateScore());
+    const calculate = calculateScore()
+    localStorage.setItem("userScore", `${calculate.correctAnswers}/${calculate.totalQuestions}`);
+    //send a post request to test result
+    // send a patch request to user 
   };
 
   const handleBackToTest = () => {
@@ -86,6 +155,7 @@ export function LiveTest() {
   return (
     <div className="bg-[#cccccc] ">
       <div className=" py-[5rem] justify-center items-center md:py-[7rem] md:px-[20%] ">
+        <div>timer</div>
         <h1 className="text-xl lg:text-2xl font-bold text-gray-800 mb-4 text-center">
           <span className="flex flex-col items-center justify-center">
             <span className="mb-2">BSSC 2nd इन्टर लेवल test</span>
@@ -99,13 +169,15 @@ export function LiveTest() {
           <span className="text-green-500 font-semibold ">*Note</span>
           <br />{" "}
           <p>
-            You received +{liveTest.correctmark} for each right answer, -{liveTest.negativemark}  for each
-            incorrect response, and 0 for each question that was not attempted.
+            You received +{liveTest.correctmark} for each right answer, -
+            {liveTest.negativemark} for each incorrect response, and 0 for each
+            question that was not attempted.
           </p>{" "}
           <p className="text-center font-semibold mb-[1rem] ">OR</p>
           <p>
-            आपको प्रत्येक सही उत्तर के लिए +{liveTest.correctmark}, प्रत्येक गलत उत्तर के लिए -{liveTest.negativemark} और प्रत्येक उस प्रश्न के लिए 0 प्राप्त होगा जिसका प्रयास
-            नहीं किया गया है।
+            आपको प्रत्येक सही उत्तर के लिए +{liveTest.correctmark}, प्रत्येक गलत
+            उत्तर के लिए -{liveTest.negativemark} और प्रत्येक उस प्रश्न के लिए 0
+            प्राप्त होगा जिसका प्रयास नहीं किया गया है।
           </p>{" "}
         </div>
 

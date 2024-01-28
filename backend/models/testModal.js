@@ -31,7 +31,8 @@ const testSchema = new mongoose.Schema({
   },
   updatedAt: Date,
   correctmarks:{type:Number},
-  negativemarks:{type:Number}
+  negativemarks:{type:Number},
+  testtime:{type:Number}
 });
 
 const Test = mongoose.model('Test', testSchema);

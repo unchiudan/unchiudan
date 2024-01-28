@@ -41,17 +41,21 @@ const userSchema = new mongoose.Schema({
     test_id:{type: mongoose.Schema.ObjectId,
     ref: 'Test',
     required: true},
-    userstart:{type:Date,default:Date.now()},
+    userstart:{type:Date},
     userstop:{type:Date},
+
     submittime:{type:Date},
+    
     score:{type:Number},
     correct:{type:Number},
-    negativemarks:{type:Number},
     notattempt:{type:Number},
-    incorrectmarks:{type:Number},
+    totalQuestions:{type:Number},
+    negativemarks:{type:Number},
     discrict:{type:String},
     phoneno:{type:String},
     percentage:{type:Number},
+    
+    isSubmit:{type:Boolean},
 
   }]
 

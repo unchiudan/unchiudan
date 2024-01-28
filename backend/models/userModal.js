@@ -37,6 +37,24 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  test:[{
+    test_id:{type: mongoose.Schema.ObjectId,
+    ref: 'Test',
+    required: true},
+    userstart:{type:Date,default:Date.now()},
+    userstop:{type:Date},
+    submittime:{type:Date},
+    score:{type:Number},
+    correct:{type:Number},
+    negativemarks:{type:Number},
+    notattempt:{type:Number},
+    incorrectmarks:{type:Number},
+    discrict:{type:String},
+    phoneno:{type:String},
+    percentage:{type:Number},
+
+  }]
+
 });
 
 userSchema.pre('save', async function (next) {

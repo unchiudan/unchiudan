@@ -5,7 +5,7 @@ import { MdOutlineDelete } from "react-icons/md";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 
-function NewsComp({ testsItems, userData, onTestsDelete }) {
+function testComp({ testsItems, userData, onTestsDelete }) {
   let role;
 
   if (userData) {
@@ -94,8 +94,8 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
           const decodedName = decodeHtmlEntities(test.name);
           const decodedStart = decodeHtmlEntities(test.start);
           const decodedEnd = decodeHtmlEntities(test.end);
-          const decodedFormLink = decodeHtmlEntities(test.formlink);
-          const extractedLink = new DOMParser().parseFromString(decodedFormLink, 'text/html').body.textContent;
+          
+         
           
           return (
             <div
@@ -146,18 +146,13 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
                   <p className="font-black text-gray-800 md:text-base text-[20px]">
                     End At : <span dangerouslySetInnerHTML={{ __html: decodedEnd }}/>
                   </p>
-                  <Link to="/startTest">
+                  <Link  to={`/test/${test._id}`}>
                   <button  className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
                     Start Test
                   </button>
                 
                   </Link>
-                  <a href="https://script.google.com/a/~/macros/s/AKfycbzpi1UkF_mbjy3jnytgtAIXxYuiBz8gdjpWF5WaRPzqED1wR7GIBwvgeTuCvuv8Hl6aog/exec"  rel="noopener noreferrer">
-                  <button  className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
-                    Start Result
-                  </button>
-                  </a>
-                   
+                 
                 </div>
               </div>
             </div>
@@ -169,4 +164,4 @@ function NewsComp({ testsItems, userData, onTestsDelete }) {
   );
 }
 
-export default NewsComp;
+export default testComp;

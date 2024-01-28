@@ -104,6 +104,7 @@ exports.getAllTests = catchAsync(async (req, res, next) => {
   
 
   exports.getTests = catchAsync(async (req, res, next) => {
+    console.log(req,"😀😀😀😀😀")
     const test = await Test.findById(req.params.id);
     if (!test) {
       return next(new AppError('No news found with that ID', 404));

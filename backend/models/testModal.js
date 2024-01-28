@@ -1,23 +1,37 @@
+const { time } = require('console');
 const mongoose = require('mongoose');
 
 const testSchema = new mongoose.Schema({
-  category: {
-    type: String,
-    enum: ['BiharDaroga', 'BPSC', 'Railway', 'UPSC', 'SSC', 'others'],
-  },
+
   name: { type: String, required: true },
-  start: { type: String, required: true, default: 'now' },
-  end: { type: String, required: true, default: 'now' },
+  mainstart: { type: String, required: true },
+  mainend: { type: String, required: true },
   photo: {
     type: String,
     default: 'uchiudan.png',
   },
-  formlink:{type:String,required:true},
+  data: [
+    {
+      ques: String,
+      options: [
+        {
+          type: String,
+          trim: true,
+        },
+      ],
+      ans: {
+        type: String,
+        trim: true,
+      },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
   },
   updatedAt: Date,
+  correctmarks:{type:Number},
+  negativemarks:{type:Number}
 });
 
 const Test = mongoose.model('Test', testSchema);

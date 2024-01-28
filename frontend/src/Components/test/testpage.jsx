@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
+// eslint-disable-next-line react/prop-types
 function TestPage({ userData }) {
   const [tests, setTests] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
+
 
   const handleTestsDelete = () => {
     fetchData(currentPage); // Trigger a re-fetch of data after deletion

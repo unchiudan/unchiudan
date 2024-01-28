@@ -139,7 +139,7 @@ function App() {
             element={<BlogsPage userData={user} />}
           />
           <Route exact path="/test" element={<TestPage userData={user} />} />
-          <Route exact path="/startTest" element={<StartTest userData={user} />} />
+          <Route exact path="/test/:id" element={<StartTest userData={user} />} />
           <Route exact path="/liveTest" element={<LiveTest userData={user} />} />
           <Route exact path="/News" element={<News userData={user} />} />
           <Route

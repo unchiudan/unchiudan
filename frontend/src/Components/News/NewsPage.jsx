@@ -9,6 +9,12 @@ import { SocialMedia } from "../../consstant/socialmedia";
 import PatchNewsForm from "../Home/core/Auth/Admin/PatchNewsForm";
 import { Helmet } from "react-helmet-async";
 
+
+const decodeHtmlEntity = (html) => {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = html;
+  return textarea.value;
+};
 // Function to decode HTML entities
 function decodeHtmlEntities(html) {
   var txt = document.createElement("textarea");
@@ -98,8 +104,8 @@ function NewsPage({ userData }) {
       </Helmet>
       <Link to="">
         <NewsContent
-          heading={decodeHtmlEntities(news.heading)}
-          article={decodeHtmlEntities(news.article)}
+          heading={decodeHtmlEntity(news.heading)}
+          article={decodeHtmlEntity(news.article)}
           photo={news.photo}
         />
       </Link>

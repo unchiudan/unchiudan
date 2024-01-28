@@ -29,6 +29,8 @@ import ResetPassword from "./Components/Home/core/Auth/resetpassword";
 
 import axios from "axios";
 import ComingSoon from "./Components/test/ComingSoon/ComingSoon";
+import { StartTest } from "./Components/test/test-components/StartTest";
+import { LiveTest } from "./Components/test/test-components/LiveTest";
 function App() {
   const [user, setUser] = useState(null);
   console.log(user)
@@ -136,7 +138,9 @@ function App() {
             path="/currentaffairs/:id"
             element={<BlogsPage userData={user} />}
           />
-          <Route exact path="/test" element={<ComingSoon userData={user} />} />
+          <Route exact path="/test" element={<TestPage userData={user} />} />
+          <Route exact path="/startTest" element={<StartTest userData={user} />} />
+          <Route exact path="/liveTest" element={<LiveTest userData={user} />} />
           <Route exact path="/News" element={<News userData={user} />} />
           <Route
             exact

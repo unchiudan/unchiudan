@@ -43,13 +43,13 @@ const userSchema = new mongoose.Schema({
     required: true},
     userstart:{type:Date},
     userstop:{type:Date},
-
-    submittime:{type:Date},
-    
+    submittime:{type:Number},
     score:{type:Number},
     correct:{type:Number},
     notattempt:{type:Number},
     totalQuestions:{type:Number},
+
+
     negativemarks:{type:Number},
     discrict:{type:String},
     phoneno:{type:String},

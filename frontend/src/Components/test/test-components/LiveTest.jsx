@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function addMinutesToCurrentTime(minutes) {
   const currentTime = Date.now();
@@ -19,6 +19,7 @@ export function LiveTest({ userData }) {
   const [feedback, setFeedback] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [patchSent, setPatchSent] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(null);
 
   // Load previously stored user input data from local storage when the component mounts
   useEffect(() => {
@@ -35,6 +36,11 @@ export function LiveTest({ userData }) {
           `http://localhost:3000/api/test/${id}`
         );
         setLiveTest(response.data.data.test);
+        if (!localStorage.getItem("TotalTime")) {
+          localStorage.setItem("TotalTime", response.data.data.test.testtime * 60);
+          setRemainingTime(response.data.data.test.testtime * 60);
+      }
+        // setRemainingTime(response.data.data.test.testtime * 60);
       } catch (error) {
         console.error("Error fetching test data:", error);
       }
@@ -73,6 +79,40 @@ export function LiveTest({ userData }) {
       return () => clearTimeout(timer);
     }
   }, [liveTest, patchSent, id, userid]);
+
+  useEffect(() => {
+    let timer;
+    // console.log("timer runs 😀😀😀")
+    // Initialize remainingTime from local storage if available
+    const storedRemainingTime = localStorage.getItem("remainingTime");
+    if (storedRemainingTime !== null) {
+        setRemainingTime(parseInt(storedRemainingTime));
+    }
+
+    if (remainingTime !== null && remainingTime > 0) {
+        timer = setInterval(() => {
+            setRemainingTime((prevTime) => {
+                // Save the remaining time to local storage every second
+                localStorage.setItem("remainingTime", (prevTime - 1).toString());
+                return prevTime - 1;
+            });
+        }, 1000);
+    }
+
+    return () => {
+        clearInterval(timer);
+    };
+
+}, [liveTest]); // Empty dependency array to run only on mount
+
+
+  // Function to format time in minutes:seconds
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
 
   const handleAnswerChange = (
     questionIndex,
@@ -118,11 +158,11 @@ export function LiveTest({ userData }) {
     
     const correctmarks =
       parseFloat(correctAnswers) * parseFloat(liveTest.correctmark);
-    console.log("corectmarks",correctmarks)
+    // console.log("corectmarks",correctmarks)
     const negativemarks =
     (parseFloat(selectedlength) - parseFloat(correctAnswers)) *
     parseFloat(-liveTest.negativemark);
-    console.log("corectmarks",negativemarks)
+    // console.log("corectmarks",negativemarks)
 
     const score = correctmarks + negativemarks;
     const percentage =
@@ -138,13 +178,39 @@ export function LiveTest({ userData }) {
     return [correctAnswers,score,totalQuestions,notattempt,negativemarks,percentage ]
   };
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    const calculate = calculateScore()
-    localStorage.setItem("userScore", `${calculate.correctAnswers}/${calculate.totalQuestions}`);
-    //send a post request to test result
+  const handleSubmit = async () => {
+    const calculate = calculateScore();
+    localStorage.setItem("userScore", `${calculate[0]}/${calculate[2]}`);
+    const totaltime = parseInt(localStorage.getItem("TotalTime"));
+    const remainingTime = parseInt(localStorage.getItem("remainingTime"));
+    const submittime = totaltime - remainingTime;
+    
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/test/user/${userid}`,
+        {
+          test_id: id,
+          isSubmit: true,
+          submittime: submittime,
+          score: calculate[1],
+          correct: calculate[0],
+          notattempt: calculate[3],
+          totalQuestions: calculate[2],
+          negativemarks: calculate[4],
+          percentage: calculate[5]
+        }
+        );
+        setSubmitted(true);
+
+        console.log(response.data);
+    } catch (error) {
+        console.error("Error submitting test result:", error);
+    }
+
+    console.log(submittime, "😀😀😀");
     // send a patch request to user 
-  };
+};
+
 
   const handleBackToTest = () => {
     // Implement navigation back to the test page if needed
@@ -153,9 +219,9 @@ export function LiveTest({ userData }) {
   if (!liveTest) return <div>Loading...</div>;
 
   return (
-    <div className="bg-[#cccccc] ">
-      <div className=" py-[5rem] justify-center items-center md:py-[7rem] md:px-[20%] ">
-        <div>timer</div>
+    <div className="bg-[#cccccc]  py-[5rem]  md:py-[7rem] px-[2rem]">
+      <h1 className="border p-2rem rounded-xl border-[3px] px-[10px] w-[150px] text-center h-[30px] bg-blue-300 font-semibold fixed ">Timer: {formatTime(remainingTime)}</h1>
+      <div className=" justify-center items-center md:px-[20%] ">
         <h1 className="text-xl lg:text-2xl font-bold text-gray-800 mb-4 text-center">
           <span className="flex flex-col items-center justify-center">
             <span className="mb-2">BSSC 2nd इन्टर लेवल test</span>
@@ -257,13 +323,15 @@ export function LiveTest({ userData }) {
 
         {submitted && (
           <div className="text-center mt-4">
-            Your Score: {calculateScore()}
+            Your correctAnswers: {`${calculateScore()[0]}/${calculateScore()[2]}`}
+            <Link to="/test">
             <button
               className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
               onClick={handleBackToTest}
             >
               Back to Test
             </button>
+            </Link>
           </div>
         )}
       </div>

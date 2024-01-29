@@ -19,7 +19,7 @@ export function StartTest({userData}) {
       setSelectedDistrict(storedSelectedDistrict);
     }
   }, []);
-
+  
   const handleStartTest = () => {
     // Save phone number and district to local storage
     localStorage.setItem("phoneNumber", phoneNumber);

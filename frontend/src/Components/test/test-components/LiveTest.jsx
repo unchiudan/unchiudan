@@ -254,6 +254,23 @@ export function LiveTest({ userData }) {
     
   }, [remainingTime, liveTest, handleSubmit]);
 
+  useEffect(() => {
+    
+    const interval = setInterval(() => {
+      console.log("running")
+      // Check the condition Date.now() >= test.testtime
+      if (Date.now() >= liveTest.mainend) {
+        // Perform your desired action when the condition is met
+        console.log('The condition is met.');
+        handleSubmit();
+      }
+    }, 900); // Run every minute (60000 milliseconds)
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  
+  }, [handleSubmit, liveTest]); 
+
 
   const handleBackToTest = () => {
     // Implement navigation back to the test page if needed

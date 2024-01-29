@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LiveTest } from "./LiveTest";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 // eslint-disable-next-line react/prop-types
 export function StartTest({ userData }) {
   const [liveTest, setLiveTest] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
-  const { id } = useParams();
   const [allow, setAllow] = useState(false);
-  const[newData,setnewData]=useState(null)
+  const { id } = useParams();
 
   // Retrieve data from local storage when the component mounts
   useEffect(() => {
@@ -24,15 +23,14 @@ export function StartTest({ userData }) {
       setSelectedDistrict(storedSelectedDistrict);
     }
   }, []);
-  const handleStartTest = async () => {
-    // const id = userData.user._id;
-    let existingTest = "";
-    // const xyz =true
-    // console.log(userData.user.googleLogIn)
-    if (!userData.user.googleLogIn) {
-      const token = localStorage.getItem("jwt_token");
 
-      try {
+  const handleStartTest = async () => {
+    const userid = userData.user._id;
+    let existingTest = [];
+  
+    try {
+      if (!userData.user.googleLogIn) {
+        const token = localStorage.getItem("jwt_token");
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/user/authenticated`,
           {
@@ -43,47 +41,39 @@ export function StartTest({ userData }) {
             },
           }
         );
-
+  
         if (response.ok) {
           const userData = await response.json();
-          setnewData(userData)
-          existingTest = userData.user.test;
+          existingTest = userData.user.test || [];
         } else {
           console.error("Error checking authentication:", response.statusText);
         }
-      } catch (error) {
-        console.error("Error checking authentication:", error);
+      } else {
+        const response = await axios.get(`http://localhost:3000/api/user/${userid}`);
+        if (response.data.data.user && response.data.data.user.test) {
+          existingTest = response.data.data.user.test;
+        }
       }
-    } else {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/login/success`,
-          { withCredentials: true }
-        );
-
-        console.log("response", response.data);
-        existingTest = response.data.user.test;
-      } catch (error) {
-        console.log("error", error);
+  
+      // Check if the user has already submitted the test
+      const access = existingTest.some((item) => {
+        return item.test_id.toString() === id && item.isSubmit === true;
+      });
+      console.log("🚀 ~ access ~ access:", access)
+  
+      if (!access) {
+        localStorage.setItem("phoneNumber", phoneNumber);
+        localStorage.setItem("selectedDistrict", selectedDistrict);
+        // Set liveTest state to true to start the test
+        setLiveTest(true);
+      } else {
+        setAllow(true);
       }
-    }
-
-    // Check if the user has already submitted the test
-    const access = existingTest.some((item) => {
-      return item.test_id.toString() === id && item.isSubmit === true;
-    });
-
-    if (!access) {
-      localStorage.setItem("phoneNumber", phoneNumber);
-      localStorage.setItem("selectedDistrict", selectedDistrict);
-
-      // Set liveTest state to true to start the test
-      setLiveTest(true);
-    } else {
-      setAllow(true);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
     }
   };
-
+  
   return (
     <>
       {allow ? (
@@ -94,7 +84,7 @@ export function StartTest({ userData }) {
       ) : (
         <>
           {liveTest ? (
-            <LiveTest userData={newData} />
+            <LiveTest userData={userData} />
           ) : (
             <div className="mx-auto py-24 flex justify-center items-center">
               <div className="w-96 bg-white rounded-lg p-6 shadow-md">

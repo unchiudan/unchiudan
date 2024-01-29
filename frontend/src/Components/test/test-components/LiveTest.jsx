@@ -37,12 +37,9 @@ export function LiveTest({ userData }) {
         );
         setLiveTest(response.data.data.test);
         if (!localStorage.getItem("TotalTime")) {
-          localStorage.setItem(
-            "TotalTime",
-            response.data.data.test.testtime * 60
-          );
+          localStorage.setItem("TotalTime", response.data.data.test.testtime * 60);
           setRemainingTime(response.data.data.test.testtime * 60);
-        }
+      }
         // setRemainingTime(response.data.data.test.testtime * 60);
       } catch (error) {
         console.error("Error fetching test data:", error);
@@ -54,38 +51,32 @@ export function LiveTest({ userData }) {
 
   useEffect(() => {
     // Check if liveTest state is not null and patch request has not been sent
-    const existingTest = userData.user.test;
-    const access = existingTest.some((item) => {
-      return item.test_id.toString() === id;
-    });
-    if (!access) {
-      if (liveTest && !patchSent) {
-        // Define the setTimeout function
-        const timer = setTimeout(async () => {
-          try {
-            const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
-            const response = await axios.patch(
-              `http://localhost:3000/api/test/user/${userid}`,
-              {
-                test_id: id,
-                userstart: Date.now(), // Corrected to call Date.now() as a function
-                userstop: userStopTime,
-                isSubmit: false,
-                district: localStorage.getItem("selectedDistrict"),
-                phoneno: localStorage.getItem("phoneNumber"),
-              }
-            );
-            console.log(response.data); // Log the response data if needed
-            setPatchSent(true);
-            // Set patchSent to true after sending the patch request
-          } catch (error) {
-            console.error("Error sending data:", error);
-          }
-        }, 3000); // Set timeout for 3000 milliseconds (3 seconds)
+    if (liveTest && !patchSent) {
+      // Define the setTimeout function
+      const timer = setTimeout(async () => {
+        try {
+          const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
+          const response = await axios.patch(
+            `http://localhost:3000/api/test/user/${userid}`,
+            {
+              test_id: id,
+              userstart: Date.now(), // Corrected to call Date.now() as a function
+              userstop: userStopTime,
+              isSubmit: false,
+              district: localStorage.getItem("selectedDistrict"),
+              phoneno: localStorage.getItem("phoneNumber"),
+            }
+          );
+          console.log(response.data); // Log the response data if needed
+          setPatchSent(true);
+          // Set patchSent to true after sending the patch request
+        } catch (error) {
+          console.error("Error sending data:", error);
+        }
+      }, 3000); // Set timeout for 3000 milliseconds (3 seconds)
 
-        // Clear the timer if the component unmounts or if liveTest or patchSent change
-        return () => clearTimeout(timer);
-      }
+      // Clear the timer if the component unmounts or if liveTest or patchSent change
+      return () => clearTimeout(timer);
     }
   }, [liveTest, patchSent, id, userid]);
 
@@ -95,30 +86,33 @@ export function LiveTest({ userData }) {
     // Initialize remainingTime from local storage if available
     const storedRemainingTime = localStorage.getItem("remainingTime");
     if (storedRemainingTime !== null) {
-      setRemainingTime(parseInt(storedRemainingTime));
+        setRemainingTime(parseInt(storedRemainingTime));
     }
 
     if (remainingTime !== null && remainingTime > 0) {
-      timer = setInterval(() => {
-        setRemainingTime((prevTime) => {
-          // Save the remaining time to local storage every second
-          localStorage.setItem("remainingTime", (prevTime - 1).toString());
-          return prevTime - 1;
-        });
-      }, 1000);
+        timer = setInterval(() => {
+            setRemainingTime((prevTime) => {
+                // Save the remaining time to local storage every second
+                localStorage.setItem("remainingTime", (prevTime - 1).toString());
+                return prevTime - 1;
+            });
+        }, 1000);
     }
 
     return () => {
-      clearInterval(timer);
+        clearInterval(timer);
     };
-  }, [liveTest]); // Empty dependency array to run only on mount
+
+}, [liveTest]); // Empty dependency array to run only on mount
+
 
   // Function to format time in minutes:seconds
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
+
 
   const handleAnswerChange = (
     questionIndex,
@@ -161,13 +155,13 @@ export function LiveTest({ userData }) {
     // const selectedAnswers = Object.keys(obj).length
     // console.log("🚀 ~ calculateScore ~ obj:", selectedlength)
     const notattempt = totalQuestions - selectedlength;
-
+    
     const correctmarks =
       parseFloat(correctAnswers) * parseFloat(liveTest.correctmark);
     // console.log("corectmarks",correctmarks)
     const negativemarks =
-      (parseFloat(selectedlength) - parseFloat(correctAnswers)) *
-      parseFloat(-liveTest.negativemark);
+    (parseFloat(selectedlength) - parseFloat(correctAnswers)) *
+    parseFloat(-liveTest.negativemark);
     // console.log("corectmarks",negativemarks)
 
     const score = correctmarks + negativemarks;
@@ -181,14 +175,7 @@ export function LiveTest({ userData }) {
     //   negativemarks,
     //   percentage,
     // ]; // ******************donot delete this comment ********************
-    return [
-      correctAnswers,
-      score,
-      totalQuestions,
-      notattempt,
-      negativemarks,
-      percentage,
-    ];
+    return [correctAnswers,score,totalQuestions,notattempt,negativemarks,percentage ]
   };
 
   const handleSubmit = async () => {
@@ -197,7 +184,7 @@ export function LiveTest({ userData }) {
     const totaltime = parseInt(localStorage.getItem("TotalTime"));
     const remainingTime = parseInt(localStorage.getItem("remainingTime"));
     const submittime = totaltime - remainingTime;
-
+    
     try {
       const response = await axios.patch(
         `http://localhost:3000/api/test/user/${userid}`,
@@ -210,18 +197,20 @@ export function LiveTest({ userData }) {
           notattempt: calculate[3],
           totalQuestions: calculate[2],
           negativemarks: calculate[4],
-          percentage: calculate[5],
+          percentage: calculate[5]
         }
-      );
-      setSubmitted(true);
-      console.log(response.data);
+        );
+        setSubmitted(true);
+
+        console.log(response.data);
     } catch (error) {
-      console.error("Error submitting test result:", error);
+        console.error("Error submitting test result:", error);
     }
 
     console.log(submittime, "😀😀😀");
-    // send a patch request to user
-  };
+    // send a patch request to user 
+};
+
 
   const handleBackToTest = () => {
     // Implement navigation back to the test page if needed
@@ -231,9 +220,7 @@ export function LiveTest({ userData }) {
 
   return (
     <div className="bg-[#cccccc]  py-[5rem]  md:py-[7rem] px-[2rem]">
-      <h1 className="border p-2rem rounded-xl border-[3px] px-[10px] w-[150px] text-center h-[30px] bg-blue-300 font-semibold fixed ">
-        Timer: {formatTime(remainingTime)}
-      </h1>
+      <h1 className="border p-2rem rounded-xl border-[3px] px-[10px] w-[150px] text-center h-[30px] bg-blue-300 font-semibold fixed ">Timer: {formatTime(remainingTime)}</h1>
       <div className=" justify-center items-center md:px-[20%] ">
         <h1 className="text-xl lg:text-2xl font-bold text-gray-800 mb-4 text-center">
           <span className="flex flex-col items-center justify-center">
@@ -336,15 +323,14 @@ export function LiveTest({ userData }) {
 
         {submitted && (
           <div className="text-center mt-4">
-            Your correctAnswers:{" "}
-            {`${calculateScore()[0]}/${calculateScore()[2]}`}
+            Your correctAnswers: {`${calculateScore()[0]}/${calculateScore()[2]}`}
             <Link to="/test">
-              <button
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                onClick={handleBackToTest}
-              >
-                Back to Test
-              </button>
+            <button
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              onClick={handleBackToTest}
+            >
+              Back to Test
+            </button>
             </Link>
           </div>
         )}

@@ -36,5 +36,5 @@ router
     authController.restrictTo('admin'),
     userController.deleteUser,
   );
-router.get("/:id",authController.authenticateCors,userController.getMe)
+router.get("/:id" ,userController.getMe)
 module.exports = router;

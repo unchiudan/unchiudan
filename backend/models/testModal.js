@@ -5,7 +5,7 @@ const testSchema = new mongoose.Schema({
 
   name: { type: String, required: true },
   mainstart: { type: String, required: true },
-  mainend: { type: String, required: true },
+  mainend: { type: Number, required: true },
   photo: {
     type: String,
     default: 'uchiudan.png',

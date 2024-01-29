@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
 function addMinutesToCurrentTime(minutes) {
   const currentTime = Date.now();
   const futureTime = currentTime + minutes * 60000;
-  return new Date(futureTime);
+  return futureTime;
 }
+
+
 
 // eslint-disable-next-line react/prop-types
 export function LiveTest({ userData }) {
@@ -20,6 +22,9 @@ export function LiveTest({ userData }) {
   const [submitted, setSubmitted] = useState(false);
   const [patchSent, setPatchSent] = useState(false);
   const [remainingTime, setRemainingTime] = useState(null);
+  // const [mainend,setMainEnd]=useState(null)
+  // const [userstop,setUserStop]=useState(null)
+
 
   // Load previously stored user input data from local storage when the component mounts
   useEffect(() => {
@@ -28,7 +33,7 @@ export function LiveTest({ userData }) {
       setSelectedAnswers(JSON.parse(storedInputData));
     }
   }, []);
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,6 +61,7 @@ export function LiveTest({ userData }) {
       const timer = setTimeout(async () => {
         try {
           const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
+          
           const response = await axios.patch(
             `http://localhost:3000/api/test/user/${userid}`,
             {
@@ -105,6 +111,7 @@ export function LiveTest({ userData }) {
 
 }, [liveTest]); // Empty dependency array to run only on mount
 
+ 
 
   // Function to format time in minutes:seconds
   const formatTime = (timeInSeconds) => {
@@ -112,6 +119,7 @@ export function LiveTest({ userData }) {
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
+
 
 
   const handleAnswerChange = (
@@ -178,7 +186,7 @@ export function LiveTest({ userData }) {
     return [correctAnswers,score,totalQuestions,notattempt,negativemarks,percentage ]
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     const calculate = calculateScore();
     localStorage.setItem("userScore", `${calculate[0]}/${calculate[2]}`);
     const totaltime = parseInt(localStorage.getItem("TotalTime"));
@@ -207,9 +215,44 @@ export function LiveTest({ userData }) {
         console.error("Error submitting test result:", error);
     }
 
-    console.log(submittime, "😀😀😀");
+    // console.log(submittime, "😀😀😀");
     // send a patch request to user 
-};
+});
+
+
+//     useEffect(()=>{
+//       if(liveTest){
+//         const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
+        
+
+//         console.log("🚀 ~ useEffect ~ userstop:", userStopTime)
+//         setUserStop(userStopTime)
+//     }
+  
+//   },[liveTest])
+
+  
+//   useEffect(()=>{
+//     if(liveTest){
+ 
+//       console.log("🚀 ~ useEffect ~ mainend:", liveTest.mainend)
+      
+//       setMainEnd(liveTest.mainend)
+//   }
+
+// },[liveTest])
+
+
+  useEffect(() => {
+    if(liveTest){
+      if ( remainingTime === 0) {
+        console.log("entered")
+        handleSubmit();
+      }
+      
+    }
+    
+  }, [remainingTime, liveTest, handleSubmit]);
 
 
   const handleBackToTest = () => {
@@ -217,6 +260,9 @@ export function LiveTest({ userData }) {
   };
 
   if (!liveTest) return <div>Loading...</div>;
+
+
+ 
 
   return (
     <div className="bg-[#cccccc]  py-[5rem]  md:py-[7rem] px-[2rem]">

@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     ref: 'Test',
     required: true},
     userstart:{type:Date},
-    userstop:{type:Date},
+    userstop:{type:Number},
     submittime:{type:Number},
     score:{type:Number},
     correct:{type:Number},

@@ -13,6 +13,24 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getMe = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  console.log("🚀 ~ exports.getMe=catchAsync ~ user:", user)
+  
+  if (!user) {
+    return next(new AppError('No news found with that ID', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user,
+    },
+  });
+});
+
+
+
+
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndRemove(req.user.id);
   res.status(204).json({ status: 'success', data: null });

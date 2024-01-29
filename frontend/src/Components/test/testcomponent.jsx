@@ -1,11 +1,12 @@
-/* eslint-disable react/prop-types */
-
 import { Link } from "react-router-dom";
 import { MdOutlineDelete } from "react-icons/md";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
+import { useState } from "react";
 
 function testComp({ testsItems, userData, onTestsDelete }) {
+  const [block, setBlock] = useState(false);
+
   let role;
 
   if (userData) {
@@ -71,19 +72,13 @@ function testComp({ testsItems, userData, onTestsDelete }) {
     return textarea.value;
   };
 
-
   return (
     <div className="flex flex-col items-center justify-center">
       {testsItems.length === 0 ? (
-        
-          <p className="text-center text-gray-500">No news items available.</p>
-       
+        <p className="text-center text-gray-500">No news items available.</p>
       ) : (
         testsItems.map((test) => {
           const createdAt = new Date(test.createdAt);
-          {
-            /* createdAt.setDate(createdAt.getDate() + 1); */
-          }
           const formattedDate = createdAt.toLocaleString("default", {
             day: "numeric",
             month: "long",
@@ -94,12 +89,9 @@ function testComp({ testsItems, userData, onTestsDelete }) {
           const decodedName = decodeHtmlEntities(test.name);
           const decodedStart = decodeHtmlEntities(test.start);
           const decodedEnd = decodeHtmlEntities(test.end);
-          
-         
-          
+
           return (
             <div
-            //   to={`/test/${test._id}`}
               key={test._id}
               className="block w-full md:w-[100%] lg:w-[120%] xl:w-[120%] mb-8"
             >
@@ -138,21 +130,25 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                   <h3
                     className="font-black text-gray-800 md:text-2xl text-xl "
                     dangerouslySetInnerHTML={{ __html: decodedName }}
-                    
                   />
                   <p className="font-black text-gray-800 md:text-base text-[20px]">
-                    Start At <span dangerouslySetInnerHTML={{ __html: decodedStart }}/>
+                    Start At{" "}
+                    <span dangerouslySetInnerHTML={{ __html: decodedStart }} />
                   </p>
                   <p className="font-black text-gray-800 md:text-base text-[20px]">
-                    End At : <span dangerouslySetInnerHTML={{ __html: decodedEnd }}/>
+                    End At :{" "}
+                    <span dangerouslySetInnerHTML={{ __html: decodedEnd }} />
                   </p>
-                  <Link  to={`/test/${test._id}`}>
-                  <button  className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
-                    Start Test
-                  </button>
-                
+                  <Link to={`/test/${test._id}`}>
+                    <button
+                      disabled={block || Date.now() >= test.mainend}
+                      className={`mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl }`}
+                    >
+                      {block || Date.now() >= test.mainend
+                        ? "Test Ended"
+                        : "Start Test"}
+                    </button>
                   </Link>
-                 
                 </div>
               </div>
             </div>

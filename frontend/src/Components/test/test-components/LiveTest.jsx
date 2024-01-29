@@ -23,7 +23,7 @@ export function LiveTest({ userData }) {
   const [patchSent, setPatchSent] = useState(false);
   const [remainingTime, setRemainingTime] = useState(null);
   // const [mainend,setMainEnd]=useState(null)
-  // const [userstop,setUserStop]=useState(null)
+  const [userstop,setUserStop]=useState(null)
 
 
   // Load previously stored user input data from local storage when the component mounts
@@ -56,6 +56,11 @@ export function LiveTest({ userData }) {
 
   useEffect(() => {
     // Check if liveTest state is not null and patch request has not been sent
+    const existingTest = userData.user.test;
+    const access = existingTest.some((item) => {
+      return item.test_id.toString() === id;
+    });
+    if (!access) {
     if (liveTest && !patchSent) {
       // Define the setTimeout function
       const timer = setTimeout(async () => {
@@ -84,6 +89,7 @@ export function LiveTest({ userData }) {
       // Clear the timer if the component unmounts or if liveTest or patchSent change
       return () => clearTimeout(timer);
     }
+  }
   }, [liveTest, patchSent, id, userid]);
 
   useEffect(() => {
@@ -220,16 +226,16 @@ export function LiveTest({ userData }) {
 });
 
 
-//     useEffect(()=>{
-//       if(liveTest){
-//         const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
+  //   useEffect(()=>{
+  //     if(liveTest){
+  //       const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
         
 
-//         console.log("🚀 ~ useEffect ~ userstop:", userStopTime)
-//         setUserStop(userStopTime)
-//     }
+  //       console.log("🚀 ~ useEffect ~ userstop:", userStopTime)
+  //       setUserStop(userStopTime)
+  //   }
   
-//   },[liveTest])
+  // },[liveTest])
 
   
 //   useEffect(()=>{
@@ -259,7 +265,7 @@ export function LiveTest({ userData }) {
     const interval = setInterval(() => {
       console.log("running")
       // Check the condition Date.now() >= test.testtime
-      if (Date.now() >= liveTest.mainend) {
+      if (Date.now() >= liveTest.mainend  ) {
         // Perform your desired action when the condition is met
         console.log('The condition is met.');
         handleSubmit();

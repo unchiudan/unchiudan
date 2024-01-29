@@ -11,6 +11,7 @@ export function StartTest({ userData }) {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [allow, setAllow] = useState(false);
   const { id } = useParams();
+  const [newdata,setNewData]=useState(null)
 
   // Retrieve data from local storage when the component mounts
   useEffect(() => {
@@ -45,12 +46,16 @@ export function StartTest({ userData }) {
         if (response.ok) {
           const userData = await response.json();
           existingTest = userData.user.test || [];
+          setNewData(userData)
+          
         } else {
           console.error("Error checking authentication:", response.statusText);
         }
       } else {
         const response = await axios.get(`http://localhost:3000/api/user/${userid}`);
         if (response.data.data.user && response.data.data.user.test) {
+          const userData = response.data.data
+          setNewData(userData)
           existingTest = response.data.data.user.test;
         }
       }
@@ -84,7 +89,7 @@ export function StartTest({ userData }) {
       ) : (
         <>
           {liveTest ? (
-            <LiveTest userData={userData} />
+            <LiveTest userData={newdata} />
           ) : (
             <div className="mx-auto py-24 flex justify-center items-center">
               <div className="w-96 bg-white rounded-lg p-6 shadow-md">

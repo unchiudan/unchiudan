@@ -257,10 +257,16 @@ useEffect(() => {
       if (response.data.data.user && response.data.data.user.test) {
         const userData = response.data.data;
         console.log("new user data", userData);
+
         const currenttest = userData.user.test.find((item) => item.test_id === id);
         console.log("🚀 ~ currenttest ~ currenttest:", currenttest)
         
         setNewUserData(currenttest);
+        if (currenttest.userstop > Date.now()) {
+         const remainingTimeInSeconds = Math.floor((currenttest.userstop - Date.now()) / 1000);
+         localStorage.setItem('remainingTime', remainingTimeInSeconds);
+         setRemainingTime(remainingTimeInSeconds)
+       }
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -278,7 +284,7 @@ useEffect(() => {
     // Check the condition Date.now() >= newUserData.userstop
     if (newuserData && Date.now() >= newuserData.userstop) {
       // Perform your desired action when the condition is met
-      console.log('The condition is met.');
+      console.log('The user stop condition is met.');
       handleSubmit();
     }
   }, 900); // Run every 900ms to check the condition

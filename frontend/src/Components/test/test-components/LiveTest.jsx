@@ -23,9 +23,10 @@ export function LiveTest({ userData }) {
   const [patchSent, setPatchSent] = useState(false);
   const [remainingTime, setRemainingTime] = useState(null);
   // const [mainend,setMainEnd]=useState(null)
-  const [userstop,setUserStop]=useState(null)
+  // const [userstop,setUserStop]=useState(null)
   const [newuserData, setNewUserData]=useState(null)
   const [isConditionMet, setIsConditionMet] = useState(false);
+  const [storeddata,setStoredData]= useState(null)
 
 
   // Load previously stored user input data from local storage when the component mounts
@@ -234,10 +235,12 @@ export function LiveTest({ userData }) {
           isSubmit: true
         }
         )
+        setStoredData(calculate)
         setSubmitted(true);
-
+        
         console.log(response.data);
         console.log(response2.data);
+        console.log(calculate,"calculate");
     } catch (error) {
         console.error("Error submitting test result:", error);
     }
@@ -461,7 +464,12 @@ useEffect(() => {
 
         {submitted && (
           <div className="text-center mt-4">
-            Your correctAnswers: {`${calculateScore()[0]}/${calculateScore()[2]}`}
+            <p>correct answers: {`${storeddata[0]}/${storeddata[2]}`} </p>
+            <p> unattempted: {`${storeddata[3]}`} </p>
+            <p>Wrong answers: {`${storeddata[2] - storeddata[0] - storeddata[3]}`}</p>
+            <p> Score: {`${storeddata[1]}`} </p>
+            <br/>
+            <p className="font-semibold">Check your rank after result declared. </p>
             <Link to="/test">
             <button
               className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"

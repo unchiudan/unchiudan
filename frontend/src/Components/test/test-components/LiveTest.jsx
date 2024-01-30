@@ -25,6 +25,7 @@ export function LiveTest({ userData }) {
   // const [mainend,setMainEnd]=useState(null)
   const [userstop,setUserStop]=useState(null)
   const [newuserData, setNewUserData]=useState(null)
+  const [isConditionMet, setIsConditionMet] = useState(false);
 
 
   // Load previously stored user input data from local storage when the component mounts
@@ -215,9 +216,28 @@ export function LiveTest({ userData }) {
           percentage: calculate[5]
         }
         );
+        const username = `${userData.user.firstname} ${userData.user.lastname}`
+        const useremail = userData.user.email
+        const response2 =await axios.patch(`http://localhost:3000/api/test/submit/${id}`,{
+          userid:userid,
+          username:username,
+          useremail,
+          userphone:localStorage.getItem("phoneNumber"),
+          correct: calculate[0],
+          submittime: submittime,
+          score: calculate[1],
+          notattempt: calculate[3],
+          totalQuestions: calculate[2],
+          negativemarks: calculate[4],
+          district: localStorage.getItem("selectedDistrict"),
+          percentage: calculate[5],
+          isSubmit: true
+        }
+        )
         setSubmitted(true);
 
         console.log(response.data);
+        console.log(response2.data);
     } catch (error) {
         console.error("Error submitting test result:", error);
     }
@@ -282,36 +302,39 @@ useEffect(() => {
   const interval = setInterval(() => {
     console.log("running");
     // Check the condition Date.now() >= newUserData.userstop
-    if (newuserData && Date.now() >= newuserData.userstop) {
+    if (!isConditionMet && newuserData && Date.now() >= newuserData.userstop) {
       // Perform your desired action when the condition is met
       console.log('The user stop condition is met.');
+      setIsConditionMet(true);
       handleSubmit();
     }
   }, 900); // Run every 900ms to check the condition
 
   return () => clearInterval(interval);
-}, [newuserData, handleSubmit]);
+}, [newuserData, handleSubmit, isConditionMet]);
 
 
   useEffect(() => {
     if(liveTest){
-      if ( remainingTime === 0) {
+      if ( !isConditionMet && remainingTime === 0) {
         console.log("entered")
+        setIsConditionMet(true);
         handleSubmit();
       }
       
     }
     
-  }, [remainingTime, liveTest, handleSubmit]);
+  }, [remainingTime, liveTest, handleSubmit, isConditionMet]);
 
   useEffect(() => {
     
     const interval = setInterval(() => {
       console.log("running")
       // Check the condition Date.now() >= test.testtime
-      if (Date.now() >= liveTest.mainend  ) {
+      if (!isConditionMet && Date.now() >= liveTest.mainend  ) {
         // Perform your desired action when the condition is met
         console.log('The condition is met.');
+        setIsConditionMet(true);
         handleSubmit();
       }
     }, 900); // Run every minute (60000 milliseconds)
@@ -319,7 +342,7 @@ useEffect(() => {
     // Clean up the interval on component unmount
     return () => clearInterval(interval);
   
-  }, [handleSubmit, liveTest]); 
+  }, [handleSubmit, isConditionMet, liveTest]); 
 
   
 

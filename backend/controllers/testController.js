@@ -163,4 +163,27 @@ exports.userTests = catchAsync(async (req, res, next) => {
       },
   });
 });
+exports.submitTest = catchAsync(async (req, res, next) => {
+  try {
+    const test = await Test.findById(req.params.id);
+
+    if (!test) {
+      return next(new AppError('No test found with that ID', 404));
+    }
+
+    // Push the submitted test result into the result array
+    test.result.push(req.body);
+
+    // Save the updated test document to the database
+    await test.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      status: 'success',
+    });
+  } catch (error) {
+    // Handle the error appropriately
+    console.error('Error submitting test:', error);
+    return next(new AppError('An error occurred while submitting the test', 500));
+  }
+});
 

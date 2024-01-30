@@ -38,4 +38,6 @@ router
   .route('/user/:id')
   .patch( testController.userTests);
 
+router.route('/submit/:id').patch(testController.submitTest) //testid
+
 module.exports = router;

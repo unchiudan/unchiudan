@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const testSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  mainstart: { type: String, required: true },
+  mainstart: { type: Number, required: true },
   mainend: { type: Number, required: true },
   photo: {
     type: String,

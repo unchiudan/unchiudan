@@ -141,11 +141,17 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                   </p>
                   <Link to={`/test/${test._id}`}>
                     <button
-                      disabled={block || Date.now() >= test.mainend}
-                      className={`mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl }`}
+                      disabled={
+                        block ||
+                        Date.now() >= test.mainend ||
+                        Date.now() < test.mainstart
+                      }
+                      className={`mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl`}
                     >
                       {block || Date.now() >= test.mainend
                         ? "Test Ended"
+                        : Date.now() < test.mainstart
+                        ? "Test Not Started"
                         : "Start Test"}
                     </button>
                   </Link>

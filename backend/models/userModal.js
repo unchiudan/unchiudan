@@ -42,14 +42,14 @@ const userSchema = new mongoose.Schema({
     ref: 'Test',
     required: true},
     userstart:{type:Date},
-    userstop:{type:Date},
-
-    submittime:{type:Date},
-    
+    userstop:{type:Number},
+    submittime:{type:Number},
     score:{type:Number},
     correct:{type:Number},
     notattempt:{type:Number},
     totalQuestions:{type:Number},
+
+
     negativemarks:{type:Number},
     discrict:{type:String},
     phoneno:{type:String},

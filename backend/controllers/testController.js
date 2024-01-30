@@ -138,22 +138,52 @@ exports.userTests = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    return next(new AppError('No user found with that ID', 404));
+      return next(new AppError('No user found with that ID', 404));
   }
 
   const test_id = req.body.test_id;
-  // console.log("🚀 ~ exports.userTests=catchAsync ~ test_id:", test_id)
 
-  const usertest = user.test.some(item => item.test_id.toString() === test_id);
-  // console.log(usertest,"😍😍😍😍")
-  if (!usertest) {
-    user.test.push(req.body);
-    await user.save({ validateBeforeSave: false });
+  // Check if the user already has a test with the given test_id
+  const existingTest = user.test.find(item => item.test_id.toString() === test_id);
+
+  if (existingTest && req.body.isSubmit) {
+      // Update the existing user test document
+      Object.assign(existingTest, req.body);
+      await user.save({ validateBeforeSave: false });
+  } else {
+      // If the test does not exist or isSubmit is false, create a new user test
+      user.test.push(req.body);
+      await user.save({ validateBeforeSave: false });
   }
+
   res.status(200).json({
-    status: 'success',
-    data: {
-      user,
-    },
+      status: 'success',
+      data: {
+          user,
+      },
   });
 });
+exports.submitTest = catchAsync(async (req, res, next) => {
+  try {
+    const test = await Test.findById(req.params.id);
+
+    if (!test) {
+      return next(new AppError('No test found with that ID', 404));
+    }
+
+    // Push the submitted test result into the result array
+    test.result.push(req.body);
+
+    // Save the updated test document to the database
+    await test.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      status: 'success',
+    });
+  } catch (error) {
+    // Handle the error appropriately
+    console.error('Error submitting test:', error);
+    return next(new AppError('An error occurred while submitting the test', 500));
+  }
+});
+

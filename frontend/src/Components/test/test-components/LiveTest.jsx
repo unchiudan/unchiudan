@@ -24,6 +24,7 @@ export function LiveTest({ userData }) {
   const [remainingTime, setRemainingTime] = useState(null);
   // const [mainend,setMainEnd]=useState(null)
   const [userstop,setUserStop]=useState(null)
+  const [newuserData, setNewUserData]=useState(null)
 
 
   // Load previously stored user input data from local storage when the component mounts
@@ -248,6 +249,43 @@ export function LiveTest({ userData }) {
 
 // },[liveTest])
 
+useEffect(() => {
+  const fetchData = async () => {
+    console.log("fetching start user data");
+    try {
+      const response = await axios.get(`http://localhost:3000/api/user/${userid}`);
+      if (response.data.data.user && response.data.data.user.test) {
+        const userData = response.data.data;
+        console.log("new user data", userData);
+        const currenttest = userData.user.test.find((item) => item.test_id === id);
+        console.log("🚀 ~ currenttest ~ currenttest:", currenttest)
+        
+        setNewUserData(currenttest);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const timeoutId = setTimeout(fetchData, 9000);
+
+  return () => clearTimeout(timeoutId);
+}, [id, liveTest, userid]); // Dependencies here trigger the effect
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    console.log("running");
+    // Check the condition Date.now() >= newUserData.userstop
+    if (newuserData && Date.now() >= newuserData.userstop) {
+      // Perform your desired action when the condition is met
+      console.log('The condition is met.');
+      handleSubmit();
+    }
+  }, 900); // Run every 900ms to check the condition
+
+  return () => clearInterval(interval);
+}, [newuserData, handleSubmit]);
+
 
   useEffect(() => {
     if(liveTest){
@@ -276,6 +314,8 @@ export function LiveTest({ userData }) {
     return () => clearInterval(interval);
   
   }, [handleSubmit, liveTest]); 
+
+  
 
 
   const handleBackToTest = () => {

@@ -13,7 +13,7 @@ function TestPage({ userData }) {
 
   useEffect(() => {
     const deleteExpiredTests = async () => {
-      console.log("entered.............")
+      
       for (const item of userData.user.test) {
         
         if (Date.now() >= item.mainend) {

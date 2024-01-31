@@ -74,7 +74,7 @@ function testComp({ testsItems, userData, onTestsDelete }) {
           // Perform any additional actions you need here
           console.log("Tests item deleted successfully");
           toast.success("Tests item deleted successfully");
-          if (typeof onNewsDelete === "function") {
+          if (typeof onTestsDelete === "function") {
             onTestsDelete();
           }
         } else {

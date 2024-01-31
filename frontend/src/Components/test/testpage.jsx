@@ -4,7 +4,6 @@ import TestComp from "./testcomponent";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
 // eslint-disable-next-line react/prop-types
 function TestPage({ userData }) {
   const [tests, setTests] = useState([]);
@@ -12,6 +11,28 @@ function TestPage({ userData }) {
   const [totalPages, setTotalPages] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
 
+  useEffect(() => {
+    const deleteExpiredTests = async () => {
+      console.log("entered.............")
+      for (const item of userData.user.test) {
+        
+        if (Date.now() >= item.mainend) {
+          
+          try {
+            const response = await axios.delete(
+              `${import.meta.env.VITE_BACKEND_URL}/user/${userData.user._id}/test/delete/${item._id}`
+            );
+            console.log("Object deleted successfully:", response.data);
+          } catch (error) {
+            console.error("Error deleting object:", error);
+            // Handle error scenarios
+          }
+        }
+      }
+    };
+
+    deleteExpiredTests();
+  }, [userData]);
 
   const handleTestsDelete = () => {
     fetchData(currentPage); // Trigger a re-fetch of data after deletion
@@ -54,7 +75,7 @@ function TestPage({ userData }) {
     setPostsPerPage(value);
     setCurrentPage(1); // Reset page number to 1 when limit changes
   };
-  
+
   return (
     <div className="mx-auto py-[6rem]">
       <div>
@@ -63,7 +84,6 @@ function TestPage({ userData }) {
           userData={userData}
           onTestsDelete={handleTestsDelete}
         />
-        
       </div>
 
       <div className="flex justify-center my-4">

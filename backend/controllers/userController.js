@@ -76,3 +76,30 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.deleteUserTest = catchAsync(async (req, res, next) => {
+  try {
+    // Extract userId and testId from the request parameters
+    const { userId, testId } = req.params;
+    console.log("🚀 ~ exports.deleteUserTest ~ testId:", testId)
+    
+    // Assuming you have a User model
+    const user = await User.findById(userId);
+    
+    // Find the index of the test object to delete
+    const testIndex = user.test.findIndex(test => test._id.toString() === testId);
+    console.log(testIndex,"😀😀😀😀")
+
+    // If the test object exists, remove it from the array
+    if (testIndex !== -1) {
+        user.test.splice(testIndex, 1);
+        await user.save();
+        return res.status(200).json({ message: 'Test object deleted successfully' });
+    } else {
+        return res.status(404).json({ message: 'Test object not found' });
+    }
+} catch (error) {
+    console.error('Error deleting test object:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+}
+})

@@ -122,7 +122,7 @@ export const Result = ({ userData }) => {
         </button>
       </div>
       <div className="overflow-x-auto">
-        <div className="text-center mb-4"></div>
+        <div className="text-center mb-[2.5rem]"></div>
         <table className="w-full md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto md:w-4/5 lg:w-3/4 xl:w-2/3 border border-black result-table mb-[5rem]">
           <div className="absolute inset-0 z-10 pointer-events-none pt-20">
             <div
@@ -134,7 +134,7 @@ export const Result = ({ userData }) => {
             ></div>
           </div>
 
-          <thead>
+          <thead >
             <tr className="bg-gray-300 text-center">
               <td
                 className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 mx-auto w-16  px-6 py-3 border-b border border-black text-white uppercase font-semibold"
@@ -143,7 +143,7 @@ export const Result = ({ userData }) => {
                 <span className="font-bold">{resultHeading} </span>
                 {role ? (
                   <button
-                    className="absolute top-35 left-10 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md"
+                    className="absolute top-[11.5rem] left-1 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md "
                     onClick={downloadPDF}
                     disabled={!(loader === false)}
                   >

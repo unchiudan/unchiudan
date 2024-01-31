@@ -110,11 +110,20 @@ function testComp({ testsItems, userData, onTestsDelete }) {
           const isRecent = isWithin48Hours(test.createdAt);
 
           const decodedName = decodeHtmlEntities(test.name);
-          const decodedStart = decodeHtmlEntities(test.start);
-          const decodedEnd = decodeHtmlEntities(test.end);
+          
 
           const starttime = formatTimestamp(test.mainstart);
           const endtime = formatTimestamp(test.mainend);
+
+          const oneMinuteAfterEnd = test.mainend + 60000; // One minute after end
+
+          const showResultButton = Date.now() >= oneMinuteAfterEnd ? (
+            <Link to={`/result/${test._id}`}>
+              <button className="mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl">
+                Show Result
+              </button>
+            </Link>
+          ) : null;
 
           return (
             <div
@@ -165,6 +174,7 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                   <strong>End At:</strong> {endtime}
                   
                   </p>
+                  <strong>*Result will declare after one minutes Test End </strong>
                   <Link to={userData ? `/test/${test._id}` : "/login"}>
                     <button
                       disabled={
@@ -181,6 +191,7 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                         : "Start Test"}
                     </button>
                   </Link>
+                  {showResultButton}
                 </div>
               </div>
             </div>

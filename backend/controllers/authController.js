@@ -239,7 +239,7 @@ exports.authenticateCors = async (req, res, next) => {
   
   try {
     if (!req.body.googleLogIn) {
-  
+ 
       // Check if token exists
       const token = req.headers.authorization;
       
@@ -269,6 +269,7 @@ exports.authenticateCors = async (req, res, next) => {
         return res.status(401).json({ message: 'Password changed' });
       }
       req.user = currentUser;
+    
 
       res.locals.user = currentUser;
       // User is authenticated, continue with the request

@@ -120,29 +120,37 @@ exports.getTests = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteTests = catchAsync(async (req, res, next) => {
-  const tests = await Test.findByIdAndRemove(req.params.id);
+  const { id } = req.params;
+  // console.log("🚀 ~ exports.deleteTests ~ id:", id);
+  
+  // Attempt to find and delete the test by its ID
+  const tests = await Test.findByIdAndDelete(id);
+  // console.log("🚀 ~ exports.deleteTests ~ tests:", tests);
 
+  // If the test is not found, return a 404 error
   if (!tests) {
     return next(new AppError('No test found with that ID', 404));
   }
 
   const imagePath = tests.photo;
-
   const fullPath = path.join(__dirname, '../public/img/test', imagePath);
+
+  // Check if the test has an associated image and delete it from the server's file system if it exists
   if (imagePath && imagePath !== 'uchiudan.png') {
     if (fs.existsSync(fullPath)) {
-      // Delete the image file from the server's file system
       fs.unlinkSync(fullPath);
     } else {
-      return new AppError('Photo is not deleted from server', 500);
+      return next(new AppError('Photo is not deleted from server', 500));
     }
   }
 
+  // Respond with a success message if the test is successfully deleted
   res.status(200).json({
     status: 'success',
     data: null,
   });
 });
+
 
 exports.userTests = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);

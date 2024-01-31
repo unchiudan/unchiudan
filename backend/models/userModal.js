@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema({
     discrict:{type:String},
     phoneno:{type:String},
     percentage:{type:Number},
+    mainend:{type:Number},
     
     isSubmit:{type:Boolean},
 

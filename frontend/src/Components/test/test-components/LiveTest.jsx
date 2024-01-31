@@ -166,7 +166,8 @@ export function LiveTest({ userData }) {
           notattempt: calculate[3],
           totalQuestions: calculate[2],
           negativemarks: calculate[4],
-          percentage: calculate[5]
+          percentage: calculate[5],
+          mainend:liveTest.mainend,
         }
       );
       const username = `${userData.user.firstname} ${userData.user.lastname}`

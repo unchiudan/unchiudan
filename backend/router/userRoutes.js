@@ -37,4 +37,5 @@ router
     userController.deleteUser,
   );
 router.get("/:id" ,userController.getMe)
+router.delete("/:userId/test/delete/:testId",userController.deleteUserTest)
 module.exports = router;

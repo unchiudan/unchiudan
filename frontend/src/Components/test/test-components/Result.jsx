@@ -7,7 +7,7 @@ import logo from "../../../../public/uchiudan.png";
 import html2canvas from "html2canvas/dist/html2canvas";
 import jsPDF from "jspdf";
 
-export const Result = () => {
+export const Result = ({ userData }) => {
   const { id } = useParams();
   const [resultData, setResultData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,27 +17,46 @@ export const Result = () => {
   const [resultHeading, setResultHeading] = useState("");
   const [loader, SetLoader] = useState(false);
 
+  let role;
+
+  if (userData) {
+    if (userData.user.role === "admin") {
+      role = true;
+    } else {
+      role = false;
+    }
+  } else {
+    role = false;
+  }
+
   const downloadPDF = () => {
     const capture = document.querySelector(".result-table");
     SetLoader(true);
-  
+
     html2canvas(capture).then((canvas) => {
       const imgData = canvas.toDataURL("img/png");
       const pdf = new jsPDF("p", "mm", "a4", "true");
       const pdfWidth = pdf.internal.pageSize.getWidth(); // You can adjust the scaling factor as needed
-      const pdfHeight = pdf.internal.pageSize.getHeight();// You can adjust the scaling factor as needed
+      const pdfHeight = pdf.internal.pageSize.getHeight(); // You can adjust the scaling factor as needed
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth/imgWidth,pdfHeight/imgHeight);
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
       const imgX = (pdfWidth - imgWidth * ratio) / 2;
       const imgY = 30;
-      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.addImage(
+        imgData,
+        "PNG",
+        imgX,
+        imgY,
+        imgWidth * ratio,
+        imgHeight * ratio
+      );
 
       SetLoader(false);
       pdf.save("Results.pdf");
     });
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -103,8 +122,8 @@ export const Result = () => {
         </button>
       </div>
       <div className="overflow-x-auto">
-        <div className="text-center mb-4"></div>
-        <table className="w-full md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto md:w-4/5 lg:w-3/4 xl:w-2/3 border border-black result-table">
+        <div className="text-center mb-[2.5rem]"></div>
+        <table className="w-full md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto md:w-4/5 lg:w-3/4 xl:w-2/3 border border-black result-table mb-[5rem]">
           <div className="absolute inset-0 z-10 pointer-events-none pt-20">
             <div
               className="absolute inset-0 bg-center bg-contain bg-repeat-y opacity-10"
@@ -115,20 +134,24 @@ export const Result = () => {
             ></div>
           </div>
 
-          <thead>
+          <thead >
             <tr className="bg-gray-300 text-center">
               <td
-                className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 mx-auto w-16 rounded-full px-6 py-3 border-b border border-black text-white"
+                className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 mx-auto w-16  px-6 py-3 border-b border border-black text-white uppercase font-semibold"
                 colSpan="20"
               >
                 <span className="font-bold">{resultHeading} </span>
-                <button
-                  className="absolute top-35 left-10 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md"
-                  onClick={downloadPDF}
-                  disabled={!(loader === false)}
-                >
-                  {loader ? <span>Downloading</span> : <span>Download</span>}
-                </button>
+                {role ? (
+                  <button
+                    className="absolute top-[11.5rem] left-1 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md "
+                    onClick={downloadPDF}
+                    disabled={!(loader === false)}
+                  >
+                    {loader ? <span>Downloading</span> : <span>Download</span>}
+                  </button>
+                ) : (
+                  ""
+                )}
               </td>
             </tr>
             <tr className="bg-gray-200">

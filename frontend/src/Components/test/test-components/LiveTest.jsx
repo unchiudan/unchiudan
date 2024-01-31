@@ -171,15 +171,19 @@ export function LiveTest({ userData }) {
     const selectedlength = Object.keys(obj).length;
     // const selectedAnswers = Object.keys(obj).length
     // console.log("🚀 ~ calculateScore ~ obj:", selectedlength)
+
+
+
     const notattempt = totalQuestions - selectedlength;
     
-    const correctmarks =
-      parseFloat(correctAnswers) * parseFloat(liveTest.correctmark);
+    const correctmarks =parseFloat(correctAnswers) * parseFloat(liveTest.correctmarks);
     // console.log("corectmarks",correctmarks)
     const negativemarks =
     (parseFloat(selectedlength) - parseFloat(correctAnswers)) *
-    parseFloat(-liveTest.negativemark);
+    parseFloat(-liveTest.negativemarks);
     // console.log("corectmarks",negativemarks)
+    console.log("🚀 ~ calculateScore ~ negativemarks:", negativemarks)
+    console.log("🚀 ~ calculateScore ~ correctmarks:", correctmarks)
 
     const score = correctmarks + negativemarks;
     const percentage =
@@ -237,6 +241,11 @@ export function LiveTest({ userData }) {
         )
         setStoredData(calculate)
         setSubmitted(true);
+
+        localStorage.removeItem('userInputData');
+        localStorage.removeItem('TotalTime');
+        localStorage.removeItem('remainingTime');
+      
         
         console.log(response.data);
         console.log(response2.data);

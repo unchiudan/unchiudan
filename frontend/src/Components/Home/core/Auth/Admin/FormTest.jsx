@@ -8,7 +8,7 @@ const postaffairs = async (testData) => {
   console.log("🚀 ~ postaffairs ~ testData:", testData);
 
   // const formData = new FormData();
-  
+
   // formData.append("name", testData.name);
   // formData.append("mainstart", testData.mainstart);
   // formData.append("mainend", testData.mainend);
@@ -19,7 +19,7 @@ const postaffairs = async (testData) => {
   // formData.append("negativemark", testData.negativemark);
 
   // console.log("🚀 ~ postaffairs ~ formData:", formData);
-  
+
   let loadingToast;
   try {
     loadingToast = toast.loading("Posting TestData...");
@@ -37,7 +37,6 @@ const postaffairs = async (testData) => {
   }
 };
 
-
 const FormTest = () => {
   const topicEditor = useRef(null);
   const descriptionEditor = useRef(null);
@@ -45,10 +44,10 @@ const FormTest = () => {
   const initialFormData = {
     name: "",
     mainstart: 0,
-    mainend: 0,
+    mainend: 2,
     correctmarks: "",
-    negativemarks:"",
-    testtime: "",
+    negativemarks: "",
+    testtime: 2,
     photo: null,
     data: [{ ques: "", options: ["", "", "", ""], ans: "" }],
   };
@@ -86,13 +85,13 @@ const FormTest = () => {
 
   function addMinutesToCurrentTime(minutes) {
     const x = Date.now(); // Get the current timestamp in milliseconds
-  
+
     // Convert minutes to milliseconds (1 minute = 60,000 milliseconds)
     const millisecondsToAdd = minutes * 60000;
-  
+
     // Add the milliseconds to the current timestamp
     const addTime = x + millisecondsToAdd;
-  
+
     return addTime;
   }
 
@@ -105,14 +104,15 @@ const FormTest = () => {
     }
     console.log(formdata);
 
-    const formopen = formData.mainstart+formData.mainend
-    const mainstart = addMinutesToCurrentTime(formData.mainstart)
-    const mainend = addMinutesToCurrentTime(formopen)
-    const testtime = addMinutesToCurrentTime(formData.testtime)
-  
-    const negativemarks = parseFloat(formData.negativemarks.replace(/[-+]/g, ''));
-    const correctmarks = parseFloat(formData.correctmarks.replace(/[-+]/g, ''));
+    const formopen = formData.mainstart + formData.mainend;
+    const mainstart = addMinutesToCurrentTime(formData.mainstart);
+    const mainend = addMinutesToCurrentTime(formopen);
+    const testtime = parseInt(formData.testtime)
 
+    const negativemarks = parseFloat(
+      formData.negativemarks.replace(/[-+]/g, "")
+    );
+    const correctmarks = parseFloat(formData.correctmarks.replace(/[-+]/g, ""));
 
     try {
       await postaffairs({
@@ -178,11 +178,13 @@ const FormTest = () => {
 
   const handleTestTimeChange = (e) => {
     const { value } = e.target;
+
     setFormData((prevData) => ({
       ...prevData,
       testtime: value,
     }));
   };
+
   const handleCorrectMarkChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -198,8 +200,6 @@ const FormTest = () => {
       [name]: value,
     }));
   };
-
-
 
   return (
     <div>
@@ -227,7 +227,9 @@ const FormTest = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-gray-700 font-bold">Test start</label>
+          <label className="block mb-2 text-gray-700 font-bold">
+            Test start
+          </label>
           <select
             name="mainstart"
             value={formData.mainstart}
@@ -235,6 +237,7 @@ const FormTest = () => {
             className="border p-2 w-full text-black"
             required
           >
+            <option value="0">Now</option>
             <option value="2">2 minutes</option>
             <option value="5">5 minutes</option>
             <option value="15">15 minutes</option>
@@ -248,7 +251,9 @@ const FormTest = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2 text-gray-700 font-bold">Test Open</label>
+          <label className="block mb-2 text-gray-700 font-bold">
+            Test Open
+          </label>
           <select
             name="mainend"
             value={formData.mainend}
@@ -269,7 +274,9 @@ const FormTest = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2 text-gray-700 font-bold">Correct Mark</label>
+          <label className="block mb-2 text-gray-700 font-bold">
+            Correct Mark
+          </label>
           <input
             type="number"
             name="correctmarks"
@@ -280,7 +287,9 @@ const FormTest = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-gray-700 font-bold">Negative Mark (Eg: 0.25 *Donot write (-)sign)</label>
+          <label className="block mb-2 text-gray-700 font-bold">
+            Negative Mark (Eg: 0.25 *Donot write (-)sign)
+          </label>
           <input
             type="number"
             name="negativemarks"
@@ -291,7 +300,9 @@ const FormTest = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-gray-700 font-bold">Test Time</label>
+          <label className="block mb-2 text-gray-700 font-bold">
+            Test Time
+          </label>
           <select
             name="testtime"
             value={formData.testtime}
@@ -299,6 +310,8 @@ const FormTest = () => {
             className="border p-2 w-full text-black"
             required
           >
+            <option value="2">2 minutes</option>
+            <option value="3">3 minutes</option>
             <option value="5">5 minutes</option>
             <option value="10">10 minutes</option>
             <option value="15">15 minutes</option>

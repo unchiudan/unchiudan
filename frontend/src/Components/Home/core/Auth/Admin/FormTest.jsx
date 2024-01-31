@@ -46,7 +46,7 @@ const FormTest = () => {
     mainstart: 0,
     mainend: 2,
     correctmarks: "",
-    negativemarks: "",
+    negativemarks:0,
     testtime: 2,
     photo: null,
     data: [{ ques: "", options: ["", "", "", ""], ans: "" }],
@@ -291,17 +291,17 @@ const FormTest = () => {
             Negative Mark (Eg: 0.25 *Donot write (-)sign)
           </label>
           <input
-            type="number"
+            type="string"
             name="negativemarks"
             value={formData.negativemarks}
             onChange={handleNegativeMarkChange}
             className="border p-2 w-full text-black"
-            required
+            
           />
         </div>
         <div className="mb-4">
           <label className="block mb-2 text-gray-700 font-bold">
-            Test Time
+            User Test Time
           </label>
           <select
             name="testtime"

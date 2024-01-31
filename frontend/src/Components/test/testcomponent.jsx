@@ -4,6 +4,29 @@ import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
 
+function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+
+  const day = date.getDate();
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+
+  let hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+
+  let amOrPm = "AM";
+  if (hour >= 12) {
+    amOrPm = "PM";
+    hour -= 12;
+  }
+  if (hour === 0) {
+    hour = 12;
+  }
+
+  return `${day} - ${month} - ${year} ${hour}:${minute}:${second} ${amOrPm}`;
+}
+
 function testComp({ testsItems, userData, onTestsDelete }) {
   const [block, setBlock] = useState(false);
 
@@ -90,6 +113,9 @@ function testComp({ testsItems, userData, onTestsDelete }) {
           const decodedStart = decodeHtmlEntities(test.start);
           const decodedEnd = decodeHtmlEntities(test.end);
 
+          const starttime = formatTimestamp(test.mainstart);
+          const endtime = formatTimestamp(test.mainend);
+
           return (
             <div
               key={test._id}
@@ -131,15 +157,15 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                     className="font-black text-gray-800 md:text-2xl text-xl "
                     dangerouslySetInnerHTML={{ __html: decodedName }}
                   />
-                  <p className="font-black text-gray-800 md:text-base text-[20px]">
-                    Start At{" "}
-                    <span dangerouslySetInnerHTML={{ __html: decodedStart }} />
+                  <p className=" text-gray-800 md:text-base text-[20px]">
+                    <strong>Start At:</strong> {starttime}
+                    
                   </p>
-                  <p className="font-black text-gray-800 md:text-base text-[20px]">
-                    End At :{" "}
-                    <span dangerouslySetInnerHTML={{ __html: decodedEnd }} />
+                  <p className=" text-gray-800 md:text-base text-[20px]">
+                  <strong>End At:</strong> {endtime}
+                  
                   </p>
-                  <Link to={`/test/${test._id}`}>
+                  <Link to={userData ? `/test/${test._id}` : "/login"}>
                     <button
                       disabled={
                         block ||

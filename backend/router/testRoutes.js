@@ -7,16 +7,17 @@ const {
   restrictTo,
   authenticateCors,
 } = require('../controllers/authController');
-router.route('/').get(testController.getAllTests).post(
-  // authenticateCors,
-  // protect, #donot open only trial mode
-  // restrictTo('admin'),
 
-  testController.uploadPhoto,
-  testController.resizePhoto('public/img/test'),
-
-  testController.createOne,
-);
+router
+  .route('/')
+  .get(testController.getAllTests)
+  .post(
+    authenticateCors,
+    restrictTo('admin'),
+    testController.uploadPhoto,
+    testController.resizePhoto('public/img/test'),
+    testController.createOne,
+  );
 
 router
   .route('/:id')
@@ -34,10 +35,8 @@ router
 //   .route('/autodelete')
 //   .delete(authenticateCors, restrictTo('admin'), newsController.autoDelete);
 
-router
-  .route('/user/:id')
-  .patch( testController.userTests);
+router.route('/user/:id').patch(testController.userTests);
 
-router.route('/submit/:id').patch(testController.submitTest) //testid
+router.route('/submit/:id').patch(testController.submitTest); //testid
 
 module.exports = router;

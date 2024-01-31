@@ -236,10 +236,13 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.authenticateCors = async (req, res, next) => {
+  
   try {
     if (!req.body.googleLogIn) {
+  
       // Check if token exists
       const token = req.headers.authorization;
+      
       // const token = req.headers.authorization;
       // const authtoken = token.split(" ")
       const tokenWithoutBearer = token.replace('Bearer ', '');

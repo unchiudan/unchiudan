@@ -19,7 +19,6 @@ const testSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  updatedAt: Date,
   correctmarks: { type: Number },
   negativemarks: { type: Number },
   testtime: { type: Number },

@@ -59,14 +59,17 @@ const FormCurrentAffairs = () => {
     }));
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e, questionIndex) => {
     const { name, value } = e.target;
-
+    const updatedData = [...formData.data];
+    updatedData[questionIndex][name] = value;
+  
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      data: updatedData,
     }));
   };
+  
 
   const handleOptionChange = (e, questionIndex, optionIndex) => {
     const { value } = e.target;
@@ -121,6 +124,15 @@ const FormCurrentAffairs = () => {
       photo: file,
     });
   };
+
+  const handleRemoveQuestion = (indexToRemove) => {
+    const updatedQuestions = formData.data.filter((_, index) => index !== indexToRemove);
+    setFormData({
+      ...formData,
+      data: updatedQuestions,
+    });
+  };
+
   return (
     <div>
       <form className="mx-auto mt-8" onSubmit={handleSubmit}>
@@ -255,6 +267,13 @@ const FormCurrentAffairs = () => {
               onChange={(e) => handleChange(e, index)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
+            <button
+              type="button"
+              onClick={() => handleRemoveQuestion(index)}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg mt-2"
+            >
+              Remove Question
+            </button>
           </div>
         ))}
         <span className="flex space-x-6">

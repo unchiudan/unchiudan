@@ -1,4 +1,4 @@
-import { useEffect, useState,useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
@@ -8,13 +8,8 @@ function addMinutesToCurrentTime(minutes) {
   return futureTime;
 }
 
-
-
-// eslint-disable-next-line react/prop-types
 export function LiveTest({ userData }) {
-  // console.log(userData.user._id,"😎😎😎😎")
   const userid = userData.user._id;
-
   const { id } = useParams();
   const [liveTest, setLiveTest] = useState(null);
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -22,33 +17,19 @@ export function LiveTest({ userData }) {
   const [submitted, setSubmitted] = useState(false);
   const [patchSent, setPatchSent] = useState(false);
   const [remainingTime, setRemainingTime] = useState(null);
-  // const [mainend,setMainEnd]=useState(null)
-  // const [userstop,setUserStop]=useState(null)
-  const [newuserData, setNewUserData]=useState(null)
+  const [newuserData, setNewUserData] = useState(null);
   const [isConditionMet, setIsConditionMet] = useState(false);
-  const [storeddata,setStoredData]= useState(null)
+  const [storeddata, setStoredData] = useState(null);
 
-
-  // Load previously stored user input data from local storage when the component mounts
-  useEffect(() => {
-    const storedInputData = localStorage.getItem("userInputData");
-    if (storedInputData) {
-      setSelectedAnswers(JSON.parse(storedInputData));
-    }
-  }, []);
- 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/test/${id}`
-        );
+        const response = await axios.get(`http://localhost:3000/api/test/${id}`);
         setLiveTest(response.data.data.test);
         if (!localStorage.getItem("TotalTime")) {
           localStorage.setItem("TotalTime", response.data.data.test.testtime * 60);
           setRemainingTime(response.data.data.test.testtime * 60);
-      }
-        // setRemainingTime(response.data.data.test.testtime * 60);
+        }
       } catch (error) {
         console.error("Error fetching test data:", error);
       }
@@ -58,78 +39,63 @@ export function LiveTest({ userData }) {
   }, [id]);
 
   useEffect(() => {
-    // Check if liveTest state is not null and patch request has not been sent
     const existingTest = userData.user.test;
-    const access = existingTest.some((item) => {
-      return item.test_id.toString() === id;
-    });
+    const access = existingTest.some((item) => item.test_id.toString() === id);
     if (!access) {
-    if (liveTest && !patchSent) {
-      // Define the setTimeout function
-      const timer = setTimeout(async () => {
-        try {
-          const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
-          
-          const response = await axios.patch(
-            `http://localhost:3000/api/test/user/${userid}`,
-            {
-              test_id: id,
-              userstart: Date.now(), // Corrected to call Date.now() as a function
-              userstop: userStopTime,
-              isSubmit: false,
-              district: localStorage.getItem("selectedDistrict"),
-              phoneno: localStorage.getItem("phoneNumber"),
-            }
-          );
-          console.log(response.data); // Log the response data if needed
-          setPatchSent(true);
-          // Set patchSent to true after sending the patch request
-        } catch (error) {
-          console.error("Error sending data:", error);
-        }
-      }, 3000); // Set timeout for 3000 milliseconds (3 seconds)
+      if (liveTest && !patchSent) {
+        const timer = setTimeout(async () => {
+          try {
+            const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
+            const response = await axios.patch(
+              `http://localhost:3000/api/test/user/${userid}`,
+              {
+                test_id: id,
+                userstart: Date.now(),
+                userstop: userStopTime,
+                isSubmit: false,
+                district: localStorage.getItem("selectedDistrict"),
+                phoneno: localStorage.getItem("phoneNumber"),
+              }
+            );
+            setPatchSent(true);
+          } catch (error) {
+            console.error("Error sending data:", error);
+          }
+        }, 3000);
 
-      // Clear the timer if the component unmounts or if liveTest or patchSent change
-      return () => clearTimeout(timer);
+        return () => clearTimeout(timer);
+      }
     }
-  }
-  }, [liveTest, patchSent, id, userid]);
+  }, [liveTest, patchSent, id, userid, userData.user.test]);
 
   useEffect(() => {
-    let timer;
-    // console.log("timer runs 😀😀😀")
-    // Initialize remainingTime from local storage if available
-    const storedRemainingTime = localStorage.getItem("remainingTime");
-    if (storedRemainingTime !== null) {
+    if (!submitted) {
+      let timer;
+      const storedRemainingTime = localStorage.getItem("remainingTime");
+      if (storedRemainingTime !== null) {
         setRemainingTime(parseInt(storedRemainingTime));
-    }
+      }
 
-    if (remainingTime !== null && remainingTime > 0) {
+      if (remainingTime !== null && remainingTime > 0) {
         timer = setInterval(() => {
-            setRemainingTime((prevTime) => {
-                // Save the remaining time to local storage every second
-                localStorage.setItem("remainingTime", (prevTime - 1).toString());
-                return prevTime - 1;
-            });
+          setRemainingTime((prevTime) => {
+            localStorage.setItem("remainingTime", (prevTime - 1).toString());
+            return prevTime - 1;
+          });
         }, 1000);
-    }
+      }
 
-    return () => {
+      return () => {
         clearInterval(timer);
-    };
+      };
+    }
+  }, [remainingTime, submitted]);
 
-}, [liveTest]); // Empty dependency array to run only on mount
-
- 
-
-  // Function to format time in minutes:seconds
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
-
-
 
   const handleAnswerChange = (
     questionIndex,
@@ -149,19 +115,16 @@ export function LiveTest({ userData }) {
         [questionIndex]: isCorrect ? "correct" : "incorrect",
       }));
 
-      // Save selected answers to local storage
       const updatedSelectedAnswers = {
         ...selectedAnswers,
         [questionIndex]: selectedOptionIndex,
       };
 
-      localStorage.setItem(
-        "userInputData",
-        JSON.stringify(updatedSelectedAnswers)
-      );
+      localStorage.setItem("userInputData", JSON.stringify(updatedSelectedAnswers));
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const calculateScore = () => {
     const correctAnswers = Object.values(feedback).filter(
       (value) => value === "correct"
@@ -169,30 +132,19 @@ export function LiveTest({ userData }) {
     const totalQuestions = liveTest.data.length;
     const obj = selectedAnswers;
     const selectedlength = Object.keys(obj).length;
-    // const selectedAnswers = Object.keys(obj).length
-    // console.log("🚀 ~ calculateScore ~ obj:", selectedlength)
+
     const notattempt = totalQuestions - selectedlength;
-    
-    const correctmarks =
-      parseFloat(correctAnswers) * parseFloat(liveTest.correctmark);
-    // console.log("corectmarks",correctmarks)
+
+    const correctmarks = parseFloat(correctAnswers) * parseFloat(liveTest.correctmark);
     const negativemarks =
-    (parseFloat(selectedlength) - parseFloat(correctAnswers)) *
-    parseFloat(-liveTest.negativemark);
-    // console.log("corectmarks",negativemarks)
+      (parseFloat(selectedlength) - parseFloat(correctAnswers)) *
+      parseFloat(-liveTest.negativemark);
 
     const score = correctmarks + negativemarks;
     const percentage =
       (score / (totalQuestions * parseFloat(liveTest.correctmark))) * 100;
-    // return [
-    //   correct: correctAnswers,
-    //   score,
-    //   totalQuestions,
-    //   notattempt,
-    //   negativemarks,
-    //   percentage,
-    // ]; // ******************donot delete this comment ********************
-    return [correctAnswers,score,totalQuestions,notattempt,negativemarks,percentage ]
+    
+    return [correctAnswers, score, totalQuestions, notattempt, negativemarks, percentage];
   };
 
   const handleSubmit = useCallback(async () => {
@@ -216,148 +168,107 @@ export function LiveTest({ userData }) {
           negativemarks: calculate[4],
           percentage: calculate[5]
         }
-        );
-        const username = `${userData.user.firstname} ${userData.user.lastname}`
-        const useremail = userData.user.email
-        const response2 =await axios.patch(`http://localhost:3000/api/test/submit/${id}`,{
-          userid:userid,
-          username:username,
-          useremail,
-          userphone:localStorage.getItem("phoneNumber"),
-          correct: calculate[0],
-          submittime: submittime,
-          score: calculate[1],
-          notattempt: calculate[3],
-          totalQuestions: calculate[2],
-          negativemarks: calculate[4],
-          district: localStorage.getItem("selectedDistrict"),
-          percentage: calculate[5],
-          isSubmit: true
+      );
+      const username = `${userData.user.firstname} ${userData.user.lastname}`
+      const useremail = userData.user.email;
+      const response2 = await axios.patch(`http://localhost:3000/api/test/submit/${id}`, {
+        userid: userid,
+        username: username,
+        useremail,
+        userphone: localStorage.getItem("phoneNumber"),
+        correct: calculate[0],
+        submittime: submittime,
+        score: calculate[1],
+        notattempt: calculate[3],
+        totalQuestions: calculate[2],
+        negativemarks: calculate[4],
+        district: localStorage.getItem("selectedDistrict"),
+        percentage: calculate[5],
+        isSubmit: true
+      });
+      setStoredData(calculate);
+      setSubmitted(true);
+
+      localStorage.removeItem('userInputData');
+      localStorage.removeItem('TotalTime');
+      localStorage.removeItem('remainingTime');
+      localStorage.removeItem('userScore');
+      
+      console.log(response.data);
+      console.log(response2.data);
+      console.log(calculate, "calculate");
+    } catch (error) {
+      console.error("Error submitting test result:", error);
+    }
+}, [calculateScore, id, userData.user.email, userData.user.firstname, userData.user.lastname, userid]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/user/${userid}`);
+        if (response.data.data.user && response.data.data.user.test) {
+          const userData = response.data.data;
+          const currenttest = userData.user.test.find((item) => item.test_id === id);
+          setNewUserData(currenttest);
+          if (currenttest.userstop > Date.now()) {
+            const remainingTimeInSeconds = Math.floor((currenttest.userstop - Date.now()) / 1000);
+            localStorage.setItem('remainingTime', remainingTimeInSeconds);
+            setRemainingTime(remainingTimeInSeconds);
+          }
         }
-        )
-        setStoredData(calculate)
-        setSubmitted(true);
-        
-        console.log(response.data);
-        console.log(response2.data);
-        console.log(calculate,"calculate");
-    } catch (error) {
-        console.error("Error submitting test result:", error);
-    }
-
-    // console.log(submittime, "😀😀😀");
-    // send a patch request to user 
-});
-
-
-  //   useEffect(()=>{
-  //     if(liveTest){
-  //       const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
-        
-
-  //       console.log("🚀 ~ useEffect ~ userstop:", userStopTime)
-  //       setUserStop(userStopTime)
-  //   }
-  
-  // },[liveTest])
-
-  
-//   useEffect(()=>{
-//     if(liveTest){
- 
-//       console.log("🚀 ~ useEffect ~ mainend:", liveTest.mainend)
-      
-//       setMainEnd(liveTest.mainend)
-//   }
-
-// },[liveTest])
-
-useEffect(() => {
-  const fetchData = async () => {
-    console.log("fetching start user data");
-    try {
-      const response = await axios.get(`http://localhost:3000/api/user/${userid}`);
-      if (response.data.data.user && response.data.data.user.test) {
-        const userData = response.data.data;
-        console.log("new user data", userData);
-
-        const currenttest = userData.user.test.find((item) => item.test_id === id);
-        console.log("🚀 ~ currenttest ~ currenttest:", currenttest)
-        
-        setNewUserData(currenttest);
-        if (currenttest.userstop > Date.now()) {
-         const remainingTimeInSeconds = Math.floor((currenttest.userstop - Date.now()) / 1000);
-         localStorage.setItem('remainingTime', remainingTimeInSeconds);
-         setRemainingTime(remainingTimeInSeconds)
-       }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
+    };
 
-  const timeoutId = setTimeout(fetchData, 9000);
-
-  return () => clearTimeout(timeoutId);
-}, [id, liveTest, userid]); // Dependencies here trigger the effect
-
-useEffect(() => {
-  const interval = setInterval(() => {
-    console.log("running");
-    // Check the condition Date.now() >= newUserData.userstop
-    if (!isConditionMet && newuserData && Date.now() >= newuserData.userstop) {
-      // Perform your desired action when the condition is met
-      console.log('The user stop condition is met.');
-      setIsConditionMet(true);
-      handleSubmit();
-    }
-  }, 900); // Run every 900ms to check the condition
-
-  return () => clearInterval(interval);
-}, [newuserData, handleSubmit, isConditionMet]);
-
+    const timeoutId = setTimeout(fetchData, 9000);
+    return () => clearTimeout(timeoutId);
+  }, [id, userid]);
 
   useEffect(() => {
-    if(liveTest){
-      if ( !isConditionMet && remainingTime === 0) {
-        console.log("entered")
-        setIsConditionMet(true);
-        handleSubmit();
-      }
-      
+    if (!submitted) {
+      const interval = setInterval(() => {
+        if (!isConditionMet && newuserData && Date.now() >= newuserData.userstop) {
+          setIsConditionMet(true);
+          handleSubmit();
+        }
+      }, 900);
+
+      return () => clearInterval(interval);
     }
-    
-  }, [remainingTime, liveTest, handleSubmit, isConditionMet]);
+  }, [newuserData, handleSubmit, isConditionMet, submitted]);
 
   useEffect(() => {
-    
-    const interval = setInterval(() => {
-      console.log("running")
-      // Check the condition Date.now() >= test.testtime
-      if (!isConditionMet && Date.now() >= liveTest.mainend  ) {
-        // Perform your desired action when the condition is met
-        console.log('The condition is met.');
-        setIsConditionMet(true);
-        handleSubmit();
-      }
-    }, 900); // Run every minute (60000 milliseconds)
+    if (!submitted && liveTest) {
+      const interval = setInterval(() => {
+        if (!isConditionMet && remainingTime === 0) {
+          setIsConditionMet(true);
+          handleSubmit();
+        }
+      }, 900);
 
-    // Clean up the interval on component unmount
-    return () => clearInterval(interval);
-  
-  }, [handleSubmit, isConditionMet, liveTest]); 
+      return () => clearInterval(interval);
+    }
+  }, [remainingTime, liveTest, handleSubmit, isConditionMet, submitted]);
 
-  
+  useEffect(() => {
+    if (!submitted && liveTest) {
+      const interval = setInterval(() => {
+        if (!isConditionMet && Date.now() >= liveTest.mainend) {
+          setIsConditionMet(true);
+          handleSubmit();
+        }
+      }, 900);
 
+      return () => clearInterval(interval);
+    }
+  }, [liveTest, handleSubmit, isConditionMet, submitted]);
 
   const handleBackToTest = () => {
     // Implement navigation back to the test page if needed
   };
 
   if (!liveTest) return <div>Loading...</div>;
-
-
- 
 
   return (
     <div className="bg-[#cccccc]  py-[5rem]  md:py-[7rem] px-[2rem]">

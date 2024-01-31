@@ -55,16 +55,26 @@ exports.getAllTests = catchAsync(async (req, res, next) => {
 });
 
 exports.createOne = catchAsync(async (req, res, next) => {
-  let photo;
+  let photo = null; // Initialize photo variable
+
+  // Check if there is a file uploaded
   if (req.file) {
-    photo = req.file.filename;
+    photo = req.file.filename; // Assign the filename of the uploaded file to photo
   }
 
-  const currentDate = Date.now();
+  // Combine request body and photo
+  const testData = {
+    ...req.body, // Include all fields from the request body
+    photo: photo, // Assign the photo to the photo field
+  };
 
-  req.body = { ...req.body, photo, updatedAt: currentDate };
-  const tests = await Test.create(req.body);
+  console.log(testData,"😋😋😋😋")
 
+
+  // Create the test entry in the database
+  const tests = await Test.create(testData);
+
+  // Respond with the created test entry
   res.status(201).json({
     status: 'success',
     data: {

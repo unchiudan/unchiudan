@@ -34,26 +34,26 @@ import { Result } from "./Components/test/test-components/Result";
 // import { LiveTest } from "./Components/test/test-components/LiveTest";
 function App() {
   const [user, setUser] = useState(null);
-  console.log(user)
-  
+  console.log(user);
+
   const [isLoading, setIsLoading] = useState(true);
   // const canonicalUrl = window.location.href;
 
-  const getUser=async()=>{
-    try{
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/login/success`,{withCredentials:true} )
+  const getUser = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/login/success`,
+        { withCredentials: true }
+      );
       // console.log("response",response.data.user)
-      setUser(response.data)
-      
-
-    }catch(error){
-      console.log("error",error)
+      setUser(response.data);
+    } catch (error) {
+      console.log("error", error);
     }
-  }
-  useEffect(()=>{
-    getUser()
-  },[])
-
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const checkAuthenticated = async () => {
     const token = localStorage.getItem("jwt_token");
@@ -128,7 +128,7 @@ function App() {
             path="/pdfs/:id"
             element={<DownloadPage userData={user} />}
           />
-      
+
           <Route
             exact
             path="/Currentaffairs"
@@ -140,9 +140,17 @@ function App() {
             element={<BlogsPage userData={user} />}
           />
           <Route exact path="/test" element={<TestPage userData={user} />} />
-          <Route exact path="/test/:id" element={<StartTest userData={user} />} />
+          <Route
+            exact
+            path="/test/:id"
+            element={<StartTest userData={user} />}
+          />
           {/* <Route exact path="/liveTest" element={<LiveTest userData={user} />} /> */}
-          <Route exact path="/result/:id" element={<Result userData={user} />} />
+          <Route
+            exact
+            path="/result/:id"
+            element={<Result userData={user} />}
+          />
           <Route exact path="/News" element={<News userData={user} />} />
           <Route
             exact

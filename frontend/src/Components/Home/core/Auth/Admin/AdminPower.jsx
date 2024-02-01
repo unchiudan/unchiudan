@@ -34,10 +34,10 @@ const AdminPage = ({ userData }) => {
   }, []);
 
   const handleDeleteClick = async (event, newsId) => {
-    console.log(
-      "🚀 ~ file: NewsComp.jsx:33 ~ handleDeleteClick ~ newsId:",
-      newsId
-    );
+    // console.log(
+    //   "🚀 ~ file: NewsComp.jsx:33 ~ handleDeleteClick ~ newsId:",
+    //   newsId
+    // );
     event.preventDefault(); // Prevent default behavior (e.g., navigation)
     event.stopPropagation(); // Prevent the click event from propagating to the parent link element
 
@@ -60,7 +60,7 @@ const AdminPage = ({ userData }) => {
           toast.success("News item deleted successfully");
 
           // Perform any additional actions you need here
-          console.log("News item deleted successfully");
+          // console.log("News item deleted successfully");
         } else {
           console.error("Error deleting news item:", response);
           // Show an error toast if needed

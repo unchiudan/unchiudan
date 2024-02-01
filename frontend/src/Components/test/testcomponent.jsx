@@ -28,6 +28,7 @@ function formatTimestamp(timestamp) {
 }
 
 function testComp({ testsItems, userData, onTestsDelete }) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [block, setBlock] = useState(false);
 
   let role;
@@ -72,7 +73,7 @@ function testComp({ testsItems, userData, onTestsDelete }) {
         if (response.status === 200) {
           toast.dismiss(loadingToast);
           // Perform any additional actions you need here
-          console.log("Tests item deleted successfully");
+          // console.log("Tests item deleted successfully");
           toast.success("Tests item deleted successfully");
           if (typeof onTestsDelete === "function") {
             onTestsDelete();
@@ -95,6 +96,22 @@ function testComp({ testsItems, userData, onTestsDelete }) {
     return textarea.value;
   };
 
+    function formatDateFromTimestamp(timestamp) {
+        // Create a new Date object using the provided timestamp
+        var currentDate = new Date(timestamp);
+    
+        // Get the day, month, and year components from the Date object
+        var day = currentDate.getDate();
+        var month = currentDate.toLocaleString('default', { month: 'short' }); // Get the month name in short format
+        var year = currentDate.getFullYear();
+    
+        // Concatenate the components into the desired format
+        var formattedDate = day + ' ' + month + ' ' + year;
+    
+        // Return the formatted date
+        return formattedDate;
+    }
+
   return (
     <div className="flex flex-col items-center justify-center">
       {testsItems.length === 0 ? (
@@ -110,20 +127,20 @@ function testComp({ testsItems, userData, onTestsDelete }) {
           const isRecent = isWithin48Hours(test.createdAt);
 
           const decodedName = decodeHtmlEntities(test.name);
-          
 
           const starttime = formatTimestamp(test.mainstart);
           const endtime = formatTimestamp(test.mainend);
 
           const oneMinuteAfterEnd = test.mainend + 60000; // One minute after end
 
-          const showResultButton = Date.now() >= oneMinuteAfterEnd ? (
-            <Link to={`/result/${test._id}`}>
-              <button className="mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl">
-                Show Result
-              </button>
-            </Link>
-          ) : null;
+          const showResultButton =
+            Date.now() >= oneMinuteAfterEnd ? (
+              <Link to={`/result/${test._id}`}>
+                <button className="mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl">
+                  Show Result
+                </button>
+              </Link>
+            ) : null;
 
           return (
             <div
@@ -168,14 +185,31 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                   />
                   <p className=" text-gray-800 md:text-base text-[20px]">
                     <strong>Start At:</strong> {starttime}
-                    
                   </p>
                   <p className=" text-gray-800 md:text-base text-[20px]">
-                  <strong>End At:</strong> {endtime}
-                  
+                    <strong>End At:</strong> {endtime}
                   </p>
-                  <strong>*Result will declare after one minutes Test End </strong>
-                  <Link to={userData ? `/test/${test._id}` : "/login"}>
+                  <strong>
+                    *Result will declare after one minutes Test End{" "}
+                  </strong>
+                  <Link
+                    to={userData ? `/test/${test._id}` : "/login"}
+                    onClick={() => {
+                      function stripHtmlTags(html) {
+                        // Create a new div element
+                        var doc = new DOMParser().parseFromString(html, 'text/html');
+                        var text = doc.body.textContent || "";
+                    
+                        // Return the text content without HTML tags
+                        return text;
+                    }
+                    const textContent = stripHtmlTags(decodedName);
+                    const time = formatDateFromTimestamp(test.mainstart)
+
+                      localStorage.setItem("testname", textContent);
+                      localStorage.setItem("testdate", time);
+                    }}
+                  >
                     <button
                       disabled={
                         block ||

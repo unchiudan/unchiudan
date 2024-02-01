@@ -165,7 +165,7 @@ exports.restrictTo = (...roles) => {
 };
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
-  console.log(req.user,"update password")
+  // console.log(req.user,"update password")
   const user = await User.findById(req.user.id).select('+password');
 
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
@@ -181,7 +181,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
-  console.log(req.body.email);
+  // console.log(req.body.email);
 
   if (!user) {
     return next(
@@ -194,7 +194,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   const resetURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
-  console.log(resetURL);
+  // console.log(resetURL);
 
   try {
     await new Email(user, resetURL).sendPasswordReset();
@@ -236,7 +236,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.authenticateCors = async (req, res, next) => {
-  
+  // console.log(req.body)
   try {
     if (!req.body.googleLogIn) {
  
@@ -275,7 +275,7 @@ exports.authenticateCors = async (req, res, next) => {
       // User is authenticated, continue with the request
     } else {
       const currentUser = await User.findOne({ email: req.body.email });
-      console.log
+      
       if (!currentUser) {
         return res.status(401).json({ message: 'User not found' });
       }
@@ -290,35 +290,3 @@ exports.authenticateCors = async (req, res, next) => {
   }
 };
 
-// exports.generateRandomPassword = ()=>{
-//   const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
-//   const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-//   const symbols = '!@#$%^&*()-_=+[]{}|;:,.<>?/';
-//   const numbers = '0123456789';
-
-//   const getRandomChar = (characters) => {
-//     const randomIndex = Math.floor(Math.random() * characters.length);
-//     return characters[randomIndex];
-//   };
-
-//   const getRandomFromArray = (arrays) => {
-//     const randomIndex = Math.floor(Math.random() * arrays.length);
-//     return getRandomChar(arrays[randomIndex]);
-//   };
-
-//   const passwordArray = [
-//     getRandomChar(lowercaseLetters),
-//     getRandomChar(uppercaseLetters),
-//     getRandomChar(symbols),
-//     getRandomChar(numbers),
-//     getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
-//     getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
-//     getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
-//     getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
-//   ];
-
-//   // Shuffle the passwordArray to ensure randomness
-//   const shuffledPassword = passwordArray.sort(() => Math.random() - 0.5).join('');
-
-//   return shuffledPassword;
-// }

@@ -22,7 +22,7 @@ function TestPage({ userData }) {
             const response = await axios.delete(
               `${import.meta.env.VITE_BACKEND_URL}/user/${userData.user._id}/test/delete/${item._id}`
             );
-            console.log("Object deleted successfully:", response.data);
+            // console.log("Object deleted successfully:", response.data);
           } catch (error) {
             console.error("Error deleting object:", error);
             // Handle error scenarios

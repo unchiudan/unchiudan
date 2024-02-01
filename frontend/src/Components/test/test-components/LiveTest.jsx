@@ -269,15 +269,38 @@ export function LiveTest({ userData }) {
 
   if (!liveTest) return <div>Loading...</div>;
 
+//   const decodeHtmlEntities = (html) => {
+//     const textarea = document.createElement("textarea");
+//     textarea.innerHTML = html;
+//     return textarea.value;
+//   };
+//   function formatDateFromTimestamp(timestamp) {
+//     // Create a new Date object using the provided timestamp
+//     var currentDate = new Date(timestamp);
+
+//     // Get the day, month, and year components from the Date object
+//     var day = currentDate.getDate();
+//     var month = currentDate.toLocaleString('default', { month: 'short' }); // Get the month name in short format
+//     var year = currentDate.getFullYear();
+
+//     // Concatenate the components into the desired format
+//     var formattedDate = day + ' ' + month + ' ' + year;
+
+//     // Return the formatted date
+//     return formattedDate;
+// }
+
   return (
     <div className="bg-[#cccccc]  py-[5rem]  md:py-[7rem] px-[2rem]">
       <h1 className="border p-2rem rounded-xl border-[3px] px-[10px] w-[150px] text-center h-[30px] bg-blue-300 font-semibold fixed ">Timer: {formatTime(remainingTime)}</h1>
       <div className=" justify-center items-center md:px-[20%] ">
         <h1 className="text-xl lg:text-2xl font-bold text-gray-800 mb-4 text-center">
           <span className="flex flex-col items-center justify-center">
-            <span className="mb-2">BSSC 2nd इन्टर लेवल test</span>
+            <span className="mb-2"> 
+             {localStorage.getItem("testname")}
+           </span>
             <span className="text-green-500 text-sm lg:text-base">
-              (27 जनवरी 2024)
+            {localStorage.getItem("testdate")}
             </span>
           </span>
         </h1>

@@ -5,14 +5,21 @@ const testSchema = new mongoose.Schema({
   mainstart: { type: Number, required: true },
   mainend: { type: Number, required: true },
   photo: {
-    type: String,
-    default: 'uchiudan.png',
+    type: String, default: 'uchiudan.png',
   },
   data: [
     {
       ques: String,
-      options: [{ type: String, trim: true }],
-      ans: { type: String, trim: true },
+      options: [
+        {
+          type: String,
+          trim: true,
+        },
+      ],
+      ans: {
+        type: String,
+        trim: true,
+      },
     },
   ],
   createdAt: {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
@@ -7,23 +8,10 @@ const postaffairs = async (testData) => {
   const token = localStorage.getItem("jwt_token");
   console.log("🚀 ~ postaffairs ~ testData:", testData);
 
-  // const formData = new FormData();
-
-  // formData.append("name", testData.name);
-  // formData.append("mainstart", testData.mainstart);
-  // formData.append("mainend", testData.mainend);
-  // formData.append("data", JSON.stringify(testData.data));
-  // formData.append("photo", testData.photo);
-  // formData.append("correctmark", testData.correctmark);
-  // formData.append("testtime", testData.testtime);
-  // formData.append("negativemark", testData.negativemark);
-
-  // console.log("🚀 ~ postaffairs ~ formData:", formData);
-
   let loadingToast;
   try {
     loadingToast = toast.loading("Posting TestData...");
-    await axios.post(`http://localhost:3000/api/test`, testData, {
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/test`, testData, {
       headers: {
         Authorization: token,
       },
@@ -125,11 +113,6 @@ const FormTest = () => {
         negativemarks,
         testtime,
       });
-
-      // Reset the form data to its initial values after successful submission
-      // setFormData({ ...initialFormData });
-
-      // Optionally, you can clear the JoditEditor content
       if (topicEditor.current) {
         topicEditor.current.value = "";
       }
@@ -219,9 +202,6 @@ const FormTest = () => {
             onBlur={(content) => handleEditorChange("name", content)}
             onChange={(content) => {}}
             value={formData.name}
-            // onChange={(e) =>
-            //   setFormData({ ...formData, topic: e.target.value })
-            // }
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />

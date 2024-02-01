@@ -52,7 +52,7 @@ export function StartTest({ userData }) {
           console.error("Error checking authentication:", response.statusText);
         }
       } else {
-        const response = await axios.get(`http://localhost:3000/api/user/${userid}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/${userid}`);
         if (response.data.data.user && response.data.data.user.test) {
           const userData = response.data.data
           setNewData(userData)
@@ -64,7 +64,7 @@ export function StartTest({ userData }) {
       const access = existingTest.some((item) => {
         return item.test_id.toString() === id && item.isSubmit === true;
       });
-      console.log("🚀 ~ access ~ access:", access)
+
   
       if (!access) {
         localStorage.setItem("phoneNumber", phoneNumber);

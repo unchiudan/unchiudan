@@ -71,7 +71,7 @@ export const Result = ({ userData }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/test/${id}`
+          `${import.meta.env.VITE_BACKEND_URL}/test/${id}`
         );
         const { name, result } = response.data.data.test;
         setResultData(result);

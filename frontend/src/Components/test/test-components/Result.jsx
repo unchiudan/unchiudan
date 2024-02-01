@@ -118,7 +118,7 @@ export const Result = ({ userData }) => {
   }
 
   return (
-    <div className="pt-[6rem] relative">
+    <div className="pt-[6rem] ">
       <div className="m-4 flex items-center">
         <input
           type="text"
@@ -131,9 +131,10 @@ export const Result = ({ userData }) => {
           Search
         </button>
       </div>
+      <div className="text-center">
       {role ? (
         <button
-          className="transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md"
+          className="transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md "
           onClick={downloadPDF}
           disabled={!(loader === false)}
         >
@@ -142,10 +143,12 @@ export const Result = ({ userData }) => {
       ) : (
         ""
       )}
-      <div className="overflow-x-auto">
-        <div className="text-center mb-[2.5rem]"></div>
-        <table className="w-full md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto md:w-4/5 lg:w-3/4 xl:w-2/3 border border-black result-table mb-[5rem]">
-          <div className="absolute inset-0 z-10 pointer-events-none pt-20">
+      </div>
+      <div className="  w-full px-[2%]  mb-[3rem]">
+      <div className="overflow-x-auto ">
+        <div className="text-center  "></div>
+        <table className="">
+          <div className=" inset-0 z-10 pointer-events-none ">
             <div
               className="absolute inset-0 bg-center bg-contain bg-repeat-y opacity-10"
               style={{
@@ -155,10 +158,10 @@ export const Result = ({ userData }) => {
             ></div>
           </div>
 
-          <thead>
-            <tr className="bg-gray-300 text-center">
+          <thead className="">
+            <tr className="bg-gray-300 text-center ">
               <td
-                className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 mx-auto w-16  px-6 py-3 border-b border border-black text-white uppercase font-semibold relative"
+                className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 mx-auto   px-6 py-3 border-b border border-black text-white uppercase font-semibold "
                 colSpan="20"
               >
                 <div className="flex items-center justify-center space-x-2">
@@ -217,6 +220,7 @@ export const Result = ({ userData }) => {
             <ResultData results={filteredResults} />
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

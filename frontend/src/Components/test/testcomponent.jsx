@@ -162,7 +162,7 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                 <div className="w-full md:w-1/3 bg-white">
                   <img
                     className="w-full h-[200px] object-cover rounded-xl"
-                    src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/test/${
+                    src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/usertest/${
                       test.photo
                     }`}
                     alt={`logo`}

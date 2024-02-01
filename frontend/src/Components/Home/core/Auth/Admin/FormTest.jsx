@@ -11,7 +11,7 @@ const postaffairs = async (testData) => {
   let loadingToast;
   try {
     loadingToast = toast.loading("Posting TestData...");
-    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/test`, testData, {
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/test`, testData, {
       headers: {
         Authorization: token,
       },

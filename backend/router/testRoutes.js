@@ -1,12 +1,14 @@
 const express = require('express');
 const testController = require('../controllers/testController');
-// const authController = require('../controllers/authController.js');
-const router = express.Router();
 const {
   protect,
   restrictTo,
   authenticateCors,
 } = require('../controllers/authController');
+
+
+const router = express.Router();
+
 
 router
   .route('/')
@@ -15,7 +17,7 @@ router
     authenticateCors,
     restrictTo('admin'),
     testController.uploadPhoto,
-    testController.resizePhoto('public/img/test'),
+    testController.resizePhoto('public/img/usertest'),
     testController.createOne,
   );
 

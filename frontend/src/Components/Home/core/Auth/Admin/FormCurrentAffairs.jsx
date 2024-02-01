@@ -16,6 +16,7 @@ const postaffairs = async (affairsData) => {
   formData.append("data", JSON.stringify(affairsData.data));
   formData.append("photo", affairsData.photo);
   formData.append("set_no", affairsData.set_no);
+
   let loadingToast;
   try {
     loadingToast = toast.loading("Posting CurrentAffairs...");

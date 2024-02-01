@@ -55,24 +55,17 @@ exports.getAllTests = catchAsync(async (req, res, next) => {
 });
 
 exports.createOne = catchAsync(async (req, res, next) => {
-  let photo = null; // Initialize photo variable
-
-  // Check if there is a file uploaded
+  const parsedData = JSON.parse(req.body.data);
+  let data = parsedData
+  
+  let photo;
   if (req.file) {
-    photo = req.file.filename; // Assign the filename of the uploaded file to photo
+    photo = req.file.filename;
   }
-
-  // Combine request body and photo
-  const testData = {
-    ...req.body, // Include all fields from the request body
-    photo: photo, // Assign the photo to the photo field
-  };
-
-  // console.log(testData,"😋😋😋😋")
-
+  req.body = { ...req.body, photo ,data };
 
   // Create the test entry in the database
-  const tests = await Test.create(testData);
+  const tests = await Test.create(req.body);
 
   // Respond with the created test entry
   res.status(201).json({
@@ -133,7 +126,7 @@ exports.deleteTests = catchAsync(async (req, res, next) => {
   }
 
   const imagePath = tests.photo;
-  const fullPath = path.join(__dirname, '../public/img/test', imagePath);
+  const fullPath = path.join(__dirname, '../public/img/usertest', imagePath);
 
   // Check if the test has an associated image and delete it from the server's file system if it exists
   if (imagePath && imagePath !== 'uchiudan.png') {

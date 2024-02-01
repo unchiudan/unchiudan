@@ -7,11 +7,29 @@ import JoditEditor from "jodit-react";
 const postaffairs = async (testData) => {
   const token = localStorage.getItem("jwt_token");
   // console.log("🚀 ~ postaffairs ~ testData:", testData);
+  const name = testData.name;
+  
+
+    
+  const jsonData = JSON.stringify(testData.data);
+ 
 
   let loadingToast;
   try {
     loadingToast = toast.loading("Posting TestData...");
-    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/test`, testData, {
+    const formData = new FormData();
+    formData.append("correctmarks", testData.correctmarks);
+    formData.append("negativemarks", testData.negativemarks);
+    formData.append("name", name);
+    formData.append("data", jsonData);
+    formData.append("mainend", testData.mainend);
+    formData.append("mainstart", testData.mainstart);
+    formData.append("testtime", testData.testtime);
+    formData.append("photo", testData.photo);
+
+   
+
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/test`, formData, {
       headers: {
         Authorization: token,
       },
@@ -34,7 +52,7 @@ const FormTest = () => {
     mainstart: 0,
     mainend: 2,
     correctmarks: "",
-    negativemarks:"0",
+    negativemarks: "0",
     testtime: 2,
     photo: null,
     data: [{ ques: "", options: ["", "", "", ""], ans: "" }],
@@ -95,7 +113,7 @@ const FormTest = () => {
     const formopen = formData.mainstart + formData.mainend;
     const mainstart = addMinutesToCurrentTime(formData.mainstart);
     const mainend = addMinutesToCurrentTime(formopen);
-    const testtime = parseInt(formData.testtime)
+    const testtime = parseInt(formData.testtime);
 
     const negativemarks = parseFloat(
       formData.negativemarks.replace(/[-+]/g, "")
@@ -276,7 +294,6 @@ const FormTest = () => {
             value={formData.negativemarks}
             onChange={handleNegativeMarkChange}
             className="border p-2 w-full text-black"
-            
           />
         </div>
         <div className="mb-4">

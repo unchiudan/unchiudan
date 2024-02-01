@@ -236,7 +236,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.authenticateCors = async (req, res, next) => {
-  
+  // console.log(req.body)
   try {
     if (!req.body.googleLogIn) {
  
@@ -290,35 +290,3 @@ exports.authenticateCors = async (req, res, next) => {
   }
 };
 
-// exports.generateRandomPassword = ()=>{
-//   const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
-//   const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-//   const symbols = '!@#$%^&*()-_=+[]{}|;:,.<>?/';
-//   const numbers = '0123456789';
-
-//   const getRandomChar = (characters) => {
-//     const randomIndex = Math.floor(Math.random() * characters.length);
-//     return characters[randomIndex];
-//   };
-
-//   const getRandomFromArray = (arrays) => {
-//     const randomIndex = Math.floor(Math.random() * arrays.length);
-//     return getRandomChar(arrays[randomIndex]);
-//   };
-
-//   const passwordArray = [
-//     getRandomChar(lowercaseLetters),
-//     getRandomChar(uppercaseLetters),
-//     getRandomChar(symbols),
-//     getRandomChar(numbers),
-//     getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
-//     getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
-//     getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
-//     getRandomChar(lowercaseLetters + uppercaseLetters + symbols + numbers),
-//   ];
-
-//   // Shuffle the passwordArray to ensure randomness
-//   const shuffledPassword = passwordArray.sort(() => Math.random() - 0.5).join('');
-
-//   return shuffledPassword;
-// }

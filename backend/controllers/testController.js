@@ -40,7 +40,7 @@ exports.getAllTests = catchAsync(async (req, res, next) => {
   const limit = req.query.limit * 1 || 10;
   const skip = (page - 1) * limit;
   // Create a query to retrieve news articles with pagination
-  const query = Test.find().skip(skip).limit(limit).sort('-updatedAt');
+  const query = Test.find().skip(skip).limit(limit).sort('-createdAt');
   const query1 = Test.find();
   const tests = await query;
   const test2 = await query1;

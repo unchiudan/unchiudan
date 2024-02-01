@@ -42,11 +42,11 @@ export const ResultData = ({ results }) => {
         let MedalIcon = null;
 
         if (index === 0) {
-          MedalIcon = <img src={Gold} alt="Gold medal" />;
+          MedalIcon = <img src={Gold} alt="Gold medal" className="w-[40px] h-[40px] " />;
         } else if (index === 1) {
-          MedalIcon = <img src={Silver} alt="Silver Medal" />;
+          MedalIcon = <img src={Silver} alt="Silver Medal" className="w-[40px] h-[40px] "/>;
         } else if (index === 2) {
-          MedalIcon = <img src={Bronze} alt="Bronze Medal" />;
+          MedalIcon = <img src={Bronze} alt="Bronze Medal" className="w-[40px] h-[40px] "/>;
         }
 
         {/* // Mask part of the email

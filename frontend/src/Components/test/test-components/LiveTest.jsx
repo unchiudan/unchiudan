@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
@@ -24,7 +25,7 @@ export function LiveTest({ userData }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/test/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/test/${id}`);
         setLiveTest(response.data.data.test);
         if (!localStorage.getItem("TotalTime")) {
           localStorage.setItem("TotalTime", response.data.data.test.testtime * 60);
@@ -47,7 +48,7 @@ export function LiveTest({ userData }) {
           try {
             const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
             const response = await axios.patch(
-              `http://localhost:3000/api/test/user/${userid}`,
+              `${import.meta.env.VITE_BACKEND_URL}/test/user/${userid}`,
               {
                 test_id: id,
                 userstart: Date.now(),
@@ -156,7 +157,7 @@ export function LiveTest({ userData }) {
     
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/test/user/${userid}`,
+        `${import.meta.env.VITE_BACKEND_URL}/test/user/${userid}`,
         {
           test_id: id,
           isSubmit: true,
@@ -172,7 +173,7 @@ export function LiveTest({ userData }) {
       );
       const username = `${userData.user.firstname} ${userData.user.lastname}`
       const useremail = userData.user.email;
-      const response2 = await axios.patch(`http://localhost:3000/api/test/submit/${id}`, {
+      const response2 = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/test/submit/${id}`, {
         userid: userid,
         username: username,
         useremail,
@@ -194,10 +195,7 @@ export function LiveTest({ userData }) {
       localStorage.removeItem('TotalTime');
       localStorage.removeItem('remainingTime');
       localStorage.removeItem('userScore');
-      
-      console.log(response.data);
-      console.log(response2.data);
-      console.log(calculate, "calculate");
+    
     } catch (error) {
       console.error("Error submitting test result:", error);
     }
@@ -206,7 +204,7 @@ export function LiveTest({ userData }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/user/${userid}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/${userid}`);
         if (response.data.data.user && response.data.data.user.test) {
           const userData = response.data.data;
           const currenttest = userData.user.test.find((item) => item.test_id === id);

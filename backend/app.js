@@ -93,7 +93,7 @@ passport.use(
       scope: ['profile', 'email'],
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log("🚀 ~ profile:", profile.givenname)
+      // console.log("🚀 ~ profile:", profile.givenname)
       
       const user = await User.findOne({ email: profile.emails[0].value });
       try {
@@ -104,8 +104,9 @@ passport.use(
             email: profile.emails[0].value,
             googleId:profile.id,
             googleLogIn:true,
-            password:`${process.env.googlePassword}`
-            // phone: req.body.phone,
+            password:`${process.env.googlePassword}`,
+            phone:profile.id
+            
           });
           await user.save();
           return done(null, user);

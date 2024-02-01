@@ -135,14 +135,14 @@ export function LiveTest({ userData }) {
 
     const notattempt = totalQuestions - selectedlength;
 
-    const correctmarks = parseFloat(correctAnswers) * parseFloat(liveTest.correctmark);
+    const correctmarks = parseFloat(correctAnswers) * parseFloat(liveTest.correctmarks);
     const negativemarks =
       (parseFloat(selectedlength) - parseFloat(correctAnswers)) *
-      parseFloat(-liveTest.negativemark);
+      parseFloat(-liveTest.negativemarks);
 
     const score = correctmarks + negativemarks;
     const percentage =
-      (score / (totalQuestions * parseFloat(liveTest.correctmark))) * 100;
+      (score / (totalQuestions * parseFloat(liveTest.correctmarks))) * 100;
     
     return [correctAnswers, score, totalQuestions, notattempt, negativemarks, percentage];
   };

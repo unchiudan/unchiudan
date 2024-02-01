@@ -76,8 +76,8 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: true, // Set to true for HTTPS
-    },
+      secure: true, 
+    },
   }),
 );
 

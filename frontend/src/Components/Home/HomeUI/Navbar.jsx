@@ -142,7 +142,7 @@ export default function Navbar({ userData }) {
               Home
             </Link>
             <Link to="/test" className="block">
-            Test
+            Live Test
           </Link>
           <Link to="/Currentaffairs" className="block focus:outline-none">
                 Current Affairs
@@ -237,7 +237,7 @@ export default function Navbar({ userData }) {
              src={Testicon}
              alt="Test Icon"
              className="mr-2  w-5 h-5" />
-            Test
+            Live Test
           </Link>
 
           <Link

@@ -94,10 +94,10 @@ export function StartTest({ userData }) {
             <div className="mx-auto py-24 flex justify-center items-center">
               <div className="w-96 bg-white rounded-lg p-6 shadow-md">
                 <div className="text-2xl font-bold mb-4">
-                  BSSC 2nd इन्टर लेवल test
+                {localStorage.getItem("testname")}
                 </div>
                 <div className="text-gray-500 text-sm mb-4">
-                  (27 जनवरी 2024)
+                  {localStorage.getItem("testdate")}
                 </div>
                 <form className="grid gap-4">
                   <div className="flex flex-col space-y-1.5">
@@ -121,21 +121,16 @@ export function StartTest({ userData }) {
                     >
                       Districts
                     </label>
-                    <select
+                    <input
                       id="districts"
+                      type="text"
                       required="true"
+                      placeholder="Enter your District name"
                       className="border border-gray-300 p-2 rounded-md"
                       value={selectedDistrict}
                       onChange={(e) => setSelectedDistrict(e.target.value)}
-                    >
-                      <option value="" disabled defaultValue>
-                        Select
-                      </option>
-                      <option value="next">Next.js</option>
-                      <option value="sveltekit">SvelteKit</option>
-                      <option value="astro">Astro</option>
-                      <option value="nuxt">Nuxt.js</option>
-                    </select>
+                    />
+ 
                   </div>
                 </form>
                 <div className="flex justify-between mt-6">

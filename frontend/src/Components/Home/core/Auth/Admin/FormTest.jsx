@@ -6,7 +6,7 @@ import JoditEditor from "jodit-react";
 
 const postaffairs = async (testData) => {
   const token = localStorage.getItem("jwt_token");
-  console.log("🚀 ~ postaffairs ~ testData:", testData);
+  // console.log("🚀 ~ postaffairs ~ testData:", testData);
 
   let loadingToast;
   try {
@@ -90,7 +90,7 @@ const FormTest = () => {
     if (formData.data[0].ques === "") {
       formdata = [];
     }
-    console.log(formdata);
+    // console.log(formdata);
 
     const formopen = formData.mainstart + formData.mainend;
     const mainstart = addMinutesToCurrentTime(formData.mainstart);

@@ -34,7 +34,7 @@ import { Result } from "./Components/test/test-components/Result";
 // import { LiveTest } from "./Components/test/test-components/LiveTest";
 function App() {
   const [user, setUser] = useState(null);
-  console.log(user);
+  // console.log(user);
 
   const [isLoading, setIsLoading] = useState(true);
   // const canonicalUrl = window.location.href;

@@ -48,7 +48,7 @@ function NewsComp({ newsItems, userData, onNewsDelete }) {
         if (response.status === 200) {
           toast.dismiss(loadingToast);
           // Perform any additional actions you need here
-          console.log("News item deleted successfully");
+          // console.log("News item deleted successfully");
           toast.success("News item deleted successfully");
           if (typeof onNewsDelete === "function") {
             onNewsDelete();

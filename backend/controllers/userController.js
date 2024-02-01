@@ -81,14 +81,14 @@ exports.deleteUserTest = catchAsync(async (req, res, next) => {
   try {
     // Extract userId and testId from the request parameters
     const { userId, testId } = req.params;
-    console.log("🚀 ~ exports.deleteUserTest ~ testId:", testId)
+    // console.log("🚀 ~ exports.deleteUserTest ~ testId:", testId)
     
     // Assuming you have a User model
     const user = await User.findById(userId);
     
     // Find the index of the test object to delete
     const testIndex = user.test.findIndex(test => test._id.toString() === testId);
-    console.log(testIndex,"😀😀😀😀")
+    // console.log(testIndex,"😀😀😀😀")
 
     // If the test object exists, remove it from the array
     if (testIndex !== -1) {

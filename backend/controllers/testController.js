@@ -68,7 +68,7 @@ exports.createOne = catchAsync(async (req, res, next) => {
     photo: photo, // Assign the photo to the photo field
   };
 
-  console.log(testData,"😋😋😋😋")
+  // console.log(testData,"😋😋😋😋")
 
 
   // Create the test entry in the database

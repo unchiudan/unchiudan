@@ -89,7 +89,7 @@ const FormCurrentAffairs = () => {
     if(formData.data[0].ques===""){
       formdata=[]
     }
-    console.log(formdata)
+    // console.log(formdata)
 
     try {
       await postaffairs({

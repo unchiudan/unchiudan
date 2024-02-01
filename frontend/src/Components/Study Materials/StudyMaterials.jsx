@@ -86,10 +86,10 @@ function StudyMaterials({ userData }) {
       try {
         const response = await axios.get(apiUrl + id);
 
-        console.log(
-          "🚀 ~ file: StudyMaterials.jsx:75 ~ fetchPdfDataById ~ response.data.data.pdf:",
-          response.data.data.pdf
-        );
+        // console.log(
+        //   "🚀 ~ file: StudyMaterials.jsx:75 ~ fetchPdfDataById ~ response.data.data.pdf:",
+        //   response.data.data.pdf
+        // );
         return response.data.data.pdf;
       } catch (error) {
         console.error(`Error fetching data for ID ${id}:`, error);

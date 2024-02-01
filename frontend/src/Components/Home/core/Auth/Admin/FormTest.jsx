@@ -46,7 +46,7 @@ const FormTest = () => {
     mainstart: 0,
     mainend: 2,
     correctmarks: "",
-    negativemarks:0,
+    negativemarks:"0",
     testtime: 2,
     photo: null,
     data: [{ ques: "", options: ["", "", "", ""], ans: "" }],
@@ -278,7 +278,7 @@ const FormTest = () => {
             Correct Mark
           </label>
           <input
-            type="number"
+            type="string"
             name="correctmarks"
             value={formData.correctmarks}
             onChange={handleCorrectMarkChange}

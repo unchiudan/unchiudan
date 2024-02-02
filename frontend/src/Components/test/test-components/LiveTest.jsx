@@ -43,7 +43,7 @@ export function LiveTest({ userData }) {
     const existingTest = userData.user.test;
     const access = existingTest.some((item) => item.test_id.toString() === id);
     if (!access) {
-      if (liveTest && !patchSent) {
+      if (liveTest  &&  Date.now()< liveTest.mainend  && !patchSent) {
         const timer = setTimeout(async () => {
           try {
             const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
@@ -269,26 +269,7 @@ export function LiveTest({ userData }) {
 
   if (!liveTest) return <div>Loading...</div>;
 
-//   const decodeHtmlEntities = (html) => {
-//     const textarea = document.createElement("textarea");
-//     textarea.innerHTML = html;
-//     return textarea.value;
-//   };
-//   function formatDateFromTimestamp(timestamp) {
-//     // Create a new Date object using the provided timestamp
-//     var currentDate = new Date(timestamp);
 
-//     // Get the day, month, and year components from the Date object
-//     var day = currentDate.getDate();
-//     var month = currentDate.toLocaleString('default', { month: 'short' }); // Get the month name in short format
-//     var year = currentDate.getFullYear();
-
-//     // Concatenate the components into the desired format
-//     var formattedDate = day + ' ' + month + ' ' + year;
-
-//     // Return the formatted date
-//     return formattedDate;
-// }
 
   return (
     <div className="bg-[#cccccc]  py-[5rem]  md:py-[7rem] px-[2rem]">
@@ -309,14 +290,14 @@ export function LiveTest({ userData }) {
           <span className="text-green-500 font-semibold ">*Note</span>
           <br />{" "}
           <p>
-            You received +{liveTest.correctmark} for each right answer, -
-            {liveTest.negativemark} for each incorrect response, and 0 for each
+            You received +{liveTest.correctmarks} for each right answer, -
+            {liveTest.negativemarks} for each incorrect response, and 0 for each
             question that was not attempted.
           </p>{" "}
           <p className="text-center font-semibold mb-[1rem] ">OR</p>
           <p>
-            आपको प्रत्येक सही उत्तर के लिए +{liveTest.correctmark}, प्रत्येक गलत
-            उत्तर के लिए -{liveTest.negativemark} और प्रत्येक उस प्रश्न के लिए 0
+            आपको प्रत्येक सही उत्तर के लिए +{liveTest.correctmarks}, प्रत्येक गलत
+            उत्तर के लिए -{liveTest.negativemarks} और प्रत्येक उस प्रश्न के लिए 0
             प्राप्त होगा जिसका प्रयास नहीं किया गया है।
           </p>{" "}
         </div>

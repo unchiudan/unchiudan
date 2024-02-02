@@ -16,7 +16,6 @@ const postaffairs = async (affairsData) => {
   formData.append("data", JSON.stringify(affairsData.data));
   formData.append("photo", affairsData.photo);
   formData.append("set_no", affairsData.set_no);
-
   let loadingToast;
   try {
     loadingToast = toast.loading("Posting CurrentAffairs...");
@@ -60,17 +59,14 @@ const FormCurrentAffairs = () => {
     }));
   };
 
-  const handleChange = (e, questionIndex) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    const updatedData = [...formData.data];
-    updatedData[questionIndex][name] = value;
-  
+
     setFormData((prevData) => ({
       ...prevData,
-      data: updatedData,
+      [name]: value,
     }));
   };
-  
 
   const handleOptionChange = (e, questionIndex, optionIndex) => {
     const { value } = e.target;
@@ -90,7 +86,7 @@ const FormCurrentAffairs = () => {
     if(formData.data[0].ques===""){
       formdata=[]
     }
-    // console.log(formdata)
+    console.log(formdata)
 
     try {
       await postaffairs({
@@ -125,15 +121,6 @@ const FormCurrentAffairs = () => {
       photo: file,
     });
   };
-
-  const handleRemoveQuestion = (indexToRemove) => {
-    const updatedQuestions = formData.data.filter((_, index) => index !== indexToRemove);
-    setFormData({
-      ...formData,
-      data: updatedQuestions,
-    });
-  };
-
   return (
     <div>
       <form className="mx-auto mt-8" onSubmit={handleSubmit}>
@@ -268,13 +255,6 @@ const FormCurrentAffairs = () => {
               onChange={(e) => handleChange(e, index)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            <button
-              type="button"
-              onClick={() => handleRemoveQuestion(index)}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg mt-2"
-            >
-              Remove Question
-            </button>
           </div>
         ))}
         <span className="flex space-x-6">

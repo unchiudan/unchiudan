@@ -93,7 +93,8 @@ exports.getAffair = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteAffair = catchAsync(async (req, res, next) => {
-  const affairs = await CurrentAffairs.findByIdAndRemove(req.params.id);
+  
+  const affairs = await CurrentAffairs.findByIdAndDelete(req.params.id);
  
   if (!affairs) {
     return next(new AppError('No affairs found with that ID', 404));

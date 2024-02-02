@@ -108,7 +108,7 @@ const FormTest = () => {
     if (formData.data[0].ques === "") {
       formdata = [];
     }
-    // console.log(formdata);
+    
 
     const formopen = formData.mainstart + formData.mainend;
     const mainstart = addMinutesToCurrentTime(formData.mainstart);
@@ -131,6 +131,7 @@ const FormTest = () => {
         negativemarks,
         testtime,
       });
+      setFormData({ ...initialFormData });
       if (topicEditor.current) {
         topicEditor.current.value = "";
       }

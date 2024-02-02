@@ -131,6 +131,7 @@ const FormTest = () => {
         negativemarks,
         testtime,
       });
+      setFormData({ ...initialFormData });
       if (topicEditor.current) {
         topicEditor.current.value = "";
       }

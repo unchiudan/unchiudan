@@ -145,9 +145,8 @@ export const Result = ({ userData }) => {
       )}
       </div>
       <div className="  w-full px-[2%]  mb-[3rem]">
-      <div className="overflow-x-auto ">
-        <div className="text-center  "></div>
-        <table className="">
+      <div className="overflow-x-auto ">      
+        <table className="result-table">
           <div className=" inset-0 z-10 pointer-events-none ">
             <div
               className="absolute inset-0 bg-center bg-contain bg-repeat-y opacity-10"

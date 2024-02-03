@@ -145,8 +145,7 @@ export const Result = ({ userData }) => {
       )}
       </div>
       <div className="  w-full px-[2%]  mb-[3rem]">
-      <div className="overflow-x-auto ">
-        {/*    */}
+      <div className="overflow-x-auto ">      
         <table className="result-table">
           <div className=" inset-0 z-10 pointer-events-none ">
             <div

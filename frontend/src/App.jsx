@@ -105,7 +105,10 @@ function App() {
   }
   // console.log(user,"😀😀😋😋")
   return (
-    <BrowserRouter>
+    <div onCopy={(event)=>{
+      event.preventDefault()
+    }}>
+    <BrowserRouter >
       <GlobalProvider>
         <Navbar userData={user} />
         <Routes>
@@ -213,6 +216,7 @@ function App() {
         </Routes>
       </GlobalProvider>
     </BrowserRouter>
+    </div>
   );
 }
 

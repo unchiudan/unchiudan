@@ -28,7 +28,6 @@ const authController = require('./controllers/authController');
 
 const cors = require('cors');
 
-
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -76,7 +75,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: true, 
+      secure: true,
     },
   }),
 );
@@ -94,7 +93,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       // console.log("🚀 ~ profile:", profile.givenname)
-      
+
       const user = await User.findOne({ email: profile.emails[0].value });
       try {
         if (!user) {
@@ -102,16 +101,15 @@ passport.use(
             firstname: profile.name.givenName,
             lastname: profile.name.familyName,
             email: profile.emails[0].value,
-            googleId:profile.id,
-            googleLogIn:true,
-            password:`${process.env.googlePassword}`,
-            phone:profile.id
-            
+            googleId: profile.id,
+            googleLogIn: true,
+            password: `${process.env.googlePassword}`,
+            phone: profile.id,
           });
           await user.save();
           return done(null, user);
         }
-        user.googleLogIn=true
+        user.googleLogIn = true;
         await user.save();
         return done(null, user);
       } catch (error) {
@@ -136,37 +134,37 @@ app.get(
   '/api/oauth/google/callback',
   passport.authenticate('google', {
     successRedirect: `${process.env.FRONTEND_URL}/user`,
-    failureRedirect: `${process.env.FRONTEND_URL}/login`
+    // successRedirect: `https://www.youtube.com/`,
+    failureRedirect: `${process.env.FRONTEND_URL}/login`,
   }),
 );
-app.get('/api/login/success',async(req,res)=>{
-
-  if (req.user){
+app.get('/api/login/success', async (req, res) => {
+  if (req.user) {
     res.status(200).json({
-      message:"user login",
-      user:req.user,
-      isAuthorized: true
-    })
-  }
-  else{
+      message: 'user login',
+      user: req.user,
+      isAuthorized: true,
+    });
+  } else {
     res.status(400).json({
-      message:"Not Authorize"
-    })
+      message: 'Not Authorize',
+    });
   }
-})
-app.post("/api/logout",async(req,res,next)=>{
- 
+});
+app.post('/api/logout', async (req, res, next) => {
   // console.log(email,"sdfdsfdsfdsfdsfds")
   const user = await User.findOne({ email: req.body.email });
   user.googleLogIn = false;
   await user.save();
-})
-app.get("/api/logout",async(req,res,next)=>{
-  req.logout(function(err){
-    if(err){return next(err)}
-    res.redirect(`${process.env.FRONTEND_URL}`)
-  })
-})
+});
+app.get('/api/logout', async (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect(`${process.env.FRONTEND_URL}`);
+  });
+});
 
 app.use('/api/currentaffairs', affairsRoute);
 app.use('/api/user', userRoutes);
@@ -176,7 +174,6 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/test', testRoutes);
 // app.use('/api/oauth/google/callback', oauthRoutes);
-
 
 // Error Handling
 app.all('*', (req, res, next) => {

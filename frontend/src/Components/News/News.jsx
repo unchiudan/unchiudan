@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+import usePageSEO from "../../hooks/usePageSEO/usePageSEO";
 
 function News({ userData }) {
   const [news, setNews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
-  const canonicalUrl = window.location.href;
+
   const handleNewsDelete = () => {
     fetchData(currentPage); // Trigger a re-fetch of data after deletion
   };
@@ -52,48 +53,18 @@ function News({ userData }) {
     setPostsPerPage(value);
     setCurrentPage(1); // Reset page number to 1 when limit changes
   };
+
+  usePageSEO({
+    title: 'News / Blog',
+    description: 'Stay informed with the latest news और insightful blogs from Unchi Udaan Classes. Explore current affairs, exam tips, और more for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence. Enhance आपकी exam preparation with daily current affairs PDFs.',
+    keywords: ['Latest News', 'Blogs', 'ऊँची उड़ान Classes', 'Exam Tips', 'UPSC', 'BPSC', 'बिहार दारोगा', 'रेलवे', 'SSC', 'बैंकिंग', 'रक्षा'],
+    ogTitle: 'News / Blog',
+    ogDescription: 'Stay informed with the latest news और insightful blogs from Unchi Udaan Classes. Explore current affairs, exam tips, और more for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence. Enhance आपकी exam preparation with daily current affairs PDFs.',
+    ogImage: 'https://unchiudaanclasses.com/uchiudan.png',
+    ogUrl: 'https://unchiudaanclasses.com/News',
+  })
   return (
     <div className="mx-[10%] pt-[6rem] ">
-      <Helmet>
-        <title>News / Blog</title>
-
-        <meta
-          name="description"
-          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
-          data-rh="true"
-        />
-        <meta
-          name="keywords"
-          content="unchi udan classes, unchiudaanclasses, uchiudaan classes,uchiudan,Unchiudaan classes,ऊँची उड़ान classes,
-  Daily Current Affairs,Unchiudaan Current Affairs, Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations"
-          data-rh="true"
-        />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Unchiudaan - News / Blog" />
-        <meta
-          property="og:description"
-          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
-        />
-        <meta
-          property="og:image"
-          content="https://unchiudaanclasses.com/uchiudan.png"
-        />
-
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Unchiudaan - News / Blog" />
-        <meta
-          name="twitter:description"
-          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
-        />
-        <meta
-          name="twitter:image"
-          content="https://unchiudaanclasses.com/uchiudan.png"
-        />
-
-        <meta name="author" content="Anuraj kumar, ishu singh, @ImKKingshuk" />
-      </Helmet>
-
       <div className="container mx-auto px-4">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
           <span className="mr-2">Daily News</span>

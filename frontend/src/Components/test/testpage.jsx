@@ -3,6 +3,7 @@ import React from "react";
 import TestComp from "./testcomponent";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import usePageSEO from "../../hooks/usePageSEO/usePageSEO";
 
 // eslint-disable-next-line react/prop-types
 function TestPage({ userData }) {
@@ -75,6 +76,16 @@ function TestPage({ userData }) {
     setPostsPerPage(value);
     setCurrentPage(1); // Reset page number to 1 when limit changes
   };
+
+  usePageSEO({
+    title: 'ऊँची उड़ान Classes - Live Test',
+    description: 'शामिल हों ऊँची उड़ान Classes Live Test में, मुफ्त कर्रेंट अफेयर्स की तैयारी के लिए UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence. रोज़ाना करेंट अफेयर्स PDFs प्राप्त करें और अपनी परीक्षा की तैयारी में वृद्धि करें।',
+    keywords: ['ऊँची उड़ान Classes', 'मुफ्त कर्रेंट अफेयर्स PDFs', 'Live Test की तैयारी', 'UPSC', 'BPSC', 'बिहार दारोगा', 'रेलवे', 'SSC', 'बैंकिंग', 'रक्षा'],
+    ogTitle: 'ऊँची उड़ान Classes - Live Test',
+    ogDescription: 'शामिल हों ऊँची उड़ान Classes Live Test में, मुफ्त कर्रेंट अफेयर्स की तैयारी के लिए UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence. रोज़ाना करेंट अफेयर्स PDFs प्राप्त करें और अपनी परीक्षा की तैयारी में वृद्धि करें।',
+    ogImage: 'https://unchiudaanclasses.com/uchiudan.png',
+    ogUrl: 'https://unchiudaanclasses.com/test',
+  })
 
   return (
     <div className="mx-auto py-[6rem]">

@@ -7,6 +7,7 @@ import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import Sidebar_pdf from "../Sidebar/Sidebar_pdf";
 import { Toaster, toast } from "react-hot-toast";
 import { Seo } from "../../Seo"
+import usePageSEO from "../../hooks/usePageSEO/usePageSEO";
 
 function BlogComps({
   date,
@@ -235,14 +236,18 @@ function Downloads({ userData }) {
     fetchData(currentPage, selectedCategory, selectedStatus); // Fetch data again after successful deletion
   };
 
+  usePageSEO({
+    title: 'Monthly PDFs / मासिक PDF',
+    description: 'Get Latest update Free/पैड PDFs for all types of current Affairs',
+    keywords: ['Daily currentaffairs PDFs', 'unchi udaan classses free pdfs', 'unchi udaan classses free all current affair pdfs'],
+    ogTitle: 'Monthly PDFs / मासिक PDF',
+    ogDescription: 'Explore our PDF resources at Unchi Udaan Classes.',
+    ogImage: 'https://unchiudaanclasses.com/uchiudan.png',
+    ogUrl: 'https://unchiudaanclasses.com/pdfs',
+  })
+
   return (
     <>
-     <Seo
-      title="Monthly PDFs / मासिक PDF"
-      description="Get Latest update Free/पैड PDFs of current Affairs"
-      type="website"
-      name="Unchi udaan classes"
-     />  
       <div className="mx-auto py-[7rem]">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">

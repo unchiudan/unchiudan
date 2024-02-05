@@ -11,7 +11,6 @@ import LearningLanguageSection from "../Home/core/Homepage/LearningLanguageSecti
 import { Helmet } from "react-helmet-async";
 
 function Home() {
-  const canonicalUrl = window.location.href;
   return (
     <>
       <Helmet>
@@ -25,7 +24,7 @@ function Home() {
           content="Daily Quiz / डेली प्रश्न, Daily Current Affairs/ कर्रेंट अफेयर्स, Monthly PDFs / मासिक PDF , News / Blog ,unchi udan classes, unchiudaanclasses, uchiudaan classes,uchiudan,Unchiudaan classes,ऊँची उड़ान classes,
   Daily Current Affairs,Unchiudaan Current Affairs, Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations"
         />
-        <link rel="canonical" href={canonicalUrl} />
+        <link rel="canonical" href="https://unchiudaanclasses.com" />
 
         <meta property="og:type" content="website" />
         <meta

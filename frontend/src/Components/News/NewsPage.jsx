@@ -27,7 +27,7 @@ function decodeHtmlEntities(html) {
 // Component for rendering news content
 function NewsContent({ heading, article, photo }) {
   return (
-    <div className="py-[6rem]">
+    <div className="py-[5rem]">
       <div className="mx-6">
         <h1
           className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6"
@@ -101,7 +101,6 @@ function NewsPage({ userData }) {
       <Helmet>
         <title>{decodeHtmlEntities(news.heading)}</title>
         <meta name="description" content={decodeHtmlEntities(news.article)} />
-        <link rel="canonical" href={`https://unchiudaanclasses.com/News/${id}`} />
       </Helmet>
       <Link to="">
         <NewsContent

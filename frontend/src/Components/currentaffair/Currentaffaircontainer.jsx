@@ -5,7 +5,6 @@ import Sidebar from "../Sidebar/Sidebar";
 import { BlogComps } from "./AffairsContainer";
 import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import { Helmet } from "react-helmet-async";
-import usePageSEO from "../../hooks/usePageSEO/usePageSEO";
 
 function Currentaffairs({ userData }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,18 +73,46 @@ function Currentaffairs({ userData }) {
     fetchData(currentPage, selectedCategory); // Fetch data again after successful deletion
   };
 
-  usePageSEO({
-    title: 'Daily Current Affairs/ कर्रेंट अफेयर्स',
-    description: 'Get Free Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence..',
-    keywords: ['Daily currentaffairs PDFs', 'unchi udaan classses free pdfs', 'unchi udaan classses free all current affair pdfs'],
-    ogTitle: 'Daily Current Affairs/ कर्रेंट अफेयर्स',
-    ogDescription: 'Get Free Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence..',
-    ogImage: 'https://unchiudaanclasses.com/uchiudan.png',
-    ogUrl: 'https://unchiudaanclasses.com/Currentaffairs',
-  })
-
   return (
     <div className="mx-auto py-[6rem]">
+      <Helmet>
+        <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
+        <meta
+          name="description"
+          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
+        />
+        <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Daily Current Affairs/ कर्रेंट अफेयर्स"
+        />
+        <meta
+          property="og:description"
+          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
+        />
+        <meta
+          property="og:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:title"
+          content="Daily Current Affairs/ कर्रेंट अफेयर्स"
+        />
+        <meta
+          name="twitter:description"
+          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
+        />
+        <meta
+          name="twitter:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="author" content="Anuraj kumar, ishu singh, @ImKKingshuk" />
+      </Helmet>
       <div className="container mx-auto px-4">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
           <span className="mr-2">All Current Affairs</span>

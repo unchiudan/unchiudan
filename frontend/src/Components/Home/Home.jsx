@@ -8,10 +8,55 @@ import Contact from "../contact/contact";
 import HighlightText from "../Home/core/Homepage/HighlightText";
 import TimelineSection from "../Home/core/Homepage/TimelineSection";
 import LearningLanguageSection from "../Home/core/Homepage/LearningLanguageSection";
+import { Helmet } from "react-helmet-async";
 
 function Home() {
+  const canonicalUrl = window.location.href;
   return (
     <>
+      <Helmet>
+        <title>ऊँची उड़ान Classes | Unchiudaan Classes </title>
+        <meta
+          name="description"
+          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence, और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
+        />
+        <meta
+          name="keywords"
+          content="Daily Quiz / डेली प्रश्न, Daily Current Affairs/ कर्रेंट अफेयर्स, Monthly PDFs / मासिक PDF , News / Blog ,unchi udan classes, unchiudaanclasses, uchiudaan classes,uchiudan,Unchiudaan classes,ऊँची उड़ान classes,
+  Daily Current Affairs,Unchiudaan Current Affairs, Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations"
+        />
+        <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="ऊँची उड़ान Classes | Unchiudaan Classes"
+        />
+        <meta
+          property="og:description"
+          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
+        />
+        <meta
+          property="og:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:title"
+          content="ऊँची उड़ान Classes | Unchiudaan Classes"
+        />
+        <meta
+          name="twitter:description"
+          content="Current Affairs for UPSC, BPSC,बिहार दारोगा,SI,BSSC,Railway,JSSC, SSC, BANKING, Defence,और अन्य Government Job Examinations के लिए ऊँची उड़ान वेबसाइट को join करें।"
+        />
+        <meta
+          name="twitter:image"
+          content="https://unchiudaanclasses.com/uchiudan.png"
+        />
+
+        <meta name="author" content="Anuraj kumar, ishu singh, @ImKKingshuk" />
+      </Helmet>
       <div className=" bg-pure-greys-5 mx-auto py-10 space-y-[8rem]">
         <Hero />
         <ServicesOverview />

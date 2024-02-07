@@ -1,20 +1,19 @@
 import signupImg from "../../../public/Images/signup.webp"
-import usePageSEO from "../../hooks/usePageSEO/usePageSEO"
 import Template from "../Home/core/Auth/Template"
-
+import { Helmet } from "react-helmet-async"
 
 function Signup() {
-  usePageSEO({
-    title: 'Unchi Udaan Classes - Signup',
-    description: 'Create a new account at Unchi Udaan Classes to access premium content.',
-    keywords: ['signup', 'account creation', 'education'],
-    ogTitle: 'Unchi Udaan Classes - Signup',
-    ogDescription: 'Create a new account at Unchi Udaan Classes to access premium content.',
-    ogImage: 'https://unchiudaanclasses.com/uchiudan.png',
-    ogUrl: 'https://unchiudaanclasses.com/signup',
-  })
+  const canonicalUrl = window.location.href;
   return (
     <div className="mx-auto py-[4rem]">
+     <Helmet>
+        <title>Signup Page</title>
+        <meta
+          name="description"
+          content="Join us for Latest update Free/पैड PDFs of current Affairs"
+        />
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
     <Template
       title="Join for the learning free"
       description1="Build skills for today, tomorrow, and beyond."

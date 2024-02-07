@@ -63,6 +63,8 @@ function News({ userData }) {
     ogImage: 'https://unchiudaanclasses.com/uchiudan.png',
     ogUrl: 'https://unchiudaanclasses.com/News',
   })
+
+  
   return (
     <div className="mx-[10%] pt-[6rem] ">
       <div className="container mx-auto px-4">

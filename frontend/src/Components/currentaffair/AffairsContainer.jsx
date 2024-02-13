@@ -101,19 +101,19 @@ export function BlogComps({
             <span>{category}</span>
           </h3>
         </div>
-        <h1 className="mt-4 text-gray-800 text-lg font-bold cursor-pointer overflow-hidden mb-[1rem] truncate h-[30px]">
+        <h1 className="text-gray-800 text-lg font-bold cursor-pointer  h-[120px] overflow-hidden">
           <span
             dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(title) }}
           />
         </h1>
-        <div className="card__data">
+        {/* <div className="card__data">
           <h1 className="text-gray-800 text-lg font-bold cursor-pointer overflow-hidden">
             <MdOutlineAccessTimeFilled className="card__icon" />
           </h1>
           <p className="text-lg">updated at: {updatedDate}</p>
-        </div>
-        <div className="my-2 mx-6 flex justify-between"></div>
-        <button className="mt-4 text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
+        </div> */}
+        <div className=" flex justify-between"></div>
+        <button className="text-md hover-bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
           Read More
         </button>
       </Link>

@@ -27,7 +27,7 @@ function decodeHtmlEntities(html) {
 // Component for rendering news content
 function NewsContent({ heading, article, photo }) {
   return (
-    <div className="py-[5rem]">
+    <div className="py-[5rem] lg:py-[7rem]">
       <div className="mx-6">
         <h1
           className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6"
@@ -40,11 +40,12 @@ function NewsContent({ heading, article, photo }) {
             className="w-full mx-auto rounded-lg"
           />
         </div>
-        <SocialMedia />
+        
         <p
           className="mt-4 text-justify text-lg "
           dangerouslySetInnerHTML={{ __html: article }}
         />
+        <SocialMedia />
       </div>
     </div>
   );

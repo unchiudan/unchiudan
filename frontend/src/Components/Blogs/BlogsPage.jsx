@@ -91,7 +91,7 @@ function BlogsPage({ userData }) {
   };
   return (
     <>
-      <div className=" py-[3rem] ">
+      <div className=" py-[1rem] lg:py-[4rem]">
       <Helmet>
     <title>Daily Quiz / डेली प्रश्न</title>
       <meta 

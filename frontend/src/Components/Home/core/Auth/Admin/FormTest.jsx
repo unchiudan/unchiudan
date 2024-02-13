@@ -89,17 +89,31 @@ const FormTest = () => {
     });
   };
 
-  function addMinutesToCurrentTime(minutes) {
-    const x = Date.now(); // Get the current timestamp in milliseconds
+  // function addMinutesToCurrentTime(minutes) {
+  //   const x = Date.now(); // Get the current timestamp in milliseconds
 
-    // Convert minutes to milliseconds (1 minute = 60,000 milliseconds)
-    const millisecondsToAdd = minutes * 60000;
+  //   // Convert minutes to milliseconds (1 minute = 60,000 milliseconds)
+  //   const millisecondsToAdd = minutes * 60000;
 
-    // Add the milliseconds to the current timestamp
-    const addTime = x + millisecondsToAdd;
+  //   // Add the milliseconds to the current timestamp
+  //   const addTime = x + millisecondsToAdd;
 
-    return addTime;
-  }
+  //   return addTime;
+  // }
+  function iso8601ToMilliseconds(iso8601Str) {
+    try {
+        // Parse the ISO 8601 string into a Date object
+        const dtObj = new Date(iso8601Str);
+        
+        // Convert Date object to milliseconds since the epoch
+        const milliseconds = dtObj.getTime();
+        
+        return milliseconds;
+    } catch (error) {
+        console.error("Invalid ISO 8601 format", error);
+        return null;
+    }
+}
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -110,9 +124,9 @@ const FormTest = () => {
     }
     
 
-    const formopen = formData.mainstart + formData.mainend;
-    const mainstart = addMinutesToCurrentTime(formData.mainstart);
-    const mainend = addMinutesToCurrentTime(formopen);
+    // const formopen = formData.mainstart + formData.mainend;
+    const mainstart = iso8601ToMilliseconds(formData.mainstart);
+    const mainend = iso8601ToMilliseconds(formData.mainend);
     const testtime = parseInt(formData.testtime);
 
     const negativemarks = parseFloat(
@@ -229,47 +243,32 @@ const FormTest = () => {
           <label className="block mb-2 text-gray-700 font-bold">
             Test start
           </label>
-          <select
+          <input
+          type="datetime-local"
             name="mainstart"
             value={formData.mainstart}
             onChange={handleMainStartChange}
             className="border p-2 w-full text-black"
             required
           >
-            <option value="0">Now</option>
-            <option value="2">2 minutes</option>
-            <option value="5">5 minutes</option>
-            <option value="15">15 minutes</option>
-            <option value="30">30 minutes</option>
-            <option value="60">1 hour</option>
-            <option value="120">2 hours</option>
-            <option value="180">3 hours</option>
-            <option value="240">4 hours</option>
-            <option value="300">5 hours</option>
-          </select>
+            
+          </input>
         </div>
 
         <div className="mb-4">
           <label className="block mb-2 text-gray-700 font-bold">
-            Test Open
+            Test End
           </label>
-          <select
+          <input
+          type="datetime-local"
             name="mainend"
             value={formData.mainend}
             onChange={handleMainEndChange}
             className="border p-2 w-full text-black"
             required
           >
-            <option value="2">2 minutes</option>
-            <option value="5">5 minutes</option>
-            <option value="15">15 minutes</option>
-            <option value="30">30 minutes</option>
-            <option value="60">1 hour</option>
-            <option value="120">2 hours</option>
-            <option value="180">3 hours</option>
-            <option value="240">4 hours</option>
-            <option value="300">5 hours</option>
-          </select>
+           
+          </input>
         </div>
 
         <div className="mb-4">

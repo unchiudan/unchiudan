@@ -74,8 +74,51 @@ export const Result = ({ userData }) => {
           `${import.meta.env.VITE_BACKEND_URL}/test/${id}`
         );
         const { name, result } = response.data.data.test;
-        setResultData(result);
-        setFilteredResults(result);
+
+        const sortedResults = [...result].sort((a, b) => {
+          if (b.percentage !== a.percentage) {
+            return b.percentage - a.percentage;
+          } else {
+            // If percentages are the same, sort based on submittime
+            return new Date(a.submittime) - new Date(b.submittime);
+          }
+        });
+        const mappedResults = sortedResults.map((userResults, index) => {
+          const {
+            username,
+            userphone,
+            totalQuestions,
+            correct,
+            score,
+            notattempt,
+            submittime,
+            negativemarks,
+            district,
+            percentage,
+          } = userResults;
+  
+          const rank = index + 1;
+          const incorrect = totalQuestions - correct - notattempt;
+          const maskedPhoneNumber = userphone.replace(/.(?=.{4})/g, 'X');
+  
+          return {
+            username,
+            userphone,
+            totalQuestions,
+            correct,
+            score,
+            notattempt,
+            submittime,
+            negativemarks,
+            district,
+            percentage,
+            rank,
+            incorrect,
+            maskedPhoneNumber,
+          };
+        });
+        setResultData(mappedResults);
+        setFilteredResults(mappedResults);
         setResultHeading(name);
       } catch (error) {
         console.error("Error fetching data:", error);

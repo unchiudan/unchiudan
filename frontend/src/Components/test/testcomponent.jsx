@@ -96,21 +96,21 @@ function testComp({ testsItems, userData, onTestsDelete }) {
     return textarea.value;
   };
 
-    function formatDateFromTimestamp(timestamp) {
-        // Create a new Date object using the provided timestamp
-        var currentDate = new Date(timestamp);
-    
-        // Get the day, month, and year components from the Date object
-        var day = currentDate.getDate();
-        var month = currentDate.toLocaleString('default', { month: 'short' }); // Get the month name in short format
-        var year = currentDate.getFullYear();
-    
-        // Concatenate the components into the desired format
-        var formattedDate = day + ' ' + month + ' ' + year;
-    
-        // Return the formatted date
-        return formattedDate;
-    }
+  function formatDateFromTimestamp(timestamp) {
+    // Create a new Date object using the provided timestamp
+    var currentDate = new Date(timestamp);
+
+    // Get the day, month, and year components from the Date object
+    var day = currentDate.getDate();
+    var month = currentDate.toLocaleString("default", { month: "short" }); // Get the month name in short format
+    var year = currentDate.getFullYear();
+
+    // Concatenate the components into the desired format
+    var formattedDate = day + " " + month + " " + year;
+
+    // Return the formatted date
+    return formattedDate;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -162,9 +162,9 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                 <div className="w-full md:w-1/3 bg-white">
                   <img
                     className="w-full h-[200px] object-cover rounded-xl"
-                    src={`${import.meta.env.VITE_BACKEND_URL_IMAGE}/img/usertest/${
-                      test.photo
-                    }`}
+                    src={`${
+                      import.meta.env.VITE_BACKEND_URL_IMAGE
+                    }/img/usertest/${test.photo}`}
                     alt={`logo`}
                   />
                 </div>
@@ -197,18 +197,20 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                     onClick={() => {
                       function stripHtmlTags(html) {
                         // Create a new div element
-                        var doc = new DOMParser().parseFromString(html, 'text/html');
+                        var doc = new DOMParser().parseFromString(
+                          html,
+                          "text/html"
+                        );
                         var text = doc.body.textContent || "";
-                    
+
                         // Return the text content without HTML tags
                         return text;
-                    }
-                    const textContent = stripHtmlTags(decodedName);
-                    const time = formatDateFromTimestamp(test.mainstart)
+                      }
+                      const textContent = stripHtmlTags(decodedName);
+                      const time = formatDateFromTimestamp(test.mainstart);
 
                       localStorage.setItem("testname", textContent);
                       localStorage.setItem("testdate", time);
-                      
                     }}
                   >
                     <button
@@ -227,6 +229,13 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                     </button>
                   </Link>
                   {showResultButton}
+                  {role ? (
+                    <Link to={`/showanswer/${test._id}`}>
+                      <button className="mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl">
+                        Show Answer
+                      </button>
+                    </Link>
+                  ) : null}
                 </div>
               </div>
             </div>

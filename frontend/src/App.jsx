@@ -28,9 +28,10 @@ import ForgotPassword from "./Components/Home/core/Auth/forgotpassword";
 import ResetPassword from "./Components/Home/core/Auth/resetpassword";
 
 import axios from "axios";
-import ComingSoon from "./Components/test/ComingSoon/ComingSoon";
+// import ComingSoon from "./Components/test/ComingSoon/ComingSoon";
 import { StartTest } from "./Components/test/test-components/StartTest";
 import { Result } from "./Components/test/test-components/Result";
+import ShowAnswer from "./Components/test/test-components/ShowAnswer/ShowAnswer";
 // import { LiveTest } from "./Components/test/test-components/LiveTest";
 function App() {
   const [user, setUser] = useState(null);
@@ -153,6 +154,11 @@ function App() {
             exact
             path="/result/:id"
             element={<Result userData={user} />}
+          />
+           <Route
+            exact
+            path="/showanswer/:id"
+            element={<ShowAnswer userData={user} />}
           />
           <Route exact path="/News" element={<News userData={user} />} />
           <Route

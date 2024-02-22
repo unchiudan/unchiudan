@@ -115,7 +115,7 @@ exports.getNews = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteNews = catchAsync(async (req, res, next) => {
-  const news = await News.findByIdAndRemove(req.params.id);
+  const news = await News.findByIdAndDelete(req.params.id);
 
   if (!news) {
     return next(new AppError('No news found with that ID', 404));

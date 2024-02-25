@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /sitemap.xml
-Sitemap: https://www.unchiudaanclasses.com/sitemap.xml
-Sitemap: https://unchiudaanclasses.com/sitemap.xml
-
-

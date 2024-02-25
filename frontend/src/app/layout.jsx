@@ -41,7 +41,9 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
       <Provider>
       <Navbar/>
+
       {children}
+      
       <Footer/>
       <BottomToTopButton className="z-10" />
       {/* <AdSenseUnit adClient="ca-pub-2481549712830615" /> */}

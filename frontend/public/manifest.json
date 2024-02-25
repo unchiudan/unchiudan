@@ -1,0 +1,41 @@
+{
+    "name": "Unchiudaan Classes",
+    "short_name": "Unchiudaan",
+    "description": "Prepare for UPSC, BPSC, SSC, Railways exams with Unchi-udaan Classes",
+    "icons": [
+      {
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "/apple-touch-icon.png",
+        "sizes": "180x180",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#171717",
+    "background_color": "#e8ebf2",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "orientation": "portrait",
+    "prefer_related_applications": false,
+    "related_applications": [
+      {
+        "platform": "play",
+        "url": "https://play.google.com/store/apps/details?id=com.example.app",
+        "id": "com.example.app"
+      },
+      {
+        "platform": "itunes",
+        "url": "https://itunes.apple.com/app/example-app/id123456789"
+      }
+    ]
+  }
+  

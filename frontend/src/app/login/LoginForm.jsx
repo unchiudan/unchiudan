@@ -43,7 +43,7 @@ function LoginForm() {
   };
 
   const loginwithGoogle = () => {
-    window.open(
+    router.push(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth/google/callback`
     );
   };
@@ -55,7 +55,7 @@ function LoginForm() {
 
       // }
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/login`,
+        'http://localhost:8000/api/user/login',
         userData,
         { withCredentials: true }
       );

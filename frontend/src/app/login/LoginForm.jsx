@@ -55,7 +55,7 @@ function LoginForm() {
 
       // }
       const response = await axios.post(
-        'http://localhost:8000/api/user/login',
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/login`,
         userData,
         { withCredentials: true }
       );

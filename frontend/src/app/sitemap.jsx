@@ -1,7 +1,6 @@
 export default async function sitemap(){
     const  baseurl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}`
 
-
     const response1 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/currentaffairs`,
     { cache: 'no-store' }
     ) 
@@ -10,8 +9,8 @@ export default async function sitemap(){
     const affairsUrl = affairs.map((affairs) => ({
         url: `${baseurl}/currentaffairs/${affairs._id}`,
         lastModified: affairs.updatedAt,
+        priority: 0.7, // Example priority value
     }));
-
 
     const response2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/News`,
     { cache: 'no-store' }
@@ -21,6 +20,7 @@ export default async function sitemap(){
     const newsUrl = news.map((news) => ({
         url: `${baseurl}/News/${news._id}`,
         lastModified: news.updatedAt,
+        priority: 0.7, // Example priority value
     }));
 
     const response3 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs`,
@@ -31,6 +31,7 @@ export default async function sitemap(){
     const pdfUrl = pdf.map((pdf) => ({
         url: `${baseurl}/pdfs/${pdf._id}`,
         lastModified: pdf.updatedAt,
+        priority: 0.6, // Example priority value
     }));
 
     const response4 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/test`,
@@ -41,43 +42,56 @@ export default async function sitemap(){
     const testsUrl = tests.map((tests) => ({
         url: `${baseurl}/test/${tests._id}`,
         lastModified: tests.createdAt,
+        priority: 0.5, // Example priority value
     }));
 
     return [
         {
             url: baseurl,
-            lastModified: new Date()
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 1.0, // Example priority value
         },
         {
             url: `${baseurl}/test`,
-            lastModified: new Date()
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.9, // Example priority value
         },
         {
-            url: `${baseurl}/Currentaffairs`,
-            lastModified: new Date()
+            url: `${baseurl}/currentaffairs`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.9, // Example priority value
         },
         {
             url: `${baseurl}/News`,
-            lastModified: new Date()
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.9, // Example priority value
         },
         {
             url: `${baseurl}/pdfs`,
-            lastModified: new Date()
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8, // Example priority value
         },
         {
             url: `${baseurl}/login`,
-            lastModified: new Date()
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 0.8, // Example priority value
         },
         {
             url: `${baseurl}/signup`,
-            lastModified: new Date()
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 0.8, // Example priority value
         },
 
         ...affairsUrl,
         ...newsUrl,
         ...pdfUrl,
         ...testsUrl,
-       
-    ]
-    
+    ];
 }

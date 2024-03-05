@@ -14,12 +14,12 @@ function PdfComp({ title, date, id }) {
           <FaFileAlt className="w-12 h-12" />
         </div>
         <div className="flex flex-col justify-center">
-          <h1 className="text-center text-md truncate overflow-hidden w-[7rem]">
+          <h1 className="text-center text-md  overflow-hidden h-[50px]">
           <span
             dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(title) }}
           />
           </h1>
-          <p>{date}</p>
+          {/* <p>{date}</p> */}
         </div>
       </div>
     </Link>

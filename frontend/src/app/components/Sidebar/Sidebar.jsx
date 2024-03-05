@@ -12,9 +12,9 @@ const Sidebar = ({ setSelectedCategory, setSelectedStatus, togglefilter }) => {
   const handleSearch = () => {
     setSelectedCategory(searchTerm);
     setSelectedStatus(status);
-  
-      togglefilter();
-    
+    if (window.innerWidth <= 680) {
+    togglefilter();
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -62,9 +62,11 @@ const Sidebar = ({ setSelectedCategory, setSelectedStatus, togglefilter }) => {
         />
         <button
           onClick={() => {
+            if (window.innerWidth <= 680) {
             togglefilter();
+            }
           }}
-          className="absolute right-10 bg-indigo-500 text-white p-3 rounded-md flex items-center md:right-4 hover:bg-indigo-600 focus:outline-none"
+          className="absolute right-10 bg-indigo-500 text-white p-3 rounded-md flex items-center md:right-4 hover:bg-indigo-600 "
         >
           <FaSearch className="mx-2" />
         </button>
@@ -79,9 +81,9 @@ const Sidebar = ({ setSelectedCategory, setSelectedStatus, togglefilter }) => {
               <button
                 onClick={() => {
                   setSelectedCategory(item.category);
-                 
-                    togglefilter();
-                  
+                  if (window.innerWidth <= 680) {
+                  togglefilter();
+                  }
                 }}
                 className="text-purple-500 hover:text-purple-700"
               >
@@ -94,9 +96,9 @@ const Sidebar = ({ setSelectedCategory, setSelectedStatus, togglefilter }) => {
             <button
               onClick={() => {
                 setSelectedCategory(null);
-              
-                  togglefilter();
-                
+                if (window.innerWidth <= 680) {
+                togglefilter();
+                }
               }}
               className="text-purple-500 hover:text-purple-700"
             >

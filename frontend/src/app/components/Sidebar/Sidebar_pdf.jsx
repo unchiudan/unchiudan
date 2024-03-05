@@ -15,8 +15,9 @@ const Sidebar_pdf = ({
   const handleSearch = () => {
     setSelectedCategory(searchTerm);
     setSelectedStatus(status);
-
+    if (window.innerWidth <= 680) {
     togglefilter();
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -66,7 +67,9 @@ const Sidebar_pdf = ({
         />
         <button
           onClick={() => {
+            if (window.innerWidth <= 680) {
             togglefilter();
+            }
           }}
           className="absolute right-10 bg-indigo-500 text-white p-3 rounded-md flex items-center md:right-4 hover:bg-indigo-600 focus:outline-none"
         >
@@ -83,7 +86,9 @@ const Sidebar_pdf = ({
               <button
                 onClick={() => {
                   setSelectedCategory(item.category);
+                  if (window.innerWidth <= 680) {
                   togglefilter();
+                  }
                 }}
                 className="text-purple-500 hover:text-purple-700"
               >
@@ -97,7 +102,9 @@ const Sidebar_pdf = ({
               onClick={() => {
                 setSelectedCategory(null);
                 setSelectedStatus(null);
+                if (window.innerWidth <= 680) {
                 togglefilter();
+                }
               }}
               className="text-purple-500 hover:text-purple-700"
             >
@@ -115,7 +122,9 @@ const Sidebar_pdf = ({
             <button
               onClick={() => {
                 setSelectedStatus("free");
+                if (window.innerWidth <= 680) {
                 togglefilter();
+                }
               }}
               className="text-purple-500 hover:text-purple-700"
             >
@@ -127,7 +136,9 @@ const Sidebar_pdf = ({
             <button
               onClick={() => {
                 setSelectedStatus("paid");
+                if (window.innerWidth <= 680) {
                 togglefilter();
+                }
               }}
               className="text-purple-500 hover:text-purple-700"
             >
@@ -139,7 +150,9 @@ const Sidebar_pdf = ({
             <button
               onClick={() => {
                 setSelectedStatus(null);
+                if (window.innerWidth <= 680) {
                 togglefilter();
+                }
               }}
               className="text-purple-500 hover:text-purple-700"
             >

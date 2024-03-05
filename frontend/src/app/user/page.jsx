@@ -1,68 +1,87 @@
 /* eslint-disable react/prop-types */
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { FiUser, FiMail, FiPhone, FiLock } from "react-icons/fi";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast"; // Import toast
 import Link from "next/link";
 import { useGetUserQuery } from "../redux/slices/userSlices";
-// import { useGetUserQuery } from "../redux/slices/userSlices";
 
 async function fetchData() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login/success`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/login/success`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     const data = await response.json();
     return data.user;
   } catch (error) {
-    console.error('There was a problem with the fetch operation:', error);
+    console.error("There was a problem with the fetch operation:", error);
     return null;
   }
 }
 
-  
-  function UserSettings() {
-    const { data: userDataFromQuery } = useGetUserQuery();
-    const [userData, setUserData] = useState(null);
-  
-    useEffect(() => {
-      async function fetchDataManually() {
-        try {
-          const userData = await fetchData();
-          setUserData(userData);
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      }
-  
-      if (!userDataFromQuery) {
-        fetchDataManually();
-      } else {
-        setUserData(userDataFromQuery);
-      }
-    }, [userDataFromQuery]);
-    
-    const [passwordData, setPasswordData] = useState({
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
-  
-  
-    if (!userData) {
-      return <div>Loading...</div>;
+function UserSettings() {
+  const { data: userDataFromQuery } = useGetUserQuery();
+  const [userData, setUserData] = useState(null);
+  const [settingsData, setSettingsData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    role: '',
+    googleLogIn: false,
+  });
+
+  useEffect(() => {
+    if (userDataFromQuery) {
+      const { firstname, lastname, email, phone, role, googleLogIn } = userDataFromQuery;
+      setSettingsData({
+        name: `${firstname} ${lastname}`,
+        email,
+        phone,
+        role,
+        googleLogIn,
+      });
     }
- 
-    
- 
+  }, [userDataFromQuery]);
+
+  useEffect(() => {
+    console.log("userDataFromQuery:", userDataFromQuery);
+
+    async function fetchDataManually() {
+      try {
+        const userData = await fetchData();
+        setUserData(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+
+    if (!userDataFromQuery) {
+      fetchDataManually();
+    } else {
+      setUserData(userDataFromQuery);
+    }
+  }, [userDataFromQuery]);
+
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
 
   const token = localStorage.getItem("jwt_token");
 
@@ -90,18 +109,14 @@ async function fetchData() {
       );
 
       if (response.status === 200) {
-
         toast.success("Settings updated successfully"); // Show success toast
       } else {
-
         toast.error("Error updating settings. Please try again."); // Show error toast
       }
     } catch (error) {
-
       toast.error("Error updating settings. Please try again."); // Show error toast
     }
   };
-
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
@@ -121,7 +136,7 @@ async function fetchData() {
           passwordCurrent: passwordData.currentPassword,
           password: passwordData.newPassword,
           email: userData.email,
-          googleLogIn:userData.googleLogIn,
+          googleLogIn: userData.googleLogIn,
         },
         {
           headers: {
@@ -132,21 +147,14 @@ async function fetchData() {
       );
 
       if (response.status === 200) {
-
         toast.success("Password updated successfully"); // Show success toast
       } else {
-
         toast.error("Error updating password. Please try again."); // Show error toast
       }
     } catch (error) {
-
       toast.error("Error updating password. Please try again."); // Show error toast
     }
   };
-
-
-
-
 
   return (
     <div className="bg-gray-200 p-4 sm:p-8 md:p-16 lg:p-32 flex-1 relative bg-gray-100 py-[4rem]">
@@ -188,7 +196,7 @@ async function fetchData() {
                     className="form__input border border-gray-300 p-2 rounded"
                     placeholder="Name"
                     name="name"
-                    value={`${userData.firstname} ${userData.lastname}`}
+                    value={settingsData.name}
                     onChange={handleSettingsChange}
                   />
                 </div>
@@ -201,7 +209,7 @@ async function fetchData() {
                     className="form__input border border-gray-300 p-2 rounded"
                     placeholder="Email Address"
                     name="email"
-                    value={userData.email}
+                    value={settingsData.email}
                     onChange={handleSettingsChange}
                   />
                 </div>
@@ -214,7 +222,7 @@ async function fetchData() {
                     className="form__input border border-gray-300 p-2 rounded"
                     placeholder="Number"
                     name="phone"
-                    value={userData.phone}
+                    value={settingsData.phone}
                     onChange={handleSettingsChange}
                   />
                 </div>

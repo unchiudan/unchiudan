@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "./components/NavBar/Navbar";
 import Footer from "./components/Home/HomeUI/Footer";
 import Provider from "./provider";
-// import AdSenseUnit from "./AdSenseUnit"
+import AdSenseUnit from "./AdSenseUnit"
 import BottomToTopButton from "./components/TopDownButton/BottomToTopButton";
 
 const inter = Inter({ subsets: ["latin"] });

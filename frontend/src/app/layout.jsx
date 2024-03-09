@@ -9,7 +9,7 @@ import BottomToTopButton from "./components/TopDownButton/BottomToTopButton";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  manifest:"/manifest.json",
+  manifest: "/manifest.json",
   title: {
     default: "ऊँची उड़ान Classes | Unchiudaan Classes ",
     template: "%s | Unchiudaan Classes ",
@@ -53,17 +53,24 @@ export const metadata = {
     canonical: `/`,
   },
   verification: {
-    google:'ORCgrx0whs6--E2V59na4ij4Jakzd714qHNCkEcQ-TY',
+    google: "ORCgrx0whs6--E2V59na4ij4Jakzd714qHNCkEcQ-TY",
   },
 };
 
 export const viewport = {
   themeColor: "#171717",
-}
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5012067203696612"
+          crossorigin="anonymous"
+        ></script>
+      </head>
       <body className={inter.className}>
         <Provider>
           <Navbar />

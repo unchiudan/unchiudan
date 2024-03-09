@@ -76,7 +76,7 @@ export default function RootLayout({ children }) {
 
           <Footer />
           <BottomToTopButton className="z-10" />
-          {/* <AdSenseUnit adClient="ca-pub-2481549712830615" /> */}
+          <AdSenseUnit adClient="ca-pub-2481549712830615" />
         </Provider>
       </body>
     </html>

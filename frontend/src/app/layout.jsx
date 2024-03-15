@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "./components/NavBar/Navbar";
 import Footer from "./components/Home/HomeUI/Footer";
 import Provider from "./provider";
-import AdSenseUnit from "./AdSenseUnit"
 import BottomToTopButton from "./components/TopDownButton/BottomToTopButton";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -65,8 +64,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5012067203696612"
-     crossorigin="anonymous"></script>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5012067203696612"
+          strategy="lazyOnload"
+          crossorigin="anonymous"
+        ></script>
       </head>
       <body className={inter.className}>
         <Provider>
@@ -76,7 +79,6 @@ export default function RootLayout({ children }) {
 
           <Footer />
           <BottomToTopButton className="z-10" />
-          <AdSenseUnit adClient="ca-pub-2481549712830615" />
         </Provider>
       </body>
     </html>

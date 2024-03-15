@@ -2,6 +2,7 @@ import getNewsId from "../../lib/getNewsId";
 import he from "he";
 import NewsIds from "./NewsIds";
 import Image from "next/image";
+import AdBanner from "../../AdBanner";
 
 
 const decodeHtmlEntities = (html) => {
@@ -70,7 +71,11 @@ async function NewsPage({ params: { id } }) {
               className="w-full mx-auto rounded-lg"
             />
           </div>
-
+          <AdBanner
+       data-ad-slot="1848801465"
+       data-ad-format="auto"
+       data-full-width-responsive="true"
+      />
           <p
             className="mt-4 text-justify text-lg "
             dangerouslySetInnerHTML={{

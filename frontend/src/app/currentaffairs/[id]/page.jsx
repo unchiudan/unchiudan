@@ -30,7 +30,7 @@ async function BlogsPage({ params: { id } }) {
   const affairDetails = await getCurrentAffairs(id);
   return (
     <>
-      <div className=" py-[1rem] lg:py-[4rem]">
+      <div className=" py-[2rem] lg:py-[4rem]">
         <div className=" mx-4 ">
          
            <CurrentaffairsId affairDetailsData= {affairDetails}/>

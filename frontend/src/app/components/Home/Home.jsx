@@ -12,12 +12,13 @@ import AdBanner from "./../../AdBanner"
 
 export default function Home() {
   return (
-    <div className="bg-[#F9F9F9] mx-auto py-10 space-y-[8rem]">
-      <AdBanner
-       data-ad-slot="1848801465"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-      />
+    <><AdBanner
+    data-ad-slot="1848801465"
+    data-ad-format="auto"
+    data-full-width-responsive="true"
+   />
+    <div className="bg-[#F9F9F9] mx-auto py-6 space-y-[8rem]">
+      
       <Hero />
       <ServicesOverview />
       <div className="bg-[#F9F9F9] text-[#2C333F]">
@@ -44,5 +45,6 @@ export default function Home() {
         <Contact />
       </div>
     </div>
+    </>
   );
 }

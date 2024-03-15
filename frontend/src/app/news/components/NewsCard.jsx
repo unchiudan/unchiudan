@@ -4,6 +4,7 @@ import NewsComp from "./NewsComp";
 import { useState } from "react";
 import axios from "axios";
 import NewsScroll from "./newsScroll"
+import AdBanner from "../../AdBanner";
 
 const NewsCard = () => {
   const [news, setNews] = useState([]);
@@ -67,7 +68,11 @@ const NewsCard = () => {
   return (
     <div>
     <NewsScroll/>
-      
+    <AdBanner
+       data-ad-slot="1848801465"
+       data-ad-format="auto"
+       data-full-width-responsive="true"
+      />
       <div className="">
         <NewsComp
           newsItems={news}

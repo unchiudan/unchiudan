@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import AdBanner from "../AdBanner";
 import NewsCard from "./components/NewsCard";
 
 export const metadata = {
@@ -20,11 +19,6 @@ function News() {
             नवीनतम घटनाओं के साथ अपडेट रहें
           </span>
         </h1>
-        <AdBanner
-       data-ad-slot="1848801465"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-      />
         <NewsCard />
       </div>
     </div>

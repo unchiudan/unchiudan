@@ -8,6 +8,7 @@ import { SocialMedia } from "../../components/Socialmedia/socialmedia";
 import Image from "next/image";
 import he from "he";
 import { usePathname } from "next/navigation";
+import AdBanner from "../../AdBanner";
 
 export default function CurrentaffairsId({ affairDetailsData }) {
   const { data: userData } = useGetUserQuery();
@@ -92,6 +93,11 @@ export default function CurrentaffairsId({ affairDetailsData }) {
       <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6 ">
         Current Affairs {affairDetailsData.category}
       </h1>
+      <AdBanner
+       data-ad-slot="1848801465"
+       data-ad-format="auto"
+       data-full-width-responsive="true"
+      />
       <p className="mt-4 text-justify text-lg">
         <span
           dangerouslySetInnerHTML={{

@@ -10,6 +10,7 @@ import Image from "next/image";
 import PDFPatchForm from "./PDFPatchForm";
 import { useParams, usePathname } from "next/navigation";
 import { SocialMedia } from "../../components/Socialmedia/socialmedia";
+import AdBanner from "../../AdBanner";
 
 async function fetchData() {
   
@@ -173,6 +174,11 @@ const pageFullUrl = pageUrl + usePathname();
               className="w-full mx-auto rounded-lg"
             />
           </div>
+          <AdBanner
+       data-ad-slot="1848801465"
+       data-ad-format="auto"
+       data-full-width-responsive="true"
+      />
 
           <div className="w-18 md:mx-12 p-4 border-2 mx-4 rounded-lg mt-16">
             <div className="flex justify-between space-x-3 h-[150px] md:h-[80px]">

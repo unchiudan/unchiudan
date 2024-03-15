@@ -7,6 +7,7 @@ import {
   FaWhatsapp
 } from "react-icons/fa";
 import Link from "next/link";
+import AdBanner from "../../../AdBanner";
 function Footer() {
   return (
     <>
@@ -21,6 +22,11 @@ function Footer() {
           </div>
         </Link>
       </div>
+      <AdBanner
+       data-ad-slot="1848801465"
+       data-ad-format="auto"
+       data-full-width-responsive="true"
+      />
 
       <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-32 mx-[10%]">
         <div className="mx-auto max-w-sm lg:max-w-none">

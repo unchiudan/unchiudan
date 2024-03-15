@@ -1,3 +1,4 @@
+import AdBanner from "../AdBanner";
 import CurrentAffairsCard from "./components/CurrentAffairsCard";
 
 export const metadata = {
@@ -18,6 +19,11 @@ function Currentaffairs() {
         </h1>
       </div>
       <CurrentAffairsCard />
+      <AdBanner
+       data-ad-slot="1848801465"
+       data-ad-format="auto"
+       data-full-width-responsive="true"
+      />
     </div>
   );
 }

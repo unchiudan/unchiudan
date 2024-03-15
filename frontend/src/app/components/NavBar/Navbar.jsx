@@ -121,7 +121,7 @@ export default function Navbar() {
 
   return (
     <div className="">
-      <nav className="backdrop-blur  w-full text-black p-2  z-50 fixed">
+      <nav className="backdrop-blur  w-full text-black p-2 z-50 shadow-xl bg-slate-100 fixed">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/">
             <Image width={500} height={500} src={logo} className="w-12 md:w-20" alt="logo" />

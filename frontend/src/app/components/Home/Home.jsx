@@ -7,16 +7,12 @@ import LearningLanguageSection from "../Home/core/Homepage/LearningLanguageSecti
 import Contact from "../contact/contact";
 import HomeBlogs from "../Blogs/HomeBlogs";
 import HomePdf from "../Downloads/HomePdf";
-import AdBanner from "./../../AdBanner"
+
 
 
 export default function Home() {
   return (
-    <><AdBanner
-    data-ad-slot="1848801465"
-    data-ad-format="auto"
-    data-full-width-responsive="true"
-   />
+
     <div className="bg-[#F9F9F9] mx-auto py-6 space-y-[8rem]">
       
       <Hero />
@@ -45,6 +41,6 @@ export default function Home() {
         <Contact />
       </div>
     </div>
-    </>
+
   );
 }

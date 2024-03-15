@@ -9,11 +9,10 @@ import HomeBlogs from "../Blogs/HomeBlogs";
 import HomePdf from "../Downloads/HomePdf";
 
 
-
 export default function Home() {
   return (
 
-    <div className="bg-[#F9F9F9] mx-auto py-6 space-y-[8rem]">
+    <div className="bg-[#F9F9F9] mx-auto  space-y-[1rem]">
       
       <Hero />
       <ServicesOverview />

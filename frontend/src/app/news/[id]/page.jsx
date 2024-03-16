@@ -72,7 +72,6 @@ async function NewsPage({ params: { id } }) {
             data-ad-slot="1848801465"
             data-ad-format="auto"
             data-full-width-responsive="true"
-            strategy="lazyOnload"
           />
           <p
             className="mt-4 text-justify text-lg "

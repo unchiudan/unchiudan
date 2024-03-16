@@ -9,11 +9,7 @@ function Hero() {
       <div className="bg-[#F9F9F9] md:mx-8 mx-6">
         <div className=" overflow-hidden relative lg:flex lg:items-center">
           {/* Ensure AdBanner is properly implemented */}
-          <AdBanner
-            data-ad-slot="1848801465"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
+          
           <div className="w-full py-12 ">
             <h2 className="mt-14 text-[1.6rem] text-center md:text-[2.5rem] font-extrabold text-black">
               <span className="text-[4rem] ">
@@ -71,6 +67,11 @@ function Hero() {
               />
             </div>
           </div>
+          <AdBanner
+            data-ad-slot="1848801465"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          />
         </div>
       </div>
     </>

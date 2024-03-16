@@ -79,7 +79,7 @@ function NewsComp({ newsItems, onNewsDelete }) {
 
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center w-full">
       {newsItems.length === 0 ? (
         
           <p className="text-center text-gray-500">No news items available.</p>
@@ -101,12 +101,12 @@ function NewsComp({ newsItems, onNewsDelete }) {
           const decodedArticle = decodeHtmlEntities(news.article);
 
           return (
+            <div className="block max-w-full md:w-[120%] lg:w-[120%] xl:w-[120%] mb-2">
             <Link
               href={`/news/${news._id}`}
               key={news._id}
-              className="block w-full md:w-[100%] lg:w-[120%] xl:w-[120%] mb-8"
             >
-              <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
+              <div className="relative flex flex-col md:flex-row md:space-x-5 my-4 md:space-y-0 rounded-xl shadow-lg max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
                 {role ? (
                   <button
                     className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
@@ -151,11 +151,13 @@ function NewsComp({ newsItems, onNewsDelete }) {
                 </div>
               </div>
             </Link>
+            </div>
           );
         })
       )}
       <Toaster position="top-center" reverseOrder={false} />
     </div>
+   
   );
 }
 

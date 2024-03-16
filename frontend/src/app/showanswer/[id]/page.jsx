@@ -131,7 +131,7 @@ export default function ShowAnswer() {
                           <li key={idx} className="mb-2">
                             <div
                               className={`mb-5 ${
-                                idx === parseInt(item.ans) ? "bg-green-200" : ""
+                                idx === parseInt(item.ans - 1) ? "bg-green-200" : ""
                               } p-[5px] pl-[25px] rounded-xl relative`}
                             >
                               <span className="mr-2 font-bold">
@@ -139,7 +139,7 @@ export default function ShowAnswer() {
                               </span>{" "}
                               {/* Option numbering A, B, C, D */}
                               {option}
-                              {idx === parseInt(item.ans) && (
+                              {idx === parseInt(item.ans - 1) && (
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   className="h-6 w-6 absolute top-1/2 -translate-y-1/2 right-2 text-green-500"

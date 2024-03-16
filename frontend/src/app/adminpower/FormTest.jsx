@@ -1,20 +1,17 @@
-"use client"
+"use client";
 /* eslint-disable no-unused-vars */
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const postaffairs = async (testData) => {
   const token = localStorage.getItem("jwt_token");
   // console.log("🚀 ~ postaffairs ~ testData:", testData);
   const name = testData.name;
-  
 
-    
   const jsonData = JSON.stringify(testData.data);
- 
 
   let loadingToast;
   try {
@@ -28,8 +25,6 @@ const postaffairs = async (testData) => {
     formData.append("mainstart", testData.mainstart);
     formData.append("testtime", testData.testtime);
     formData.append("photo", testData.photo);
-
-   
 
     await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/test`, formData, {
       headers: {
@@ -104,18 +99,18 @@ const FormTest = () => {
   // }
   function iso8601ToMilliseconds(iso8601Str) {
     try {
-        // Parse the ISO 8601 string into a Date object
-        const dtObj = new Date(iso8601Str);
-        
-        // Convert Date object to milliseconds since the epoch
-        const milliseconds = dtObj.getTime();
-        
-        return milliseconds;
+      // Parse the ISO 8601 string into a Date object
+      const dtObj = new Date(iso8601Str);
+
+      // Convert Date object to milliseconds since the epoch
+      const milliseconds = dtObj.getTime();
+
+      return milliseconds;
     } catch (error) {
-        console.error("Invalid ISO 8601 format", error);
-        return null;
+      console.error("Invalid ISO 8601 format", error);
+      return null;
     }
-}
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,7 +119,6 @@ const FormTest = () => {
     if (formData.data[0].ques === "") {
       formdata = [];
     }
-    
 
     // const formopen = formData.mainstart + formData.mainend;
     const mainstart = iso8601ToMilliseconds(formData.mainstart);
@@ -246,31 +240,25 @@ const FormTest = () => {
             Test start
           </label>
           <input
-          type="datetime-local"
+            type="datetime-local"
             name="mainstart"
             value={formData.mainstart}
             onChange={handleMainStartChange}
             className="border p-2 w-full text-black"
             required
-          >
-            
-          </input>
+          ></input>
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2 text-gray-700 font-bold">
-            Test End
-          </label>
+          <label className="block mb-2 text-gray-700 font-bold">Test End</label>
           <input
-          type="datetime-local"
+            type="datetime-local"
             name="mainend"
             value={formData.mainend}
             onChange={handleMainEndChange}
             className="border p-2 w-full text-black"
             required
-          >
-           
-          </input>
+          ></input>
         </div>
 
         <div className="mb-4">
@@ -358,14 +346,15 @@ const FormTest = () => {
             >
               Question {index + 1}
             </label>
-            <input
-              type="text"
+            <textarea
               id={`ques${index}`}
               name="ques"
               value={question.ques}
               onChange={(e) => handleChange(e, index)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none"
+              style={{ height: "auto", minHeight: "2rem" }}
             />
+
             {question.options.map((option, optionIndex) => (
               <div key={optionIndex} className="mb-2">
                 <label>Option: {optionIndex + 1}</label>

@@ -4,7 +4,6 @@ import NewsIds from "./NewsIds";
 import Image from "next/image";
 import AdBanner from "../../AdBanner";
 
-
 const decodeHtmlEntities = (html) => {
   return he.decode(html);
 };
@@ -34,8 +33,6 @@ export async function generateMetadata({ params: { id } }) {
 
 async function NewsPage({ params: { id } }) {
   const news = await getNewsId(id);
-
-  
 
   if (!news) {
     return (
@@ -72,16 +69,17 @@ async function NewsPage({ params: { id } }) {
             />
           </div>
           <AdBanner
-       data-ad-slot="1848801465"
-       data-ad-format="auto"
-       data-full-width-responsive="true"
-      />
+            data-ad-slot="1848801465"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+            strategy="lazyOnload"
+          />
           <p
             className="mt-4 text-justify text-lg "
             dangerouslySetInnerHTML={{
               __html: decodeHtmlEntities(news.article),
             }}
-          />  
+          />
         </div>
         <NewsIds news={news} />
       </div>

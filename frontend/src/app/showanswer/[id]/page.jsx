@@ -123,7 +123,7 @@ export default function ShowAnswer() {
                   {test.data.map((item, index) => (
                     <div key={index}>
                       <h2 className="text-xl font-semibold mb-4">
-                        {item.ques}
+                      {index + 1}. {item.ques}
                       </h2>
 
                       <ul>

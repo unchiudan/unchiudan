@@ -11,8 +11,8 @@ import AdBanner from "../../../AdBanner";
 function Footer() {
   return (
     <>
-      <div className="mx-auto  ">
-        <strong className="block text-center text-lg font-bold text-gray-900 sm:text-3xl ">
+      <div className="mx-auto pt-2  ">
+        <strong className="block text-center font-medium text-lg  text-gray-900 sm:text-3xl ">
           सारे Updates पाने के लिए Subscribe करें
         </strong>
         <Link href="https://t.me/UnchiudaanClasses">

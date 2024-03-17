@@ -10,8 +10,9 @@ const LearningLanguageSection = () => {
   return (
     <div>
         <div className="text-4xl font-semibold text-center my-10">
-        ऊँची उड़ान
-            <HighlightText text={"Gateway to success"} />
+        <span className="text-[#0089AB] ">ऊँची</span>{" "}
+                <span className="text-[#FF1E33] "> उड़ान</span>{" "}
+            {/* <HighlightText text={"Gateway to success"} /> */}
             <div className="text-center text-[#2C333F] font-medium lg:w-[75%] mx-auto leading-6 text-base mt-3">
             Current Affairs for UPSC, BPSC, All State PCS, बिहार दारोगा,SI, BSSC, Railway, JSSC, SSC(CGL, CPO, GD) BANKING, Defence, Police,KVS,CTET और अन्य Competitive और Government Job Examinations 
             </div>

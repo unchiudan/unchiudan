@@ -95,9 +95,9 @@ function BlogComps({
                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/affairs/uchiudan.png`}
                 alt="Blog Cover"
               />
-              <p className="absolute top-0 bg-[#ffef39] text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
+              {/* <p className="absolute top-0 bg-[#ffef39] text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
                 {date}
-              </p>
+              </p> */}
             </div>
           </div>
           <h3 className="heading-tertirary">
@@ -110,7 +110,7 @@ function BlogComps({
           />
         </h1>
         <div className="flex justify-between items-center mb-6">
-          <div className="text-gray-800 text-lg font-bold">
+          <div className="text-gray-800 text-lg font-bold border border-slate-800 rounded-md p-1 shadow-xl bg-slate-100">
             Status:{" "}
             <span
               className={`${
@@ -120,7 +120,7 @@ function BlogComps({
               {status}
             </span>
           </div>
-          <div className="text-gray-800 text-lg font-bold">
+          <div className="text-gray-800 text-lg font-bold border border-slate-800 rounded-md p-1 shadow-xl bg-slate-100">
             Price:{" "}
             <span
               className={`${
@@ -132,14 +132,14 @@ function BlogComps({
           </div>
         </div>
         
-          <motion.div
+          {/* <motion.div
             className="absolute top-2 left-0 text-white bg-red-500 rounded-full p-2 z-10"
             initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
             <span className="text-sm font-bold">Limited Time Offer!</span>
-          </motion.div>
+          </motion.div> */}
       
         <button className="mt-4 text-md hover:bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
           Read More

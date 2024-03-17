@@ -204,8 +204,8 @@ const pageFullUrl = pageUrl + usePathname();
             </a>
           </div>
           <SocialMedia url={pageFullUrl}/>
-          <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6">
-            {pdfDetails.category} PDF download <br />
+          <h1 className="text-center font-semibold text-[2rem] md:text-[2.5rem] mb-6">
+            {pdfDetails.category} PDF Download <br />
           </h1>
           <p className="mt-4 text-justify text-lg">
             <span

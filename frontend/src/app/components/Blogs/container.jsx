@@ -11,7 +11,7 @@ function BlogComp({ date, title, id, category, updatedDate , set_no }) {
   };
   return (
     <Link href={`/currentaffairs/${id}`}>
-      <div className="border border-2 bg-white p-4 rounded-xl shadow-lg transition duration-500 ">
+      <div className="border-2 bg-white p-4 rounded-xl shadow-lg transition duration-500 ">
         <div className="card__header">
           <div className="card__picture">
             <div className="card__picture-overlay">&nbsp;</div>
@@ -33,7 +33,7 @@ function BlogComp({ date, title, id, category, updatedDate , set_no }) {
           </h3>
         </div>
 
-        <h1 className="text-gray-800 text-lg font-bold cursor-pointer  h-[100px] overflow-hidden">
+        <h1 className="text-gray-800 text-lg font-bold cursor-pointer  h-max-[120px] overflow-hidden">
           <span
             dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(title) }}
           />

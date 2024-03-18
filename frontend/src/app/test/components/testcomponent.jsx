@@ -151,7 +151,7 @@ function testComp({ testsItems,userData, onTestsDelete }) {
               key={test._id}
               className="block w-full md:w-[80%] lg:w-[100%] xl:w-[100%] mb-8"
             >
-              <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
+              <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg p-2 md:max-w-3xl mx-auto border-2 bg-white">
                 {role ? (
                   <button
                     className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
@@ -167,7 +167,7 @@ function testComp({ testsItems,userData, onTestsDelete }) {
                   <Image
                   width={500}
                   height={500}
-                    className="w-full h-[200px] object-cover rounded-xl"
+                    className="w-full h-max-[200px] object-cover rounded-xl"
                     src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/usertest/${
                       test.photo
                     }`}

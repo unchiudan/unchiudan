@@ -62,7 +62,7 @@ function Footer() {
         <div className="grid grid-cols-1 gap-8 text-center lg:grid-cols-3 lg:text-left">
           <div>
             <strong className="font-medium text-gray-900"> Services </strong>
-
+            <hr className="border-gray-900 mx-28 w-30 sm:w-full sm:mx-auto border-t-2" />
             <ul className="mt-6 space-y-1">
               <li>
                 <Link
@@ -101,6 +101,7 @@ function Footer() {
 
           <div>
             <strong className="font-medium text-gray-900"> About </strong>
+            <hr className="border-gray-900 mx-28 w-30 sm:w-full sm:mx-auto border-t-2" />
 
             <ul className="mt-6 space-y-1">
               <li>
@@ -143,6 +144,7 @@ function Footer() {
 
           <div>
             <strong className="font-medium text-gray-900"> Support </strong>
+            <hr className="border-gray-900 mx-28 w-30 sm:w-full sm:mx-auto border-t-2" />
 
             <ul className="mt-6 space-y-1">
               <li>
@@ -165,8 +167,9 @@ function Footer() {
           </div>
         </div>
       </div>
-
-      <div className="mt-16 border-t border-gray-100 pt-8 text-center">
+      <hr class="mt-16 w-90 border-gray-900 md:mx-20 mx-10 "/>
+      <div className="pt-8 text-center">
+       
         <p className=" text-lg text-black">
           © <span className="font-[500]">ऊँची उड़ान</span> 2023. All rights
           reserved.

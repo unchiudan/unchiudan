@@ -68,7 +68,7 @@ export function BlogComps({
   };
 
   return (
-    <div className="border border-2 bg-white p-4 rounded-xl shadow-lg transition duration-500 relative">
+    <div className="border-2 bg-white p-4 rounded-xl shadow-lg transition duration-500 relative">
       {role ? (
         <button
           className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
@@ -102,7 +102,7 @@ export function BlogComps({
             <span>{category}</span>
           </h3>
         </div>
-        <h1 className="text-gray-800 text-lg font-bold cursor-pointer  h-[120px] overflow-hidden">
+        <h1 className="text-gray-800 text-lg font-bold cursor-pointer h-max-[120px] overflow-hidden">
           <span
             dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(title) }}
           />

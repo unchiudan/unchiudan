@@ -17,7 +17,6 @@ const CurrentAffairsCard = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filter, setFilter] = useState(false);
 
-
   const togglefilter = () => {
     setFilter(!filter);
   };
@@ -100,7 +99,7 @@ const CurrentAffairsCard = () => {
       </div>
       <div className="flex">
         <div
-          className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full mx-10 md:mx-0 ${
+          className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full mx-3 md:mx-0 ${
             filter ? "hidden" : "block"
           }`}
         >

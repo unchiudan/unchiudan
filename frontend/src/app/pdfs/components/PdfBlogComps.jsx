@@ -71,7 +71,7 @@ function BlogComps({
 
   return (
     <motion.div
-      className="border border-2 bg-white p-4 rounded-xl shadow-lg transition duration-500 relative"
+      className="border-2 bg-white p-4 rounded-xl shadow-lg transition duration-500 relative"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
@@ -104,7 +104,7 @@ function BlogComps({
             <span>{category}</span>
           </h3>
         </div>
-        <h1 className="mt-4 text-gray-800 text-lg font-bold cursor-pointer overflow-hidden mb-4 truncate h-[30px]">
+        <h1 className="mt-4 text-gray-800 text-lg font-bold cursor-pointer overflow-hidden mb-4 truncate h-max-[30px]">
           <span
             dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(title) }}
           />
@@ -141,7 +141,7 @@ function BlogComps({
             <span className="text-sm font-bold">Limited Time Offer!</span>
           </motion.div> */}
       
-        <button className="mt-4 text-md hover:bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
+        <button className="mt-1 text-md hover:bg-indigo-600 w-full text-white bg-indigo-400 py-1 px-3 rounded-xl hover:shadow-xl">
           Read More
         </button>
       </Link>

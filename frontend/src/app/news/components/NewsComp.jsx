@@ -101,12 +101,12 @@ function NewsComp({ newsItems, onNewsDelete }) {
           const decodedArticle = decodeHtmlEntities(news.article);
 
           return (
-            <div className="block max-w-full md:w-[120%] lg:w-[120%] xl:w-[120%] mb-2">
+            <div className="block w-full md:w-[120%] lg:w-[120%] xl:w-[120%] mb-2">
             <Link
               href={`/news/${news._id}`}
               key={news._id}
             >
-              <div className="relative flex flex-col md:flex-row md:space-x-5 my-4 md:space-y-0 rounded-xl shadow-lg max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
+              <div className="relative flex flex-col md:flex-row md:space-x-5 my-4 md:space-y-0 rounded-xl shadow-lg p-1 md:max-w-3xl mx-auto border border-white bg-white">
                 {role ? (
                   <button
                     className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"

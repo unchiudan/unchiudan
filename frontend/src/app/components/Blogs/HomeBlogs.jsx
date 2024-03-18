@@ -20,7 +20,7 @@ export default function HomeBlogs() {
   }
 
   return (
-    <div className="mx-10">
+    <div className="mx-4">
       <h1 className="text-center text-[1.5rem] md:text-[2rem] mb-4 font-semibold">
         Latest Current Affairs
       </h1>

@@ -10,12 +10,6 @@ function Hero() {
     <>
       <div className="bg-[#F9F9F9] md:mx-8 mx-6">
         <div className=" overflow-hidden relative lg:flex lg:items-center">
-          {/* Ensure AdBanner is properly implemented */}
-          <AdBanner
-            data-ad-slot="1848801465"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
           <div className="w-full py-12 ">
             <h2 className="mt-14 text-[1.6rem] text-center md:text-[2.5rem] font-extrabold text-black">
               <span className="text-[4rem] ">
@@ -57,9 +51,9 @@ function Hero() {
                 </div>
               </Link>
               <Link href="https://www.facebook.com/profile.php?id=100093014962073&mibextid=ZbWKwL">
-              <div className=" flex w-fit bg-gradient-to-b from-[#4267B2] to-[#1877F2] px-2 py-1  text-lg mx-auto rounded-full hover:to-blue-600 cursor-pointer text-white">
-                <FaFacebook className="w-7 h-7" />
-              </div>
+                <div className=" flex w-fit bg-gradient-to-b from-[#4267B2] to-[#1877F2] px-2 py-1  text-lg mx-auto rounded-full hover:to-blue-600 cursor-pointer text-white">
+                  <FaFacebook className="w-7 h-7" />
+                </div>
               </Link>
             </div>
           </div>
@@ -79,6 +73,12 @@ function Hero() {
               <img src="/Images/ssc.jpeg" className="rounded-lg" alt="Meow" />
             </div>
           </div>
+          {/* Ensure AdBanner is properly implemented */}
+          <AdBanner
+            data-ad-slot="1848801465"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          />
         </div>
       </div>
     </>

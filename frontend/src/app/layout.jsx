@@ -47,7 +47,7 @@ export const metadata = {
     width: 800,
     height: 600,
   },
-  metadataBase: new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}`),
+  // metadataBase: new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}`),
   alternates: {
     canonical: `/`,
   },

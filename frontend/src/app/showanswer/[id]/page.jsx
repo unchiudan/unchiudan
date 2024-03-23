@@ -45,7 +45,8 @@ export default function ShowAnswer() {
     // Create a new instance of jsPDF
     const pdf = new jsPDF("p", "mm", "a4", "true");
 
-    const pageHeight = 1170; // Height of A4 page in mm
+    const pageHeight = 1176; // Height of A4 page in mm
+    const padding = 20; // Padding at the bottom of each page
     let yOffset = 0;
     let currentPage = 0;
 
@@ -68,8 +69,8 @@ export default function ShowAnswer() {
             pdf.addPage();
         }
 
-        // Add the image to the PDF with a margin at the bottom
-        pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight);
+        // Add the image to the PDF with padding at the bottom
+        pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight + padding);
 
         // Move to the next portion of the content
         yOffset += pageHeight;
@@ -82,7 +83,6 @@ export default function ShowAnswer() {
 
     SetLoader(false);
 };
-
 
   return (
     <>
@@ -122,15 +122,15 @@ export default function ShowAnswer() {
                 <ul>
                   {test.data.map((item, index) => (
                     <div key={index}>
-                      <h2 className="text-xl font-semibold mb-4">
+                      <h2 className="text-xl font-semibold mb-5 mt-4">
                       {index + 1}. {item.ques}
                       </h2>
 
                       <ul>
                         {item.options.map((option, idx) => (
-                          <li key={idx} className="mb-2">
+                          <li key={idx} className="mb-1">
                             <div
-                              className={`mb-5 ${
+                              className={`mb-2 ${
                                 idx === parseInt(item.ans - 1) ? "bg-green-200" : ""
                               } p-[5px] pl-[25px] rounded-xl relative`}
                             >

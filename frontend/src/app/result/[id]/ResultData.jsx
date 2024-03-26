@@ -38,7 +38,7 @@ export const ResultData = ({ results }) => {
               {userResults.score}
             </td>
             <td className="px-6 py-3 border-b  border border-black">
-              {userResults.percentage}
+              {userResults.percentage.toFixed(2)}
             </td>
             <td className="px-6 py-3 border-b  border border-black">
               {userResults.submittime}

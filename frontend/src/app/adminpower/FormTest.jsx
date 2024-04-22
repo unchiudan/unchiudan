@@ -351,14 +351,14 @@ const FormTest = () => {
               name="ques"
               value={question.ques}
               onChange={(e) => handleChange(e, index)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               style={{ height: "auto", minHeight: "2rem" }}
             />
 
             {question.options.map((option, optionIndex) => (
               <div key={optionIndex} className="mb-2">
                 <label>Option: {optionIndex + 1}</label>
-                <input
+                <textarea
                   type="text"
                   id={`option${index}-${optionIndex}`}
                   name="option"

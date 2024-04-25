@@ -1,17 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import logo from "../../../../public/uchiudan.png";
 import Image from "next/image";
-import html2canvas from "html2canvas/dist/html2canvas";
-import jsPDF from "jspdf";
-import { saveAs } from 'file-saver';
+import ReactPrint from "react-to-print";
 
 export default function ShowAnswer() {
   const { id } = useParams();
   const [test, setTest] = useState(null);
   const [loader, SetLoader] = useState(false);
+
+  const ref = useRef()
 
   useEffect(() => {
     const fetchQuestion = async () => {
@@ -35,71 +35,23 @@ export default function ShowAnswer() {
     return textarea.value;
   };
 
-  const downloadAnswers = async () => {
-    SetLoader(true);
-
-    // Get the total height of the content
-    const capture = document.querySelector(".Answer-table");
-    const totalHeight = capture.scrollHeight;
-
-    // Create a new instance of jsPDF
-    const pdf = new jsPDF("p", "mm", "a4", "true");
-
-    const pageHeight = 1176; // Height of A4 page in mm
-    const padding = 20; // Padding at the bottom of each page
-    let yOffset = 0;
-    let currentPage = 0;
-
-    while (yOffset < totalHeight) {
-        // Use html2canvas to capture the content of each page
-        const canvas = await html2canvas(capture, {
-            windowHeight: totalHeight,
-            y: yOffset,
-        });
-
-        // Calculate the width and height for the image based on the aspect ratio
-        const imgWidth = 204; // Width of A4 page in mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        // Convert canvas to PNG image data URL with reduced quality
-        const imgData = canvas.toDataURL('image/jpeg', 0.6); // Adjust quality as needed
-
-        // Add a new page to the PDF
-        if (currentPage > 0) {
-            pdf.addPage();
-        }
-
-        // Add the image to the PDF with padding at the bottom
-        pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight + padding);
-
-        // Move to the next portion of the content
-        yOffset += pageHeight;
-        currentPage++;
-    }
-
-    // Save the PDF
-    const pdfData = pdf.output('blob');
-    saveAs(pdfData, 'Answers.pdf');
-
-    SetLoader(false);
-};
-
   return (
     <>
       <div className=" py-[6rem]">
         <div className="mt-10 text-center">
-          <button
+          {/* <button
             className=" transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md "
             onClick={downloadAnswers}
             disabled={!(loader === false)}
           >
             {loader ? <span>Downloading</span> : <span>Download</span>}
-          </button>
+          </button> */}
+          <ReactPrint trigger={() =><button className=" transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md ">Download</button>} content={() =>ref.current} />
         </div>
-        <div className="Answer-table lg:mx-[18%] mx-[2%]  ">
+        <div ref={ref} className="Answer-table lg:mx-[18%] mx-[2%]">
           {test && (
             <div>
-              <div className="mb-[1.5rem] bg-[#ebd7d7] h-[150px] ">
+              <div className="flex mb-[1.5rem] bg-[#ebd7d7] h-[150px] ">
                 <Image
                   width={150}
                   height={150}
@@ -107,16 +59,16 @@ export default function ShowAnswer() {
                   alt="unchiudaan"
                   className="w-[150px] height-[150px]"
                 />
-              </div>
-              <div className="  bg-white shadow-md pb-8 px-8 rounded-md">
-                <div className="mb-[1.5rem] rounded-xl p-5 ">
                   <span
-                    className="text-center font-semibold text-3xl"
+                    className="flex items-center font-semibold text-2xl"
                     dangerouslySetInnerHTML={{
                       __html: decodeHtmlEntities(test.name),
                     }}
                   />
-                  <hr className="mt-[15px] h-1 rounded-xl border-none bg-black font-bold" />
+              </div>
+              <div className="  bg-white shadow-md pb-8 px-8 rounded-md">
+                <div className="mb-[1.5rem] rounded-xl p-5">
+                  <hr className="h-1 rounded-xl border-none bg-black font-bold" />
                 </div>
 
                 <ul>

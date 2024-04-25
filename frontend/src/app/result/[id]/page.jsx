@@ -1,16 +1,14 @@
 "use client";
 /* eslint-disable react/prop-types */
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { ResultData } from "./ResultData";
 import logo from "../../../../public/uchiudan.png";
-import html2canvas from "html2canvas/dist/html2canvas";
-import jsPDF from "jspdf";
 import Image from "next/image";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 import he from "he";
-import { saveAs } from 'file-saver';
+import ReactPrint from "react-to-print";
 
 
 export default function ResultPage() {
@@ -23,6 +21,9 @@ export default function ResultPage() {
   const [filteredResults, setFilteredResults] = useState([]);
   const [resultHeading, setResultHeading] = useState("");
   const [loader, SetLoader] = useState(false);
+
+  const ref = useRef()
+
 
  
   let role;
@@ -37,53 +38,7 @@ export default function ResultPage() {
     role = false;
   }
 
-  const downloadPDF = async () => {
-    SetLoader(true);
 
-    // Get the total height of the content
-    const capture = document.querySelector(".result-table");
-    const totalHeight = capture.scrollHeight;
-
-    // Create a new instance of jsPDF
-    const pdf = new jsPDF("p", "mm", "a4", "true");
-
-    const pageHeight = 1850; // Height of A4 page in mm
-    let yOffset = 0;
-    let currentPage = 0;
-
-    while (yOffset < totalHeight) {
-        // Use html2canvas to capture the content of each page
-        const canvas = await html2canvas(capture, {
-            windowHeight: totalHeight,
-            y: yOffset,
-        });
-
-        // Calculate the width and height for the image based on the aspect ratio
-        const imgWidth = 215; // Width of A4 page in mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        // Convert canvas to PNG image data URL with reduced quality
-        const imgData = canvas.toDataURL('image/jpeg', 0.6); // Adjust quality as needed
-
-        // Add a new page to the PDF
-        if (currentPage > 0) {
-            pdf.addPage();
-        }
-
-        // Add the image to the PDF with a margin at the bottom
-        pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight);
-
-        // Move to the next portion of the content
-        yOffset += pageHeight;
-        currentPage++;
-    }
-
-    // Save the PDF
-    const pdfData = pdf.output('blob');
-    saveAs(pdfData, 'Result.pdf');
-
-    SetLoader(false);
-};
 
 
 
@@ -205,19 +160,13 @@ export default function ResultPage() {
       </div>
       <div className="text-center">
         {role ? (
-          <button
-            className="transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md "
-            onClick={downloadPDF}
-            disabled={!(loader === false)}
-          >
-            {loader ? <span>Downloading</span> : <span>Download</span>}
-          </button>
+         <ReactPrint trigger={() =><button className=" transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md ">Download</button>} content={() =>ref.current} />
         ) : (
           ""
         )}
       </div>
-      <div className="w-full px-[2%]  mb-[3rem]">
-        <div className="overflow-x-auto ">
+      <div ref={ref} className="w-full px-[2%]  mb-[3rem] overflow-scroll">
+        <div  className=" ">
           <table className="result-table opacity-90 ">
             <thead className="">
               <tr className="bg-gray-300 text-center ">

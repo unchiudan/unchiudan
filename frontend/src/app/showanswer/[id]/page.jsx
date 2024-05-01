@@ -5,13 +5,15 @@ import { useParams } from "next/navigation";
 import logo from "../../../../public/uchiudan.png";
 import Image from "next/image";
 import ReactPrint from "react-to-print";
+import TestPatchForm from "./TestPatchForm"
 
 export default function ShowAnswer() {
   const { id } = useParams();
   const [test, setTest] = useState(null);
-  const [loader, SetLoader] = useState(false);
-
+  
   const ref = useRef()
+
+
 
   useEffect(() => {
     const fetchQuestion = async () => {
@@ -37,15 +39,8 @@ export default function ShowAnswer() {
 
   return (
     <>
-      <div className=" py-[6rem]">
+      <div className="py-[6rem]">
         <div className="mt-10 text-center">
-          {/* <button
-            className=" transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md "
-            onClick={downloadAnswers}
-            disabled={!(loader === false)}
-          >
-            {loader ? <span>Downloading</span> : <span>Download</span>}
-          </button> */}
           <ReactPrint trigger={() =><button className=" transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md ">Download</button>} content={() =>ref.current} />
         </div>
         <div ref={ref} className="Answer-table lg:mx-[18%] mx-[2%]">
@@ -89,7 +84,7 @@ export default function ShowAnswer() {
                               <span className="mr-2 font-bold">
                                 {String.fromCharCode(65 + idx)}.
                               </span>{" "}
-                              {/* Option numbering A, B, C, D */}
+                             
                               {option}
                               {idx === parseInt(item.ans - 1) && (
                                 <svg
@@ -117,7 +112,9 @@ export default function ShowAnswer() {
               </div>
             </div>
           )}
-        </div>
+          
+        </div>    
+        {test && <TestPatchForm details={test} />}
       </div>
     </>
   );

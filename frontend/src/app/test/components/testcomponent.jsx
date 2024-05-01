@@ -1,11 +1,12 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { MdOutlineDelete } from "react-icons/md";
+import { IoMdShareAlt } from "react-icons/io";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
 import Image from "next/image";
-
+import { usePathname } from "next/navigation";
 
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
@@ -30,10 +31,15 @@ function formatTimestamp(timestamp) {
   return `${day} - ${month} - ${year} ${hour}:${minute}:${second} ${amOrPm}`;
 }
 
-function testComp({ testsItems,userData, onTestsDelete }) {
+// const origin =
+//   typeof window !== "undefined" && window.location.origin
+//     ? window.location.origin
+//     : "";
+// const pageUrl = `${origin}/${testsId}`;
+// const pageFullUrl = pageUrl + usePathname();
 
+function testComp({ testsItems, userData, onTestsDelete }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [block, setBlock] = useState(false);
 
   let role;
 
@@ -100,21 +106,21 @@ function testComp({ testsItems,userData, onTestsDelete }) {
     return textarea.value;
   };
 
-    function formatDateFromTimestamp(timestamp) {
-        // Create a new Date object using the provided timestamp
-        var currentDate = new Date(timestamp);
-    
-        // Get the day, month, and year components from the Date object
-        var day = currentDate.getDate();
-        var month = currentDate.toLocaleString('default', { month: 'short' }); // Get the month name in short format
-        var year = currentDate.getFullYear();
-    
-        // Concatenate the components into the desired format
-        var formattedDate = day + ' ' + month + ' ' + year;
-    
-        // Return the formatted date
-        return formattedDate;
-    }
+  function formatDateFromTimestamp(timestamp) {
+    // Create a new Date object using the provided timestamp
+    var currentDate = new Date(timestamp);
+
+    // Get the day, month, and year components from the Date object
+    var day = currentDate.getDate();
+    var month = currentDate.toLocaleString("default", { month: "short" }); // Get the month name in short format
+    var year = currentDate.getFullYear();
+
+    // Concatenate the components into the desired format
+    var formattedDate = day + " " + month + " " + year;
+
+    // Return the formatted date
+    return formattedDate;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -165,12 +171,10 @@ function testComp({ testsItems,userData, onTestsDelete }) {
                 )}
                 <div className="w-full md:w-1/3 bg-white">
                   <Image
-                  width={500}
-                  height={500}
+                    width={500}
+                    height={500}
                     className="w-full h-max-[200px] object-cover rounded-xl"
-                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/usertest/${
-                      test.photo
-                    }`}
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/usertest/${test.photo}`}
                     alt={`logo`}
                   />
                 </div>
@@ -203,33 +207,26 @@ function testComp({ testsItems,userData, onTestsDelete }) {
                     onClick={() => {
                       function stripHtmlTags(html) {
                         // Create a new div element
-                        var doc = new DOMParser().parseFromString(html, 'text/html');
+                        var doc = new DOMParser().parseFromString(
+                          html,
+                          "text/html"
+                        );
                         var text = doc.body.textContent || "";
-                    
+
                         // Return the text content without HTML tags
                         return text;
-                    }
-                    const textContent = stripHtmlTags(decodedName);
-                    const time = formatDateFromTimestamp(test.mainstart)
+                      }
+                      const textContent = stripHtmlTags(decodedName);
+                      const time = formatDateFromTimestamp(test.mainstart);
 
                       localStorage.setItem("testname", textContent);
                       localStorage.setItem("testdate", time);
-                      
                     }}
                   >
                     <button
-                      disabled={
-                        block ||
-                        Date.now() >= test.mainend ||
-                        Date.now() < test.mainstart
-                      }
                       className={`mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl`}
                     >
-                      {block || Date.now() >= test.mainend
-                        ? "Test Ended"
-                        : Date.now() < test.mainstart
-                        ? "Test Not Started"
-                        : "Start Test"}
+                      Start Test
                     </button>
                   </Link>
                   {showResultButton}

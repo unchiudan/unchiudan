@@ -17,7 +17,7 @@ export const SocialMedia = ({ url }) => {
   };
 
   return (
-    <div className="flex justify-between mt-6 ">
+    <div className="flex justify-between mt-6 px-2 ">
       <span className="text-center text-md  ">Share with Friends :</span>
       <span className="flex text-gray-400 justify-center space-x-4">
         <a
@@ -65,7 +65,7 @@ export const SocialMedia = ({ url }) => {
           <FaTelegram className="text-blue-400 w-7 h-7" />
         </a>
         <span onClick={handleCopy}>
-          <FaPaperclip className="text-blue-400 w-7 h-7 " />
+          <FaPaperclip className="cursor-pointer text-blue-400 w-7 h-7 " />
         </span>
       </span>
     </div>

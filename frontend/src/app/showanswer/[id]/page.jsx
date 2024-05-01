@@ -2,10 +2,13 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import logo from "../../../../public/uchiudan.png";
+import logo from "/public/uchiudan.png";
 import Image from "next/image";
 import ReactPrint from "react-to-print";
 import TestPatchForm from "./TestPatchForm"
+
+
+
 
 export default function ShowAnswer() {
   const { id } = useParams();

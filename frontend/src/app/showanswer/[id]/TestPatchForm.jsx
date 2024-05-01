@@ -1,29 +1,67 @@
-"use client"
+"use client";
 /* eslint-disable react/prop-types */
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import he from "he";
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+const iso8601ToMilliseconds = (iso8601Str) => {
+  try {
+    // Parse the ISO 8601 string into a Date object
+    const dtObj = new Date(iso8601Str);
 
-const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
+    // Adjust for local timezone offset
+    const milliseconds = dtObj.getTime() + dtObj.getTimezoneOffset() * 60000;
+
+    return milliseconds;
+  } catch (error) {
+    console.error("Invalid ISO 8601 format", error);
+    return null;
+  }
+};
+
+const millisecondsToIso8601 = (milliseconds) => {
+  try {
+    // Create a new Date object using milliseconds since the epoch
+    const dtObj = new Date(milliseconds);
+
+    // Adjust for local timezone offset
+    const iso8601Str = new Date(
+      dtObj.getTime() - dtObj.getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .slice(0, 16);
+
+    return iso8601Str;
+  } catch (error) {
+    console.error("Invalid milliseconds format", error);
+    return null;
+  }
+};
 
 const patchTest = async (testData, id) => {
+  console.log(testData);
   const token = localStorage.getItem("jwt_token");
-  const formData = new FormData();
-  formData.append("name", testData.name);
-  formData.append("correctmarks", testData.correctmarks);
-  formData.append("negativemarks", testData.negativemarks);
-  formData.append("data", testData.jsonData);
-  formData.append("mainend", testData.mainend);
-  formData.append("mainstart", testData.mainstart);
-  formData.append("testtime", testData.testtime);
-  formData.append("photo", testData.photo);
+  // console.log("🚀 ~ postaffairs ~ testData:", testData);
+  const name = testData.name;
 
+  const jsonData = JSON.stringify(testData.data);
+
+  let loadingToast;
   try {
-    const loadingToast = toast.loading("Updating TestData...");
+    loadingToast = toast.loading("Posting TestData...");
+    const formData = new FormData();
+    formData.append("correctmarks", testData.correctmarks);
+    formData.append("negativemarks", testData.negativemarks);
+    formData.append("name", name);
+    formData.append("data", jsonData);
+    formData.append("mainend", testData.mainend);
+    formData.append("mainstart", testData.mainstart);
+    formData.append("testtime", testData.testtime);
+    formData.append("photo", testData.photo);
 
     await axios.patch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/test/${id}`,
@@ -31,20 +69,16 @@ const patchTest = async (testData, id) => {
       {
         headers: {
           Authorization: token,
+          "Content-Type": "multipart/form-data",
         },
       }
     );
-
     toast.dismiss(loadingToast);
-
-    if (!id) {
-      toast.success("Test posted successfully!");
-    } else {
-      toast.success("Test updated successfully!");
-    }
+    toast.success("Test posted successfully!");
   } catch (error) {
     console.error(error);
-    toast.error("Error updating Test. Please try again.");
+    toast.dismiss(loadingToast);
+    toast.error("Error posting Test. Please try again.");
   }
 };
 
@@ -55,7 +89,7 @@ const TestPatchForm = ({ details }) => {
     mainstart: details.mainstart || "",
     mainend: details.mainend || "",
     correctmarks: details.correctmarks || "",
-    negativemarks: details.negativemarks || "",
+    negativemarks: details.negativemarks || "0",
     testtime: details.testtime || "",
     photo: null,
     data: details.data || [{ ques: "", options: ["", "", "", ""], ans: "" }],
@@ -89,23 +123,35 @@ const TestPatchForm = ({ details }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let formdata = formData.data;
+    if (formData.data[0].ques === "") {
+      formdata = [];
+    }
+
+    // const formopen = formData.mainstart + formData.mainend;
+    const mainstart = iso8601ToMilliseconds(formData.mainstart);
+    const mainend = iso8601ToMilliseconds(formData.mainend);
+    const testtime = parseInt(formData.testtime);
+
+    const negativemarks = parseFloat(
+      formData.negativemarks.replace(/[-+]/g, "")
+    );
+    const correctmarks = parseFloat(formData.correctmarks);
+
     try {
       await patchTest(
         {
           name: formData.name,
-          mainstart: formData.mainstart,
-          mainend: formData.mainend,
-          correctmarks: formData.correctmarks,
-          negativemarks: formData.negativemarks,
-          testtime: formData.testtime,
-          data: formData.data,
+          mainstart,
+          mainend,
+          data: formdata,
           photo: formData.photo,
+          correctmarks,
+          negativemarks,
+          testtime,
         },
         details._id
       );
-      window.location.reload();
-
-
     } catch (error) {
       console.error(error);
       toast.error("Error updating Test. Please try again.");
@@ -195,7 +241,7 @@ const TestPatchForm = ({ details }) => {
           <input
             type="datetime-local"
             name="mainstart"
-            value={formData.mainstart}
+            value={millisecondsToIso8601(formData.mainstart)}
             onChange={handleMainStartChange}
             className="border p-2 w-full text-black"
             required
@@ -207,7 +253,7 @@ const TestPatchForm = ({ details }) => {
           <input
             type="datetime-local"
             name="mainend"
-            value={formData.mainend}
+            value={millisecondsToIso8601(formData.mainend)}
             onChange={handleMainEndChange}
             className="border p-2 w-full text-black"
             required
@@ -227,7 +273,7 @@ const TestPatchForm = ({ details }) => {
             required
           />
         </div>
-   
+
         <div className="mb-4">
           <label className="block mb-2 text-gray-700 font-bold">
             Negative Mark (Eg: 0.25 *Donot write (-)sign)

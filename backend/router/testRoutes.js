@@ -6,9 +6,7 @@ const {
   authenticateCors,
 } = require('../controllers/authController');
 
-
 const router = express.Router();
-
 
 router
   .route('/')
@@ -40,5 +38,15 @@ router
 router.route('/user/:id').patch(testController.userTests);
 
 router.route('/submit/:id').patch(testController.submitTest); //testid
+
+// router
+//   .route('/showanswer/:id')
+//   .patch(
+//     authenticateCors,
+//     restrictTo('admin'),
+//     testController.uploadPhoto,
+//     testController.resizePhoto('public/img/test'),
+//     testController.updateOne,
+//   );
 
 module.exports = router;

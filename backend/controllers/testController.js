@@ -77,11 +77,14 @@ exports.createOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
+  const parsedData = JSON.parse(req.body.data);
+  let data = parsedData
+  
   let photo;
   if (req.file) {
     photo = req.file.filename;
   }
-  req.body = { ...req.body, photo };
+  req.body = { ...req.body, photo ,data };
   const tests = await Test.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,

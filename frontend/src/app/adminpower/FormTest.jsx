@@ -6,6 +6,7 @@ import { Toaster, toast } from "react-hot-toast";
 import dynamic from "next/dynamic";
 
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+
 const postaffairs = async (testData) => {
   const token = localStorage.getItem("jwt_token");
   // console.log("🚀 ~ postaffairs ~ testData:", testData);

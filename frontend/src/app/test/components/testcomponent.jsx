@@ -7,6 +7,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { FaPaperclip } from "react-icons/fa6";
 
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
@@ -122,6 +123,15 @@ function testComp({ testsItems, userData, onTestsDelete }) {
     return formattedDate;
   }
 
+  const handleCopy = async (event, testsId) => {
+    event.preventDefault();
+    event.stopPropagation();
+    navigator.clipboard.writeText(
+      `https://unchiudaanclasses.com/test/${testsId}`
+    );
+    toast.success("Copied successfully!");
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       {testsItems.length === 0 ? (
@@ -169,6 +179,12 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                 ) : (
                   ""
                 )}
+                <span
+                  onClick={(event) => handleCopy(event, test._id)}
+                  className="absolute top-14 p-2 rounded-3xl right-0 bg-red-500"
+                >
+                  <FaPaperclip className="cursor-pointer text-white w-7 h-7 " />
+                </span>
                 <div className="w-full md:w-1/3 bg-white">
                   <Image
                     width={500}

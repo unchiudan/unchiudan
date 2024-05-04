@@ -118,7 +118,7 @@ const FormPDF = () => {
   };
 
   return (
-    <div className="mx-auto mt-8">
+    <div className="mx-2 mt-8">
       <form onSubmit={handleSubmit} className="mx-auto">
         <div className="mb-4">
           <label className="block mb-2 text-gray-800">Name</label>

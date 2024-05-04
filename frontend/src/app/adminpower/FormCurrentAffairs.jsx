@@ -125,7 +125,7 @@ const FormCurrentAffairs = () => {
     });
   };
   return (
-    <div>
+    <div className="mx-2">
       <form className="mx-auto mt-8" onSubmit={handleSubmit}>
         <div className="mb-4">
           <label

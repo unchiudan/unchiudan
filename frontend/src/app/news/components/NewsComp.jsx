@@ -99,6 +99,11 @@ function NewsComp({ newsItems, onNewsDelete }) {
 
           const decodedHeading = decodeHtmlEntities(news.heading);
           const decodedArticle = decodeHtmlEntities(news.article);
+          const maxArticleLength = 200; 
+          const trimmedArticle =
+            decodedArticle.length > maxArticleLength
+              ? decodedArticle.substring(0, maxArticleLength) + "..."
+              : decodedArticle;
 
           return (
             <div className="block w-full md:w-[120%] lg:w-[120%] xl:w-[120%] mb-2">
@@ -145,8 +150,8 @@ function NewsComp({ newsItems, onNewsDelete }) {
                     dangerouslySetInnerHTML={{ __html: decodedHeading }}
                   />
                   <p
-                    className="md:text-lg text-gray-500 text-base overflow-hidden mb-[1rem] truncate h-[20px]"
-                    dangerouslySetInnerHTML={{ __html: decodedArticle }}
+                  className="md:text-lg text-gray-500 text-base overflow-hidden mb-[1rem]"
+                    dangerouslySetInnerHTML={{ __html: trimmedArticle }}
                   />
                 </div>
               </div>

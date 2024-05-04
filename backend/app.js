@@ -13,6 +13,7 @@ const OAuth2Startegy = require('passport-google-oauth2').Strategy;
 const newsRoutes = require('./router/newsRoutes');
 // const oauthRoutes = require('./router/oauthRoutes');
 const testRoutes = require('./router/testRoutes');
+const dailyTestRoutes = require('./router/dailyTestRoutes');
 const pdfRoutes = require('./router/pdfRoutes');
 const adminRoutes = require('./router/adminRoutes');
 const userRoutes = require('./router/userRoutes');
@@ -174,6 +175,7 @@ app.use('/api/pdfs', pdfRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/test', testRoutes);
+app.use('/api/dailytest', dailyTestRoutes);
 // app.use('/api/oauth/google/callback', oauthRoutes);
 
 

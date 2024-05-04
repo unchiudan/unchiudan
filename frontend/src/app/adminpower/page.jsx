@@ -1,16 +1,16 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-"use client"
-import React from 'react'
-import axios from "axios";
-import toast from "react-hot-toast";
+"use client";
 import { useEffect, useState } from "react";
 import { useGetUserQuery } from "../redux/slices/userSlices";
-import ErrorPage from "../Errorpage";
-import SidebarAdmin from "./SidebarAdmin"
+import FormNews from "./FormNews";
+import FormTest from "./FormTest";
+import FormCurrentAffairs from "./FormCurrentAffairs";
+import FormPDF from "./FormPDF";
+import DailyTest from "./DailyTest";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 export default function page() {
-  // Fetching user data to determine if the user is an admin
+  const [totalUsers, setTotalUsers] = useState(0);
   const { data: userData } = useGetUserQuery();
   let role;
 
@@ -19,11 +19,10 @@ export default function page() {
   } else {
     role = false;
   }
+  const [toogle, setToogle] = useState(false);
+  const [open, setOpen] = useState("");
+  const [show, setShow] = useState(false);
 
-  // State to store the total number of users
-  const [totalUsers, setTotalUsers] = useState(0);
-
-  // Function to fetch the total number of users
   const fetchTotalUsers = async () => {
     try {
       const token = localStorage.getItem("jwt_token");
@@ -48,76 +47,93 @@ export default function page() {
     fetchTotalUsers();
   }, []);
 
-  // Function to handle deletion of news items
-  const handleDeleteClick = async () => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      try {
-        const token = localStorage.getItem("jwt_token");
-        const response = await axios.delete(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/news/autodelete`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        if (response.status === 200) {
-          // The news item was deleted successfully
-          toast.success("News item deleted successfully");
-          // You may want to reload the page or update the news list here
-        } else {
-          console.error("Error deleting news item:", response);
-          toast.error("Error deleting news item");
-        }
-      } catch (error) {
-        console.error("Error deleting news item:", error);
-        toast.error("Error deleting news item");
-      }
-    }
-  };
+  function handleWindow(value) {
+    setOpen(value);
+  }
 
   return (
-    <>
-      {role && (
-        <div className="pt-[8rem]">
-          <div className="flex flex-col md:flex-row items-center mb-20 md:w-1/3 md:mx-auto">
-            <span className="text-center mb-8 md:mb-0 md:mr-4">
-              ❗❗ Delete News that are older than 90 Days ❗❗
-              <br />
-              <button
-                className="bg-[#e10707] text-white rounded p-2"
-                onClick={handleDeleteClick}
-              >
-                Delete News
-              </button>
-            </span>
-            <span className="text-center mb-8 md:mb-0 md:order-2 md:mr-8">
-              <strong>Total Users 🧑</strong>
-              <br />
-              <p className="bg-[#06ca06] text-white rounded px-2 py-2 inline-block">
-                {totalUsers}
-              </p>
-            </span>
-          </div>
-          <SidebarAdmin />
-        </div>
+    <div className="mt-[100px] mb-[50px]">
+      <div className="">
+        {role && (
+          <>
+          <div className="flex justify-center ">
+            <div className="w-1/2 text-right">
+              <p className=" text-xl  font-medium p-2 ">
+                Welcome Admin
+              </p>{" "}
+            </div>
 
-      )}
-
-      {!role && <ErrorPage />}
-    </>
+            <div className="w-1/2 text-right">
+              {" "}
+              <span className="text-center mb-8 md:mb-0 md:order-2 md:mr-8">
+                <strong>Total Users </strong>
+                
+                <p className="bg-[#06ca06] text-white rounded px-2 py-2 inline-block ">
+                  {totalUsers}🧑
+                </p>
+              </span>
+            </div>
+            </div>
+            <hr />
+            <div className="flex h-[92%]">
+              <div className="w-1/6 border-r-2 px-2 pt-5 leading-10  ">
+                <button
+                  className={`${open === "news" ? "text-[#4793AF]" : ""}`}
+                  onClick={() => handleWindow("news")}
+                >
+                  Create News
+                </button>
+                <hr />
+                <button
+                  className={`${open === "test" ? "text-[#4793AF]" : ""}`}
+                  onClick={() => handleWindow("test")}
+                >
+                  Create Test
+                </button>
+                <hr />
+                <button
+                  className={`${
+                    open === "currentaffairs" ? "text-[#4793AF]" : ""
+                  }`}
+                  onClick={() => handleWindow("currentaffairs")}
+                >
+                  Create CurrentAffairs
+                </button>
+                <hr />
+                <button
+                  className={`${open === "dailytest" ? "text-[#4793AF]" : ""}`}
+                  onClick={() => handleWindow("dailytest")}
+                >
+                  Create DailyTest
+                </button>
+                <hr />
+                <button
+                  className={`${open === "pdf" ? "text-[#4793AF]" : ""}`}
+                  onClick={() => handleWindow("pdf")}
+                >
+                  Create Pdf
+                </button>
+                <hr />
+              </div>
+              <div className="w-5/6 overflow-auto flex-grow">
+                {open === "news" ? (
+                  <FormNews />
+                ) : open === "test" ? (
+                  <FormTest />
+                ) : open === "currentaffairs" ? (
+                  <FormCurrentAffairs />
+                ) : open === "pdf" ? (
+                  <FormPDF />
+                ) : open === "dailytest" ? (
+                  <DailyTest />
+                ) : (
+                  <div></div>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
-};
-
-// export default page;
-
-
-// import React from 'react'
-
-// export default function page() {
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
+}

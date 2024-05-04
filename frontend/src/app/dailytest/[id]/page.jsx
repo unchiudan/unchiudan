@@ -104,7 +104,13 @@ export default function DailyTestPage({ params: { id } }) {
       <div className="mx-6">
         <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6" dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(dailytest.name) }}></h1>
         <div className="md:mx-12 my-1">
-          <Image width={500} height={500} alt="test image" src={`/${dailytest.photo}`} className="w-full mx-auto rounded-lg" />
+        <Image
+              width={500}
+              height={500}
+              alt="logo"
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/dailytests/${dailytest.photo}`}
+              className="w-full mx-auto rounded-lg"
+            />
         </div>
         <AdBanner data-ad-slot="1848801465" data-ad-format="auto" data-full-width-responsive="true" />
         <p className="mt-4 text-justify text-lg " dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(dailytest.description) }} />

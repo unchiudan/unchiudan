@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useGetUserQuery } from "../redux/slices/userSlices";
 import { MdOutlineDelete } from "react-icons/md";
 import { Toaster, toast } from "react-hot-toast";
+import Image from "next/image";
 
 export default function Page() {
   const { data: userData } = useGetUserQuery();
@@ -147,10 +148,14 @@ export default function Page() {
                 ) : (
                   ""
                 )}
-                <img
-                  src={"./dailytests-1714841733944.jpeg"}
+                <Image
+                  width={500}
+                  height={500}
+                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/dailytests/${
+                    test.photo
+                  }`}
                   alt={test.name}
-                  className="w-full h-auto mb-4 object-center"
+                  className="w-full h-[200px] object-cover rounded-xl"
                 />
               </div>
 

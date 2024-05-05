@@ -145,7 +145,7 @@ export default function ResultPage() {
   }
 
   return (
-    <div className="pt-[6rem] ">
+    <div className="py-[6rem] lg:py-[8rem] ">
       <div className="m-4 flex items-center">
         <input
           type="text"

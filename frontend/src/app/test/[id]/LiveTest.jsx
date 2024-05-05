@@ -276,8 +276,8 @@ export function LiveTest({ userData }) {
 
 
   return (
-    <div className="bg-[#cccccc]  py-[5rem]  md:py-[7rem] px-[2rem]">
-      <h1 className="border p-2rem rounded-xl border-[3px] px-[10px] w-[150px] text-center h-[30px] bg-blue-300 font-semibold fixed ">Timer: {formatTime(remainingTime)}</h1>
+    <div className="bg-[#cccccc]  py-[6rem] lg:py-[8rem]">
+      <h1 className=" p-2rem rounded-xl border-[3px] px-[10px] w-[150px] text-center h-[30px] bg-blue-300 font-semibold fixed ">Timer: {formatTime(remainingTime)}</h1>
       <div className=" justify-center items-center md:px-[20%] ">
         <h1 className="text-xl lg:text-2xl font-bold text-gray-800 mb-4 text-center">
           <span className="flex flex-col items-center justify-center">

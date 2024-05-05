@@ -101,6 +101,9 @@ const FormNews = () => {
 
   return (
     <div className="p-4">
+      <h1 className="text-center font-semibold text-3xl text-blue-400 pb-2">
+        Create News
+      </h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label

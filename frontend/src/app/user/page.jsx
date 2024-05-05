@@ -157,7 +157,7 @@ function UserSettings() {
   };
 
   return (
-    <div className="bg-gray-200 p-4 sm:p-8 md:p-16 lg:p-32 flex-1 relative bg-gray-100 py-[4rem]">
+    <div className="p-4 sm:p-8 md:p-16 lg:p-32 flex-1 relative bg-gray-100 py-[6rem]">
       <Toaster position="top-center" reverseOrder={false} />
       <div className="bg-white max-w-screen-xl mx-auto min-h-screen rounded-3xl overflow-hidden shadow-md flex flex-col sm:flex-row">
         <div className="bg-[#55c57a] sm:w-1/4 p-4">

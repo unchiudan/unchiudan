@@ -12,13 +12,13 @@ import { FaPaperclip } from "react-icons/fa6";
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
 
-  const day = date.getDate();
+  const day = String(date.getDate()).padStart(2, '0');
   const month = date.toLocaleString("default", { month: "long" });
   const year = date.getFullYear();
 
   let hour = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
+  const minute = String(date.getMinutes()).padStart(2, '0');
+  const second = String(date.getSeconds()).padStart(2, '0');
 
   let amOrPm = "AM";
   if (hour >= 12) {
@@ -167,6 +167,27 @@ function testComp({ testsItems, userData, onTestsDelete }) {
               key={test._id}
               className="block w-full md:w-[80%] lg:w-[100%] xl:w-[100%] mb-8"
             >
+              <Link
+                href={userData ? `/test/${test._id}` : "/login"}
+                onClick={() => {
+                  function stripHtmlTags(html) {
+                    // Create a new div element
+                    var doc = new DOMParser().parseFromString(
+                      html,
+                      "text/html"
+                    );
+                    var text = doc.body.textContent || "";
+
+                    // Return the text content without HTML tags
+                    return text;
+                  }
+                  const textContent = stripHtmlTags(decodedName);
+                  const time = formatDateFromTimestamp(test.mainstart);
+
+                  localStorage.setItem("testname", textContent);
+                  localStorage.setItem("testdate", time);
+                }}
+              >
               <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg p-2 md:max-w-3xl mx-auto border-2 bg-white">
                 {role ? (
                   <button
@@ -209,14 +230,14 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                     className="font-black text-gray-800 md:text-2xl text-xl "
                     dangerouslySetInnerHTML={{ __html: decodedName }}
                   />
-                  <p className=" text-gray-800 md:text-base text-[20px]">
+                  <p className=" border border-slate-800 rounded-md p-1 shadow-xl bg-slate-100 text-gray-800 md:text-base text-[16px]">
                     <strong>Start At:</strong> {starttime}
                   </p>
-                  <p className=" text-gray-800 md:text-base text-[20px]">
+                  <p className=" text-gray-800 border border-slate-800 rounded-md p-1 shadow-xl bg-slate-100 md:text-base text-[16px]">
                     <strong>End At:</strong> {endtime}
                   </p>
-                  <strong>
-                    *Result will declare after one minutes Test End{" "}
+                  <strong className="text-[13px]">
+                    *Result will declare after one minutes Test End
                   </strong>
                   <Link
                     href={userData ? `/test/${test._id}` : "/login"}
@@ -255,6 +276,7 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                   ) : null}
                 </div>
               </div>
+              </Link>
             </div>
           );
         })

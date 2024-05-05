@@ -1,16 +1,15 @@
-"use client"
+"use client";
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const postaffairs = async (affairsData) => {
   const token = localStorage.getItem("jwt_token");
 
   const formData = new FormData();
-
 
   formData.append("topic", affairsData.topic);
   formData.append("category", affairsData.category);
@@ -85,11 +84,11 @@ const FormCurrentAffairs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let formdata = formData.data
-    if(formData.data[0].ques===""){
-      formdata=[]
+    let formdata = formData.data;
+    if (formData.data[0].ques === "") {
+      formdata = [];
     }
-    console.log(formdata)
+    console.log(formdata);
 
     try {
       await postaffairs({
@@ -125,8 +124,11 @@ const FormCurrentAffairs = () => {
     });
   };
   return (
-    <div className="mx-2">
-      <form className="mx-auto mt-8" onSubmit={handleSubmit}>
+    <div className="mx-2 mt-8">
+      <h1 className="text-center font-semibold text-3xl text-blue-400 pb-2">
+        Create CurrentAffairs
+      </h1>
+      <form className="mx-auto " onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
             htmlFor="topic"

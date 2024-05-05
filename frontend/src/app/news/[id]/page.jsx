@@ -51,7 +51,7 @@ async function NewsPage({ params: { id } }) {
 
   return (
     <>
-      <div className="py-[5rem] lg:py-[7rem]">
+      <div className="py-[6rem] lg:py-[7rem]">
         <div className="mx-6">
           <h1
             className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6"

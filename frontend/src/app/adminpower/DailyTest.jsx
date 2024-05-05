@@ -18,17 +18,21 @@ const postaffairs = async (testData) => {
   try {
     loadingToast = toast.loading("Posting TestData...");
     const formData = new FormData();
-    
+
     formData.append("name", name);
     formData.append("data", jsonData);
     formData.append("description", testData.description);
     formData.append("photo", testData.photo);
 
-    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dailytest`, formData, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dailytest`,
+      formData,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
     toast.dismiss(loadingToast);
     toast.success("Test posted successfully!");
   } catch (error) {
@@ -44,7 +48,7 @@ const DailyTest = () => {
 
   const initialFormData = {
     name: "",
-    description:"",
+    description: "",
     photo: null,
     data: [{ ques: "", options: ["", "", "", ""], ans: "" }],
   };
@@ -80,9 +84,6 @@ const DailyTest = () => {
     });
   };
 
-  
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -91,15 +92,12 @@ const DailyTest = () => {
       formdata = [];
     }
 
-
-    
-
     try {
       await postaffairs({
         name: formData.name,
         data: formdata,
         photo: formData.photo,
-       description:formData.description
+        description: formData.description,
       });
       setFormData({ ...initialFormData });
       if (topicEditor.current) {
@@ -132,11 +130,12 @@ const DailyTest = () => {
     });
   };
 
-  
-
   return (
-    <div className="mx-2">
-      <form className="mx-auto mt-8" onSubmit={handleSubmit}>
+    <div className="mx-2 mt-8">
+      <h1 className="text-center font-semibold text-3xl text-blue-400 pb-2">
+        Create DailyQuiz
+      </h1>
+      <form className="mx-auto " onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
             htmlFor="topic"
@@ -156,7 +155,6 @@ const DailyTest = () => {
             required
           />
         </div>
-    
 
         <div className="mb-4">
           <label
@@ -177,9 +175,6 @@ const DailyTest = () => {
             required
           />
         </div>
-     
-   
-    
 
         <div className="mb-4">
           <label
@@ -198,7 +193,6 @@ const DailyTest = () => {
           />
         </div>
 
- 
         {formData.data.map((question, index) => (
           <div key={index} className="mb-4">
             <label

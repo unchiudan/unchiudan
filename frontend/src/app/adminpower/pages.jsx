@@ -79,7 +79,7 @@ export default function page() {
   return (
     <>
       {role && (
-        <div className="pt-[8rem]">
+        <div className="py-[12rem]">
           <div className="flex flex-col md:flex-row items-center mb-20 md:w-1/3 md:mx-auto">
             <span className="text-center mb-8 md:mb-0 md:mr-4">
               ❗❗ Delete News that are older than 90 Days ❗❗
@@ -99,7 +99,7 @@ export default function page() {
               </p>
             </span>
           </div>
-          {/* <SidebarAdmin /> */}
+        
         </div>
 
       )}

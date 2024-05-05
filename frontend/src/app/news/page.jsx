@@ -11,7 +11,7 @@ export const metadata = {
 
 function News() {
   return (
-    <div className="pt-[6rem] ">
+    <div className="py-[6rem] md:py-[8rem] ">
 
         <h1 className="mx-[2%]  text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
           <span className="mr-2">Daily News</span>

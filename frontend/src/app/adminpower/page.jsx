@@ -9,19 +9,11 @@ import DailyTest from "./DailyTest";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-export default function page() {
+export default function Page() {
   const [totalUsers, setTotalUsers] = useState(0);
   const { data: userData } = useGetUserQuery();
-  let role;
-
-  if (userData) {
-    role = userData.role === "admin";
-  } else {
-    role = false;
-  }
-  const [toogle, setToogle] = useState(false);
+  const isAdmin = userData?.role === "admin";
   const [open, setOpen] = useState("");
-  const [show, setShow] = useState(false);
 
   const fetchTotalUsers = async () => {
     try {
@@ -42,7 +34,6 @@ export default function page() {
     }
   };
 
-  // useEffect hook to fetch total users on component mount
   useEffect(() => {
     fetchTotalUsers();
   }, []);
@@ -52,88 +43,80 @@ export default function page() {
   }
 
   return (
-    <div className="mt-[100px] mb-[50px]">
-      <div className="">
-        {role && (
-          <>
-          <div className="flex justify-center ">
-            <div className="w-1/2 text-right">
-              <p className=" text-xl  font-medium p-2 ">
-                Welcome Admin
-              </p>{" "}
+    <div className="my-14 md:my-[8rem] py-10 md:py-5 md:mb-50px">
+      {isAdmin && (
+        <div>
+          <div className="flex flex-col md:flex-row items-center justify-center w-full md:gap-x-12  ">
+            <p className="text-xl font-medium">Welcome Admin</p>
+            <div className="text-center md:mb-0 md:order-2 md:mr-8">
+              <strong>Total Users </strong>
+              <p className="bg-[#06ca06] text-white rounded px-2 inline-block">
+                {totalUsers}🧑
+              </p>
             </div>
+          </div>
+          {/* <hr /> */}
+          <div className="flex flex-col md:flex-row">
+            <div className="w-full md:w-1/6 border-r-2 px-2 pt-5 leading-10">
+              <button
+                className={`w-full ${
+                  open === "news" ? "text-white bg-red-600 shadow-xl rounded-xl" : ""
+                }`}
+                onClick={() => handleWindow("news")}
+              >
+                Create News
+              </button>
 
-            <div className="w-1/2 text-right">
-              {" "}
-              <span className="text-center mb-8 md:mb-0 md:order-2 md:mr-8">
-                <strong>Total Users </strong>
-                
-                <p className="bg-[#06ca06] text-white rounded px-2 py-2 inline-block ">
-                  {totalUsers}🧑
-                </p>
-              </span>
+              <hr />
+              <button
+                className={`w-full ${open === "test" ? "text-white bg-red-600 shadow-xl rounded-xl" : ""}`}
+                onClick={() => handleWindow("test")}
+              >
+                Create Test
+              </button>
+              <hr />
+              <button
+                className={`w-full ${
+                  open === "currentAffairs" ? "text-white bg-red-600 shadow-xl rounded-xl" : ""
+                }`}
+                onClick={() => handleWindow("currentAffairs")}
+              >
+                Create CurrentAffairs
+              </button>
+              <hr />
+              <button
+                className={`w-full ${open === "dailyQuiz" ? "text-white bg-red-600 shadow-xl rounded-xl" : ""}`}
+                onClick={() => handleWindow("dailyQuiz")}
+              >
+                Create DailyQuiz
+              </button>
+              <hr />
+              <button
+                className={`w-full ${open === "pdf" ? "text-white bg-red-600 shadow-xl rounded-xl" : ""}`}
+                onClick={() => handleWindow("pdf")}
+              >
+                Create Pdf
+              </button>
+              <hr />
             </div>
+            <div className="w-full md:w-5/6 overflow-auto">
+              {open === "news" ? (
+                <FormNews />
+              ) : open === "test" ? (
+                <FormTest />
+              ) : open === "currentAffairs" ? (
+                <FormCurrentAffairs />
+              ) : open === "pdf" ? (
+                <FormPDF />
+              ) : open === "dailyQuiz" ? (
+                <DailyTest />
+              ) : (
+                <div></div>
+              )}
             </div>
-            <hr />
-            <div className="flex h-[92%]">
-              <div className="w-1/6 border-r-2 px-2 pt-5 leading-10  ">
-                <button
-                  className={`${open === "news" ? "text-[#4793AF]" : ""}`}
-                  onClick={() => handleWindow("news")}
-                >
-                  Create News
-                </button>
-                <hr />
-                <button
-                  className={`${open === "test" ? "text-[#4793AF]" : ""}`}
-                  onClick={() => handleWindow("test")}
-                >
-                  Create Test
-                </button>
-                <hr />
-                <button
-                  className={`${
-                    open === "currentaffairs" ? "text-[#4793AF]" : ""
-                  }`}
-                  onClick={() => handleWindow("currentaffairs")}
-                >
-                  Create CurrentAffairs
-                </button>
-                <hr />
-                <button
-                  className={`${open === "dailytest" ? "text-[#4793AF]" : ""}`}
-                  onClick={() => handleWindow("dailytest")}
-                >
-                  Create DailyTest
-                </button>
-                <hr />
-                <button
-                  className={`${open === "pdf" ? "text-[#4793AF]" : ""}`}
-                  onClick={() => handleWindow("pdf")}
-                >
-                  Create Pdf
-                </button>
-                <hr />
-              </div>
-              <div className="w-5/6 overflow-auto flex-grow">
-                {open === "news" ? (
-                  <FormNews />
-                ) : open === "test" ? (
-                  <FormTest />
-                ) : open === "currentaffairs" ? (
-                  <FormCurrentAffairs />
-                ) : open === "pdf" ? (
-                  <FormPDF />
-                ) : open === "dailytest" ? (
-                  <DailyTest />
-                ) : (
-                  <div></div>
-                )}
-              </div>
-            </div>
-          </>
-        )}
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

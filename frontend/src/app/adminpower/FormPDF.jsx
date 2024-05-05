@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import axios from "axios";
 import { useState, useRef } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const postpdf = async (pdfData) => {
   const token = localStorage.getItem("jwt_token");
@@ -17,21 +17,16 @@ const postpdf = async (pdfData) => {
   formData.append("pdf", pdfData.pdf);
   formData.append("status", pdfData.status);
   formData.append("price", pdfData.price);
- let loadingToast;
+  let loadingToast;
   try {
-     loadingToast = toast.loading("Posting PDF...");
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs`,
-      formData,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    loadingToast = toast.loading("Posting PDF...");
+    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs`, formData, {
+      headers: {
+        Authorization: token,
+      },
+    });
     toast.dismiss(loadingToast);
     toast.success("PDF posted successfully!");
-
   } catch (error) {
     console.error(error);
     toast.dismiss(loadingToast);
@@ -110,7 +105,6 @@ const FormPDF = () => {
       if (descriptionEditor.current) {
         descriptionEditor.current.value = "";
       }
-
     } catch (error) {
       console.error(error);
       toast.error("Error posting PDF. Please try again.");
@@ -119,6 +113,9 @@ const FormPDF = () => {
 
   return (
     <div className="mx-2 mt-8">
+      <h1 className="text-center font-semibold text-3xl text-blue-400 pb-2">
+        Create PDF
+      </h1>
       <form onSubmit={handleSubmit} className="mx-auto">
         <div className="mb-4">
           <label className="block mb-2 text-gray-800">Name</label>
@@ -126,7 +123,7 @@ const FormPDF = () => {
             ref={nameEditor}
             value={formData.name}
             tabIndex={1}
-            onBlur={(content) => handleEditorChange('name', content)}
+            onBlur={(content) => handleEditorChange("name", content)}
             onChange={(content) => {}}
           />
         </div>
@@ -139,7 +136,9 @@ const FormPDF = () => {
             className="border p-2 w-full text-black"
             required
           >
-            <option value="" disabled>Select Category</option>
+            <option value="" disabled>
+              Select Category
+            </option>
             <option value="BiharDaroga">Bihar Daroga</option>
             <option value="BPSC">BPSC</option>
             <option value="Railway">Railway</option>
@@ -190,7 +189,7 @@ const FormPDF = () => {
             ref={descriptionEditor}
             value={formData.description}
             tabIndex={2}
-            onBlur={(content) => handleEditorChange('description', content)}
+            onBlur={(content) => handleEditorChange("description", content)}
             onChange={(content) => {}}
           />
         </div>

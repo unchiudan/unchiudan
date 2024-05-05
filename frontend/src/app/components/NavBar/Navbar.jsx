@@ -10,41 +10,57 @@ import { AiFillRead } from "react-icons/ai";
 import { BiSolidNews } from "react-icons/bi";
 import { FaHome, FaFilePdf } from "react-icons/fa"; // Import the icons you need
 import Testicon from "./icons/icons8-test.gif";
-import logo from "../../../../public/uchiudan.png"
+import logo from "../../../../public/uchiudan.png";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
+import { usePathname } from "next/navigation";
 
 async function fetchData() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login/success`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/login/success`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     const data = await response.json();
     return data.user;
   } catch (error) {
-    console.error('There was a problem with the fetch operation:', error);
+    console.error("There was a problem with the fetch operation:", error);
     return null;
   }
 }
 
-
 export default function Navbar() {
-
   // console.log(userData.user.email)
   const { data: userDataFromQuery } = useGetUserQuery();
-    const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
+  const navLink = [
+    {
+      name: "DailyQuiz",
+      link: "/dailytest",
+    },
+    {
+      name: "LiveTest",
+      link: "/test",
+    },
+    {
+      name: "AboutUs",
+      link: "/AboutUs",
+    },
+  ];
 
   useEffect(() => {
     async function fetchDataManually() {
@@ -52,7 +68,7 @@ export default function Navbar() {
         const userData = await fetchData();
         setUserData(userData);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     }
 
@@ -110,21 +126,28 @@ export default function Navbar() {
       console.error("Error logging out:", error);
     }
   };
-  const googlelogout=async()=>{
-    const email=userData.email
-    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`,"_self")
-    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`,{email});
-    
-    
-  }
+  const googlelogout = async () => {
+    const email = userData.email;
+    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, "_self");
+    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {
+      email,
+    });
+  };
 
+  const pathname = usePathname();
 
   return (
     <div className="">
-      <nav className="backdrop-blur  w-full text-black p-2 z-50 shadow-xl bg-slate-100 fixed">
+      <nav className="backdrop-blur  w-full text-black p-2 z-50  bg-slate-100 fixed">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/">
-            <Image width={500} height={500} src={logo} className="w-12 md:w-20" alt="logo" />
+            <Image
+              width={500}
+              height={500}
+              src={logo}
+              className="w-12 md:w-20"
+              alt="logo"
+            />
           </Link>
           <div className="md:hidden">
             {userData ? (
@@ -138,7 +161,7 @@ export default function Navbar() {
                     />
                   ) : (
                     <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-blue-500  hover:bg-blue-700 rounded-full">
-                      {userData 
+                      {userData
                         ? `${userData.firstname.charAt(
                             0
                           )} ${userData.lastname.charAt(0)}`
@@ -214,7 +237,7 @@ export default function Navbar() {
                     />
                   ) : (
                     <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white  bg-blue-500  hover:bg-blue-700 rounded-full">
-                      {userData 
+                      {userData
                         ? `${userData.firstname.charAt(
                             0
                           )} ${userData.lastname.charAt(0)}`
@@ -263,7 +286,42 @@ export default function Navbar() {
         </div>
       </nav>
       <div
-        className={`bottom-0 bg-white w-full text-black p-1 pt-4 pb-4 z-50 fixed md:hidden transition-transform duration-300 ${
+        className={`text-center md:py-8 py-6 h-8 border-b border-slate-950 bg-white w-full shadow-xl text-black p-1 z-20 fixed  transition-transform duration-300 ${
+          scrollDirection === "up"
+            ? "transform translate-y-full"
+            : "transform translate-y-0"
+        }`}
+      >
+        <div
+          className="overflow-x-auto"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            "::-webkit-scrollbar": { display: "none" },
+          }}
+        >
+          <div className="flex gap-x-6">
+            {navLink.map(({ link, name }) => {
+              const isActive = pathname.startsWith(link);
+
+              return (
+                <Link key={name} href={link}>
+                  <div
+                    className={`block cursor-pointer ${
+                      isActive ? "text-red-600" : ""
+                    }`}
+                  >
+                    {name}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`bottom-0 bg-white w-full shadow-xl text-black p-1 pt-4 pb-4 z-50 fixed md:hidden transition-transform duration-300 ${
           scrollDirection === "down"
             ? "transform translate-y-full"
             : "transform translate-y-0"

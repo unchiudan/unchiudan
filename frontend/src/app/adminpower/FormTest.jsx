@@ -215,8 +215,11 @@ const FormTest = () => {
   };
 
   return (
-    <div className="mx-2">
-      <form className="mx-auto mt-8" onSubmit={handleSubmit}>
+    <div className="mx-2 mt-8">
+      <h1 className="text-center font-semibold text-3xl text-blue-400 pb-2">
+        Create Test
+      </h1>
+      <form className="mx-auto " onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
             htmlFor="topic"

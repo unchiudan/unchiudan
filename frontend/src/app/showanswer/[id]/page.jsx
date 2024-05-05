@@ -6,12 +6,15 @@ import logo from "/public/uchiudan.png";
 import Image from "next/image";
 import ReactPrint from "react-to-print";
 import TestPatchForm from "./TestPatchForm"
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
 
 
 
 export default function ShowAnswer() {
   const { id } = useParams();
+  const { data: userData } = useGetUserQuery();
+  const isAdmin = userData?.role === "admin";
   const [test, setTest] = useState(null);
   
   const ref = useRef()
@@ -42,7 +45,8 @@ export default function ShowAnswer() {
 
   return (
     <>
-      <div className="py-[6rem]">
+    {isAdmin && (
+      <div className="py-[6rem] lg:py-[8rem]">
         <div className="mt-10 text-center">
           <ReactPrint trigger={() =><button className=" transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md ">Download</button>} content={() =>ref.current} />
         </div>
@@ -119,6 +123,7 @@ export default function ShowAnswer() {
         </div>    
         {test && <TestPatchForm details={test} />}
       </div>
+      )}
     </>
   );
 }

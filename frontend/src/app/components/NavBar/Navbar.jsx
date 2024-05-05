@@ -49,15 +49,15 @@ export default function Navbar() {
 
   const navLink = [
     {
-      name: "DailyQuiz",
+      name: "DAILY QUIZ",
       link: "/dailytest",
     },
     {
-      name: "LiveTest",
+      name: "LIVE TEST",
       link: "/test",
     },
     {
-      name: "AboutUs",
+      name: "ABOUTUS",
       link: "/AboutUs",
     },
   ];
@@ -138,7 +138,7 @@ export default function Navbar() {
 
   return (
     <div className="">
-      <nav className="backdrop-blur  w-full text-black p-2 z-50  bg-slate-100 fixed">
+      <nav className="backdrop-blur  w-full text-black border-b border-slate-400 p-2 z-50  bg-slate-100 fixed">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/">
             <Image
@@ -209,20 +209,20 @@ export default function Navbar() {
           </div>
           <div className="hidden md:flex space-x-6 text-xl">
             <Link href="/" className="block">
-              Home
+              HOME
             </Link>
             <Link href="/test" className="block">
-              Live Test
+              LIVE TEST
             </Link>
             <Link href="/currentaffairs" className="block focus:outline-none">
-              Current Affairs
+              CURRENT AFFAIRS
             </Link>
             <Link href="/news" className="block">
-              News
+              NEWS
             </Link>
             <div className="relative group">
               <Link href="/pdfs" className="block">
-                Pdfs
+                PDF'S
               </Link>
             </div>
             <a href="/sitemap.xml" className="block"></a>
@@ -286,7 +286,7 @@ export default function Navbar() {
         </div>
       </nav>
       <div
-        className={`text-center md:py-8 py-6 h-8 border-b border-slate-950 bg-white w-full shadow-xl text-black p-1 z-20 fixed  transition-transform duration-300 ${
+        className={`text-center md:py-8 py-6 h-8 border-b border-slate-400 bg-white w-full shadow-xl text-black p-1 z-20 fixed  transition-transform duration-300 ${
           scrollDirection === "up"
             ? "transform translate-y-full"
             : "transform translate-y-0"
@@ -300,7 +300,7 @@ export default function Navbar() {
             "::-webkit-scrollbar": { display: "none" },
           }}
         >
-          <div className="flex gap-x-6">
+          <div className="flex ml-2 text-xs gap-x-6">
             {navLink.map(({ link, name }) => {
               const isActive = pathname.startsWith(link);
 
@@ -327,14 +327,14 @@ export default function Navbar() {
             : "transform translate-y-0"
         }`}
       >
-        <div className="container mx-auto flex justify-between items-center">
+        <div className="container mx-auto flex justify-between items-center text-xs">
           <Link
             href="/"
             onClick={toggleMenu}
             className="flex flex-col items-center"
           >
             <FaHome className="mr-2 w-5 h-5" />
-            Home
+            HOME
           </Link>
 
           <Link
@@ -343,7 +343,7 @@ export default function Navbar() {
             className="flex flex-col items-center focus:outline-none"
           >
             <Image src={Testicon} alt="Test Icon" className="mr-2  w-5 h-5" />
-            Live Test
+            LIVE TEST
           </Link>
 
           <Link
@@ -352,7 +352,7 @@ export default function Navbar() {
             className="flex flex-col items-center focus:outline-none"
           >
             <AiFillRead className="mr-2  w-5 h-5" />
-            Current Affairs
+            CURRENT AFFAIRS
           </Link>
 
           <Link
@@ -361,7 +361,7 @@ export default function Navbar() {
             className="flex flex-col items-center"
           >
             <BiSolidNews className="mr-2 w-5 h-5" />
-            News
+            NEWS
           </Link>
 
           <Link
@@ -370,7 +370,7 @@ export default function Navbar() {
             className="flex flex-col items-center"
           >
             <FaFilePdf className="mr-2 w-5 h-5" />
-            Pdfs
+            PDF'S
           </Link>
         </div>
       </div>

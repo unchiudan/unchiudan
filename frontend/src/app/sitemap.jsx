@@ -45,6 +45,17 @@ export default async function sitemap(){
         priority: 0.5, // Example priority value
     }));
 
+    const response5 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dailytest`,
+    { cache: 'no-store' }
+    ) 
+    const data5 = await response5.json()
+    const dailytest = data5.data.dailytest;
+    const dailytestUrl = dailytest.map((dailytest) => ({
+        url: `${baseurl}/test/${dailytest._id}`,
+        lastModified: dailytest.createdAt,
+        priority: 0.7, // Example priority value
+    }));
+
     return [
         {
             url: baseurl,
@@ -93,5 +104,6 @@ export default async function sitemap(){
         ...newsUrl,
         ...pdfUrl,
         ...testsUrl,
+        ...dailytestUrl,
     ];
 }

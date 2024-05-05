@@ -17,7 +17,7 @@ export async function generateMetadata({ params: { id } }) {
         canonical: `/dailytest/${id}`
       },
     openGraph: {
-      images: `${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/dailytest/${DailyTest.photo}`,
+      images: `${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/dailytests/${DailyTest.photo}`,
       width: 900,
       height: 450,
     },

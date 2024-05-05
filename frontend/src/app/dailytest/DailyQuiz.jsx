@@ -119,67 +119,81 @@ export default function DailyQuiz() {
   return (
     <div className="">
       <div className="gap-4 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 ">
-        {dailytest.map((test) => {
-          const createdAt = new Date(test.createdAt);
-          const formattedDate = createdAt.toLocaleString("default", {
-            day: "numeric",
-            month: "long",
-          });
-          //   const isRecent = isWithin48Hours(test.createdAt);
-          const decodedName = decodeHtmlEntities(test.name);
-          const decodedDescription = decodeHtmlEntities(test.description);
-          const maxDescriptionLength = 200;
-          const trimmedDescription =
-            decodedDescription.length > maxDescriptionLength
-              ? decodedDescription.substring(0, maxDescriptionLength) + "..."
-              : decodedDescription;
+      {dailytest.length === 0 ? (
+          <div className="items-center justify-center ">
+            <p className="text-center  text-gray-500">
+              No CurrentAffairs available.
+            </p>
+          </div>
+        ) : (
+          dailytest.map((test) => {
+            const createdAt = new Date(test.createdAt);
+            const formattedDate = createdAt.toLocaleString("default", {
+              day: "numeric",
+              month: "long",
+            });
+            const decodedName = decodeHtmlEntities(test.name);
+            const decodedDescription = decodeHtmlEntities(test.description);
+            const maxDescriptionLength = 200;
+            const trimmedDescription =
+              decodedDescription.length > maxDescriptionLength
+                ? decodedDescription.substring(0, maxDescriptionLength) + "..."
+                : decodedDescription;
 
-          return (
-            <div
-              key={test.id}
-              className="border shadow-md rounded-md bg-slate-100"
-            >
-              <div className="relative flex justify-center h-[13rem]">
-                {role ? (
-                  <button
-                    className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
-                    style={{ zIndex: 1 }}
-                    onClick={(event) => handleDeleteClick(event, test._id)}
-                  >
-                    <MdOutlineDelete size={32} color="#fff" />
-                  </button>
-                ) : (
-                  ""
-                )}
-                <Image
-                  width={500}
-                  height={500}
-                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/dailytests/${test.photo}`}
-                  alt={test.name}
-                  className="w-full h-[200px] object-cover rounded-xl border"
-                />
+            return (
+              <>
+              <Link
+              href={`/dailytest/${test._id}`}>
+              <div
+                key={test.id} // Changed from test._id to test.id
+                className="border shadow-md rounded-md bg-slate-100"
+              >
+                <div className="relative flex justify-center h-[13rem]">
+                  {role ? (
+                    <button
+                      className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
+                      style={{ zIndex: 1 }}
+                      onClick={(event) =>
+                        handleDeleteClick(event, test._id) // No need to change this, test._id is correct
+                      }
+                    >
+                      <MdOutlineDelete size={32} color="#fff" />
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                  <Image
+                    width={500}
+                    height={500}
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/dailytests/${test.photo}`}
+                    alt={test.name}
+                    className="w-full h-[200px] object-cover rounded-xl border"
+                  />
+                </div>
+
+                <div className="p-2">
+                  <p className=" text-sm mb-2">{formattedDate}</p>
+                  <h3
+                    className="text-lg font-semibold mb-2"
+                    dangerouslySetInnerHTML={{ __html: decodedName }}
+                  />
+                  <p
+                    className="md:text-lg text-gray-500 text-lg overflow-hidden mb-[1rem]"
+                    dangerouslySetInnerHTML={{ __html: trimmedDescription }}
+                  />
+
+                  <Link href={`/dailytest/${test._id}`}>
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                      Start Now
+                    </button>
+                  </Link>
+                </div>
               </div>
-              
-              <div className="p-2">
-              <p className=" text-sm mb-2">{formattedDate}</p>
-                <h3
-                  className="text-lg font-semibold mb-2"
-                  dangerouslySetInnerHTML={{ __html: decodedName }}
-                />
-                <p
-                  className="md:text-lg text-gray-500 text-lg overflow-hidden mb-[1rem]"
-                  dangerouslySetInnerHTML={{ __html: trimmedDescription }}
-                />
-                
-                <Link href={`/dailytest/${test._id}`}>
-                  <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
-                    Start Now
-                  </button>
-                </Link>
-              </div>
-            </div>
-          );
-        })}
+              </Link>
+              </>
+            );
+          })
+        )}
       </div>
       <div className="flex justify-center my-4">
         <button

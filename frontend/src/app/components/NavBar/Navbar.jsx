@@ -138,7 +138,7 @@ export default function Navbar() {
 
   return (
     <div className="">
-      <nav className="backdrop-blur  w-full text-black border-b border-slate-400 p-2 z-50  bg-slate-100 fixed">
+      <nav className="backdrop-blur  w-full text-black border-b border-slate-200 p-2 z-50  bg-slate-100 fixed">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/">
             <Image
@@ -286,7 +286,7 @@ export default function Navbar() {
         </div>
       </nav>
       <div
-        className={`text-center md:py-8 py-6 h-8 border-b border-slate-400 bg-white w-full shadow-xl text-black p-1 z-20 fixed  transition-transform duration-300 ${
+        className={`text-center md:py-8 py-6 h-8 border-b border-slate-200 bg-white w-full shadow-xl text-black p-1 z-20 fixed  transition-transform duration-300 ${
           scrollDirection === "up"
             ? "transform translate-y-full"
             : "transform translate-y-0"

@@ -1,15 +1,36 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import he from "he";
 import Image from "next/image";
 import StartTest from "./StartTest";
 import { SocialMedia } from "../../components/Socialmedia/socialmedia";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
 const decodeHtmlEntities = (html) => {
   return he.decode(html);
 };
+
+async function fetchUserData() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login/success`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data.user;
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error; // Rethrow the error to handle it in the component
+  }
+}
 
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
@@ -36,10 +57,13 @@ function formatTimestamp(timestamp) {
 
 const TestId = ({ test }) => {
   const decodedName = decodeHtmlEntities(test.name);
+  const { data: userDataFromQuery } = useGetUserQuery();
+  const [userData, setUserData] = useState(null);
   const starttime = formatTimestamp(test.mainstart);
   const endtime = formatTimestamp(test.mainend);
   const [testStarted, setTestStarted] = useState(false);
   const [block, setBlock] = useState(false);
+  const router = useRouter();
 
   const origin =
     typeof window !== "undefined" && window.location.origin
@@ -49,16 +73,34 @@ const TestId = ({ test }) => {
   const pageFullUrl = pageUrl + usePathname();
 
   const handleStartTest = () => {
-    // Set testStarted to true when the button is clicked
-    setTestStarted(true);
+    if (userData) {
+      setTestStarted(true);
+    } else {
+      router.push("/login");
+    }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = userDataFromQuery || (await fetchUserData());
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, [userDataFromQuery]);
+
   if (testStarted) {
     return <StartTest />;
   }
+
   return (
     <div>
       <div className="mx-auto py-24 flex justify-center items-center">
-        <div className="w-96 bg-white border rounded-lg  shadow-xl">
+        <div className="w-96 bg-white border rounded-lg shadow-xl">
           <h1
             className="text-center font-bold text-[2rem] md:text-[2.5rem]"
             dangerouslySetInnerHTML={{
@@ -75,17 +117,17 @@ const TestId = ({ test }) => {
             />
           </div>
           <div className="p-2">
-            <p className=" text-gray-800 md:text-base text-[20px]">
+            <p className="text-gray-800 md:text-base text-[20px]">
               <strong>Start At:</strong> {starttime}
             </p>
-            <p className=" text-gray-800 md:text-base text-[20px]">
+            <p className="text-gray-800 md:text-base text-[20px]">
               <strong>End At:</strong> {endtime}
             </p>
           </div>
           <SocialMedia url={pageFullUrl} />
           <div className="p-2 w-full">
             <button
-            onClick={handleStartTest}
+              onClick={handleStartTest}
               disabled={
                 block ||
                 Date.now() >= test.mainend ||

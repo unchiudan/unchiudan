@@ -83,6 +83,7 @@ const patchTest = async (testData, id) => {
 };
 
 const TestPatchForm = ({ details }) => {
+  console.log(details,"details")
   const editor = useRef(null);
   const [formData, setFormData] = useState({
     name: details.name ? he.decode(details.name) : "",
@@ -133,9 +134,9 @@ const TestPatchForm = ({ details }) => {
     const mainend = iso8601ToMilliseconds(formData.mainend);
     const testtime = parseInt(formData.testtime);
 
-    const negativemarks = parseFloat(
-      formData.negativemarks.replace(/[-+]/g, "")
-    );
+    // console.log(formData.negativemarks,"negative marks")
+    // console.log(negativemarks,"fdsfsfefewf")
+    const negativemarks = parseFloat(formData.negativemarks.trim().substring(1));
     const correctmarks = parseFloat(formData.correctmarks);
 
     try {

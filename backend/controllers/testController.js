@@ -77,8 +77,10 @@ exports.createOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
-  const parsedData = req.body.data;
+  const parsedData = JSON.parse(req.body.data);
   let data = parsedData
+
+  console.log(parsedData)
   
   let photo;
   if (req.file) {

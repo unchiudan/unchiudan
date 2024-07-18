@@ -27,7 +27,7 @@ router
     authenticateCors,
     restrictTo('admin'),
     testController.uploadPhoto,
-    testController.resizePhoto('public/img/test'),
+    testController.resizePhoto('public/img/usertest'),
     testController.updateOne,
   );
 

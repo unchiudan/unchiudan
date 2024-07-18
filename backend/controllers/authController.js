@@ -236,7 +236,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.authenticateCors = async (req, res, next) => {
-  // console.log(req.body)
+
   try {
     if (!req.body.googleLogIn) {
  

@@ -24,8 +24,8 @@ router
   .get(testController.getTests)
   .delete(authenticateCors, restrictTo('admin'), testController.deleteTests)
   .patch(
-    // authenticateCors,
-    // restrictTo('admin'),
+    authenticateCors,
+    restrictTo('admin'),
     testController.uploadPhoto,
     testController.resizePhoto('public/img/usertest'),
     testController.updateOne,

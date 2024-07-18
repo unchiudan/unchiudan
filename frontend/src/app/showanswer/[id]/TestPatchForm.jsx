@@ -136,7 +136,7 @@ const TestPatchForm = ({ details }) => {
 
     // console.log(formData.negativemarks,"negative marks")
     // console.log(negativemarks,"fdsfsfefewf")
-    const negativemarks = parseFloat(formData.negativemarks.trim().substring(1));
+    const negativemarks = parseFloat(formData.negativemarks);
     const correctmarks = parseFloat(formData.correctmarks);
 
     try {

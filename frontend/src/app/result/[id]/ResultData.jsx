@@ -1,13 +1,34 @@
 /* eslint-disable react/prop-types */
+import Gold from "../../../../public/Gold.png";
+import Silver from "../../../../public/Silver.png";
+import Bronze from "../../../../public/Bronze.png";
+import Image from "next/image";
+
+
+
 
 export const ResultData = ({ results }) => {
   return (
     <>
       {results.map((userResults, index) => {
+        let MedalIcon = null;
+
+        if (index === 0) {
+          MedalIcon = <Image src={Gold} alt="Gold medal" className="w-[40px] h-[40px]" />;
+        } else if (index === 1) {
+          MedalIcon = <Image src={Silver} alt="Silver Medal" className="w-[40px] h-[40px] "/>;
+        } else if (index === 2) {
+          MedalIcon = <Image src={Bronze} alt="Bronze Medal" className="w-[40px] h-[40px] "/>;
+        }
+        
         return (
           <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
             <td className="px-6 py-4 border-b  border border-black">
-              {userResults.rank}
+            {MedalIcon ? (
+                <div className="inline-block">{MedalIcon}</div>
+              ) : (
+                userResults.rank
+              )}
             </td>
             <td className="px-6 py-4 border-b  border border-black">
               {userResults.username}

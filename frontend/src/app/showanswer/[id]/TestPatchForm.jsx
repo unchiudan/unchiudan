@@ -8,21 +8,20 @@ import he from "he";
 import dynamic from "next/dynamic";
 
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
-const iso8601ToMilliseconds = (iso8601Str) => {
+function iso8601ToMilliseconds(iso8601Str) {
   try {
     // Parse the ISO 8601 string into a Date object
     const dtObj = new Date(iso8601Str);
 
-    // Adjust for local timezone offset
-    const milliseconds = dtObj.getTime() + dtObj.getTimezoneOffset() * 60000;
+    // Convert Date object to milliseconds since the epoch
+    const milliseconds = dtObj.getTime();
 
     return milliseconds;
   } catch (error) {
     console.error("Invalid ISO 8601 format", error);
     return null;
   }
-};
-
+}
 const millisecondsToIso8601 = (milliseconds) => {
   try {
     // Create a new Date object using milliseconds since the epoch

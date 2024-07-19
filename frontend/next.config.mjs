@@ -23,6 +23,12 @@ const nextConfig = {
           hostname: 'api.unchiudaanclasses.com',
           pathname: '**',
         },
+        {
+          protocol: 'http',
+          hostname: 'localhost',
+          port: '8000',
+          pathname: '**',
+        },
       ],
     },
 };

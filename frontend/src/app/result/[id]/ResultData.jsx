@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import Gold from "../../../../public/Gold.png";
-import Silver from "../../../../public/Silver.png";
-import Bronze from "../../../../public/Bronze.png";
+import Gold from "../../../../public/Goldd.png";
+import Silver from "../../../../public/Silverr.png";
+import Bronze from "../../../../public/Bronzee.png";
 import Image from "next/image";
 
 

@@ -77,21 +77,27 @@ exports.createOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
+  console.log(req.body,"req.body")
+  console.log(req.params.id,"req.id")
   const parsedData = JSON.parse(req.body.data);
-  let data = parsedData
+  let data = {...req.body,data:parsedData}
 
-  console.log(parsedData)
+  // console.log(parsedData,"parseData")
   
   let photo;
   if (req.file) {
     photo = req.file.filename;
   }
  
-  req.body = { ...req.body, photo ,data };
-  const tests = await Test.findByIdAndUpdate(req.params.id, req.body, {
+  const newData = {...data , photo}
+  const tests = await Test.findByIdAndUpdate(req.params.id, newData, {
     new: true,
     runValidators: true,
   });
+
+  
+
+
 
   if (!tests) {
     return next(new AppError('No doc found with that ID', 404));

@@ -22,7 +22,7 @@ export const SignUpSchema = object({
     .required("Please enter your lastname"),
   email: string().email().required("Please enter your Email"),
   password: string()
-    .required("Please enter your password")
+    .required("Please enter your password ")
     // .matches(
     //   /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
     //   "Password: 8+ characters, 1 uppercase, 1 number, 1 special character."

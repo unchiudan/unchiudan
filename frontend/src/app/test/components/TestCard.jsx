@@ -3,6 +3,7 @@ import TestComp from "./testcomponent";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
+import { usePathname } from "next/navigation";
 
 async function fetchUserData() {
   try {
@@ -33,6 +34,10 @@ export default function TestCard() {
   const [isLoading, setIsLoading] = useState(false);
   const [postsPerPage, setPostsPerPage] = useState(10);
   const [error, setError] = useState(null);
+  const pathname=usePathname()
+ 
+
+  localStorage.setItem("gotourl",pathname) 
   
   useEffect(() => {
     const fetchData = async () => {

@@ -21,12 +21,14 @@ function SignupForm() {
     let loadingToast;
     try {
       loadingToast = toast.loading("Creating account...");
+      console.log(userData,"userData")
   
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/signup`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup`,
         userData,
         { withCredentials: true }
       );
+      console.log("🚀 ~ signup ~ response:", response)
   
       const token = response.data.token;
       document.cookie = `jwt=${token}; max-age=${60 * 60 * 24 * 7}; path=/`;
@@ -85,7 +87,7 @@ function SignupForm() {
         router.push("/user"); // Redirect to /user on successful signup
       });
 
-      action.resetForm();
+      // action.resetForm();
     },
   });
 
@@ -94,7 +96,6 @@ function SignupForm() {
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth/google/callback`
     );
   };
-
 
   return (
     <div>

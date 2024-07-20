@@ -3,6 +3,7 @@
 import React from "react";
 import TestCard from "./components/TestCard"
 import AdBanner from "../AdBanner";
+import { usePathname } from "next/navigation";
 
 export const metadata = {
   title: "Live Test / लाइव टेस्ट",
@@ -16,6 +17,7 @@ export const metadata = {
 
 // eslint-disable-next-line react/prop-types
 function TestPage() {
+
   
   return (
     <div className="mx-auto py-[6rem]">

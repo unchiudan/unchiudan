@@ -254,6 +254,19 @@ export function LiveTest({ userData }) {
     }
   }, [remainingTime, liveTest, handleSubmit, isConditionMet, submitted]);
 
+
+  useEffect(() => {
+    // Fetch data from local storage
+    const userInputData = localStorage.getItem('userInputData');
+    
+    if (userInputData) {
+      const parsedData = JSON.parse(userInputData);
+
+      // Set selected answers based on local storage data
+      setSelectedAnswers(parsedData);
+    }
+  }, []);
+
   useEffect(() => {
     if (!submitted && liveTest) {
       const interval = setInterval(() => {

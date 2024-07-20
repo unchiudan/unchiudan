@@ -127,6 +127,7 @@ export default function Navbar() {
     }
   };
   const googlelogout = async () => {
+    localStorage.clear()
     const email = userData.email;
     window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, "_self");
     await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {

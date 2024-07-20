@@ -64,13 +64,19 @@ const TestId = ({ test }) => {
   const [testStarted, setTestStarted] = useState(false);
   const [block, setBlock] = useState(false);
   const router = useRouter();
+  const pathname=usePathname()
+ 
 
+  localStorage.setItem("gotourl",pathname) 
+  
   const origin =
-    typeof window !== "undefined" && window.location.origin
-      ? window.location.origin
-      : "";
+  typeof window !== "undefined" && window.location.origin
+  ? window.location.origin
+  : "";
   const pageUrl = `${origin}`;
   const pageFullUrl = pageUrl + usePathname();
+  
+  
 
   const handleStartTest = () => {
     if (userData) {

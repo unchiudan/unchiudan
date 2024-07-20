@@ -36,14 +36,14 @@ function UserSettings() {
   const [settingsData, setSettingsData] = useState({
     name: '',
     email: '',
-    phone: '',
+    phone: null,
     role: '',
     googleLogIn: false,
   });
 
   useEffect(() => {
     if (userDataFromQuery) {
-      const { firstname, lastname, email, phone, role, googleLogIn } = userDataFromQuery;
+      const { firstname, lastname, email, role, googleLogIn, phone = "" } = userDataFromQuery;
       setSettingsData({
         name: `${firstname} ${lastname}`,
         email,

@@ -15,8 +15,15 @@ const userSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
   },
-  googleId:{type:String,unique:true},
-  googleLogIn:{type:Boolean,default:false},
+//  googleId: {
+//     type: String,
+//     unique: true,
+//     sparse: true, // Allow null values while keeping the field unique
+//   },
+  googleLogIn: {
+    type: Boolean,
+    default: false,
+  },
   phone: {
     type: String,
     // required: true,
@@ -30,7 +37,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Please provide a password'],
-    minlength: 8,
     select: false,
   },
   pdfs: [String],

@@ -83,13 +83,17 @@ function LoginForm() {
   };
   return (
     <div>
-      <div className="flex justify-end">
+    
+      <div className="flex font-semibold  items-center text-center mt-2 p-1 gap-2">
+      <div className="font-bold text-lg">
+      Don't have an account?
+      </div>
         <Link
           href="/signup"
-          className="text-[#3856ea] font-semibold text-[18px]"
+          className="text-[#3856ea] flex text-[18px]"
         >
-          signup
-          <FaArrowRight className="ml-2" />
+          Sign Up
+          <FaArrowRight className="ml-2 mt-1" />
         </Link>
       </div>
       <button
@@ -191,6 +195,16 @@ function LoginForm() {
         >
           {isValid ? "Login" : "❌Login"}
         </button>
+        <Link
+        href="/signup"
+        className=" text-center rounded-[8px] bg-[#FFD60A] py-[9px] px-[12px] font-medium text-[#000814] duration-500 hover:scale-[1.1]"
+        >
+        <button
+          type="submit"
+        >
+          Signup
+        </button>
+        </Link>
       </form>
 
       <Toaster position="top-center" reverseOrder={false} />

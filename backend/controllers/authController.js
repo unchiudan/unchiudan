@@ -38,17 +38,174 @@ const createSendToken = (user, statusCode, req, res) => {
   });
 };
 
-exports.signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    password: req.body.password,
-    phone: req.body.phone,
+// exports.signup = catchAsync(async (req, res, next) => {
+
+//   console.log(req.body,"bodyyy")
+
+//   // const newUser = await User.create({
+//   //   firstname: req.body.firstname,
+//   //   lastname: req.body.lastname,
+//   //   email: req.body.email,
+//   //   password: req.body.password,
+//   //   phone: req.body.phone,
+
+//   // });
+
+//   // console.log(newUser,"newUser❤❤❤")
+
+//   // createSendToken(newUser, 201, req, res);
+
+
+
+//   if (isGoogleSignup) {
+//     googleSignup({ firstname, lastname, email, googleId, phone });
+//   } else {
+//     normalSignup({ firstname, lastname, email, password, phone });
+//   }
+
+
+
+
+
+// });
+
+
+
+exports.normalSignup =catchAsync(async (req, res, next) => {
+  const {firstname,lastname,email,phone,password}=req.body
+
+  console.log(req.body,"dffsdfs")
+ 
+  const user = await User.create({
+    firstname,
+    lastname,
+    email,
+    phone,
+    password,
+    googleLogIn: false
   });
 
-  createSendToken(newUser, 201, req, res);
+  // await user.save();
+  createSendToken(user, 201, req, res);
+
 });
+
+exports.googleSignup = async (profile) => {
+  const existingUser = await User.findOne({ email: profile.emails[0].value });
+  if (existingUser) {
+    existingUser.googleLogIn = true;
+    await existingUser.save();
+    return existingUser;
+  } else {
+    const user = new User({
+      firstname: profile.name.givenName,
+      lastname: profile.name.familyName,
+      email: profile.emails[0].value,
+      // googleId: profile.id,
+      googleLogIn: true,
+      password: process.env.GOOGLE_DEFAULT_PASSWORD, // Use a default password for Google users
+      phone: profile.id,
+    });
+    await user.save();
+    return user;
+  }
+};
+
+exports.signup = catchAsync(async (req, res, next) => {
+
+  const { firstname, lastname, email, password, phone } = req.body;
+
+  const newUser = await authController.normalSignup({ firstname, lastname, email, password, phone });
+   
+
+  console.log(newUser,"newUser❤❤❤")
+
+  createSendToken(newUser, 201, req, res);
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {

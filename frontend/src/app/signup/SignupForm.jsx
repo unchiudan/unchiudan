@@ -38,9 +38,10 @@ function SignupForm() {
       toast.dismiss(loadingToast);
       toast.success("Sign up successful!");
   
-      const redirectUrl = localStorage.getItem("redirectUrl");
+      const redirectUrl = localStorage.getItem("gotourl");
+   
       if (redirectUrl) {
-        window.location.href = redirectUrl;
+       router.push(redirectUrl)
       } else {
         router.push("/user"); // Use router.push for navigation in Next.js
       }

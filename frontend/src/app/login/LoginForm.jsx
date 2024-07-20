@@ -64,11 +64,11 @@ function LoginForm() {
       document.cookie = `jwt=${token}; max-age=${60 * 60 * 24 * 7}; path=/`;
 
       localStorage.setItem("jwt_token", token);
-      const redirectUrl = localStorage.getItem("gotourl");
-
+      
       if (response.status === 200) {
         toast.success("Login successful!");
-
+        
+        const redirectUrl = localStorage.getItem("gotourl");
         console.log(redirectUrl,"doneeeeeeeeeeee")
         if (redirectUrl) {
           router.push(redirectUrl)

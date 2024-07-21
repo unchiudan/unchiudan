@@ -12,13 +12,13 @@ import { FaPaperclip } from "react-icons/fa6";
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
 
-  const day = String(date.getDate()).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, "0");
   const month = date.toLocaleString("default", { month: "long" });
   const year = date.getFullYear();
 
   let hour = date.getHours();
-  const minute = String(date.getMinutes()).padStart(2, '0');
-  const second = String(date.getSeconds()).padStart(2, '0');
+  const minute = String(date.getMinutes()).padStart(2, "0");
+  const second = String(date.getSeconds()).padStart(2, "0");
 
   let amOrPm = "AM";
   if (hour >= 12) {
@@ -41,7 +41,7 @@ function formatTimestamp(timestamp) {
 
 function testComp({ testsItems, userData, onTestsDelete }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-
+  const [block, setBlock] = useState(false);
   let role;
 
   if (userData) {
@@ -132,6 +132,14 @@ function testComp({ testsItems, userData, onTestsDelete }) {
     toast.success("Copied successfully!");
   };
 
+  const handleStartTest = () => {
+    if (userData) {
+      setTestStarted(true);
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       {testsItems.length === 0 ? (
@@ -188,94 +196,106 @@ function testComp({ testsItems, userData, onTestsDelete }) {
                   localStorage.setItem("testdate", time);
                 }}
               >
-              <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg p-2 md:max-w-3xl mx-auto border-2 bg-white">
-                {role ? (
-                  <button
-                    className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
-                    style={{ zIndex: 1 }}
-                    onClick={(event) => handleDeleteClick(event, test._id)}
-                  >
-                    <MdOutlineDelete size={32} color="#fff" />
-                  </button>
-                ) : (
-                  ""
-                )}
-                <span
-                  onClick={(event) => handleCopy(event, test._id)}
-                  className="absolute top-14 p-2 rounded-3xl right-0 bg-red-500"
-                >
-                  <FaPaperclip className="cursor-pointer text-white w-7 h-7 " />
-                </span>
-                <div className="w-full md:w-1/3 bg-white">
-                  <Image
-                    width={500}
-                    height={500}
-                    className="w-full h-max-[200px] object-cover rounded-xl"
-                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/usertest/${test.photo}`}
-                    alt={`logo`}
-                  />
-                </div>
-                <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
-                  <div className="flex justify-between items-center">
-                    <div className="bg-gray-200 px-3 py-1 rounded-full text-xs flex font-medium text-gray-800 space-x-3">
-                      {formattedDate}
-                      {isRecent && (
-                        <div className="bg-green-400 text-white text-xs px-2 rounded-full ml-[20px]">
-                          New
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <h3
-                    className="font-black text-gray-800 md:text-2xl text-xl "
-                    dangerouslySetInnerHTML={{ __html: decodedName }}
-                  />
-                  <p className=" border border-slate-800 rounded-md p-1 shadow-xl bg-slate-100 text-gray-800 md:text-base text-[16px]">
-                    <strong>Start At:</strong> {starttime}
-                  </p>
-                  <p className=" text-gray-800 border border-slate-800 rounded-md p-1 shadow-xl bg-slate-100 md:text-base text-[16px]">
-                    <strong>End At:</strong> {endtime}
-                  </p>
-                  <strong className="text-[13px]">
-                    *Result will declare after one minutes Test End
-                  </strong>
-                  <Link
-                    href={userData ? `/test/${test._id}` : "/login"}
-                    onClick={() => {
-                      function stripHtmlTags(html) {
-                        // Create a new div element
-                        var doc = new DOMParser().parseFromString(
-                          html,
-                          "text/html"
-                        );
-                        var text = doc.body.textContent || "";
-
-                        // Return the text content without HTML tags
-                        return text;
-                      }
-                      const textContent = stripHtmlTags(decodedName);
-                      const time = formatDateFromTimestamp(test.mainstart);
-
-                      localStorage.setItem("testname", textContent);
-                      localStorage.setItem("testdate", time);
-                    }}
-                  >
-                    <button
-                      className={`mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl`}
-                    >
-                      Start Test
-                    </button>
-                  </Link>
-                  {showResultButton}
+                <div className="relative flex flex-col md:flex-row md:space-x-5 my-6 md:space-y-0 rounded-xl shadow-lg p-2 md:max-w-3xl mx-auto border-2 bg-white">
                   {role ? (
-                    <Link href={`/showanswer/${test._id}`}>
-                      <button className="mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl">
-                        Show Answer
-                      </button>
+                    <button
+                      className="absolute top-0 right-0 text-red-600 cursor-pointer bg-red-500 rounded-full p-2"
+                      style={{ zIndex: 1 }}
+                      onClick={(event) => handleDeleteClick(event, test._id)}
+                    >
+                      <MdOutlineDelete size={32} color="#fff" />
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                  <span
+                    onClick={(event) => handleCopy(event, test._id)}
+                    className="absolute top-14 p-2 rounded-3xl right-0 bg-red-500"
+                  >
+                    <FaPaperclip className="cursor-pointer text-white w-7 h-7 " />
+                  </span>
+                  <div className="w-full md:w-1/3 bg-white">
+                    <Image
+                      width={500}
+                      height={500}
+                      className="w-full h-max-[200px] object-cover rounded-xl"
+                      src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/usertest/${test.photo}`}
+                      alt={`logo`}
+                    />
+                  </div>
+                  <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
+                    <div className="flex justify-between items-center">
+                      <div className="bg-gray-200 px-3 py-1 rounded-full text-xs flex font-medium text-gray-800 space-x-3">
+                        {formattedDate}
+                        {isRecent && (
+                          <div className="bg-green-400 text-white text-xs px-2 rounded-full ml-[20px]">
+                            New
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <h3
+                      className="font-black text-gray-800 md:text-2xl text-xl "
+                      dangerouslySetInnerHTML={{ __html: decodedName }}
+                    />
+                    <p className=" border border-slate-800 rounded-md p-1 shadow-xl bg-slate-100 text-gray-800 md:text-base text-[16px]">
+                      <strong>Start At:</strong> {starttime}
+                    </p>
+                    <p className=" text-gray-800 border border-slate-800 rounded-md p-1 shadow-xl bg-slate-100 md:text-base text-[16px]">
+                      <strong>End At:</strong> {endtime}
+                    </p>
+                    <strong className="text-[13px]">
+                      *Result will declare after one minutes Test End
+                    </strong>
+                    <Link
+                      href={userData ? `/test/${test._id}` : "/login"}
+                      onClick={() => {
+                        function stripHtmlTags(html) {
+                          // Create a new div element
+                          var doc = new DOMParser().parseFromString(
+                            html,
+                            "text/html"
+                          );
+                          var text = doc.body.textContent || "";
+
+                          // Return the text content without HTML tags
+                          return text;
+                        }
+                        const textContent = stripHtmlTags(decodedName);
+                        const time = formatDateFromTimestamp(test.mainstart);
+
+                        localStorage.setItem("testname", textContent);
+                        localStorage.setItem("testdate", time);
+                      }}
+                    >
+                      <div className="w-full">
+                        <button
+                          onClick={handleStartTest}
+                          disabled={
+                            block ||
+                            Date.now() >= test.mainend ||
+                            Date.now() < test.mainstart
+                          }
+                          className={`mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl`}
+                        >
+                          {block || Date.now() >= test.mainend
+                            ? "Test Ended"
+                            : Date.now() < test.mainstart
+                            ? "Test Not Started"
+                            : "Start Test"}
+                        </button>
+                      </div>
                     </Link>
-                  ) : null}
+                    {showResultButton}
+                    {role ? (
+                      <Link href={`/showanswer/${test._id}`}>
+                        <button className="mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl">
+                          Show Answer
+                        </button>
+                      </Link>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
               </Link>
             </div>
           );
